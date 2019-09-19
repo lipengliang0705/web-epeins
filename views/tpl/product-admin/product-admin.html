@@ -1,0 +1,105 @@
+<div class="bg-light lter b-b wrapper">
+  <h1 class="m-n font-thin h4">生产计划维护</h1>
+</div>
+
+<div class="wrapper" ng-controller="productAdminController">
+  <div class="row">
+    <div class="col col-md-12">
+        <form role="form" class="ng-pristine ng-valid">
+          <div class="panel panel-default">
+            <div class="panel-body" style="padding:10px; padding-left:0px;">
+              <div class="col-sm-3 form-group">
+                <label>机台</label>
+                <select ui-jq="chosen" class="s-w100" ng-model="searcher.machine">
+                  <option ng-repeat="m in testData" value="{{m.machine}}">{{m.machine}}</option>
+                </select>
+              </div>
+              <!-- <div class="col-sm-3 form-group">
+                <label>机型</label>
+                <select ui-jq="chosen" class="s-w100" ng-options="m.types for m in testData" ng-model="searcher.types">
+                </select>
+              </div> -->
+              <div class="col-sm-3 form-group">
+                <label>机型</label>
+                <select ui-jq="chosen" class="s-w100" ng-model="searcher.types">
+                  <option ng-repeat="m in testData" value="{{m.types}}">{{m.types}}</option>
+                </select>
+              </div>
+              <div class="col-sm-3 form-group">
+                <label>产品名称</label>
+                <select ui-jq="chosen" class="s-w100" ng-model="searcher.productName">
+                  <option ng-repeat="m in testData" value="{{m.productName}}">{{m.productName}}</option>
+                </select>
+              </div>
+              <div class="col-sm-3 form-group">
+                <label>任务单号</label>
+                <select ui-jq="chosen" class="s-w100"  ng-model="searcher.taskNo">
+                  <option ng-repeat="m in testData" value="{{m.taskNo}}">{{m.taskNo}}</option>
+                </select>
+              </div>
+              <div class="col-sm-3 form-group">
+                <label>计划日期起</label>
+                <div class="" ng-controller="DatepickerDemoCtrl">
+                  <div class="input-group">
+                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="searcher.date" is-open="opened" datepicker-options="dateOptions" close-text="Close" />
+                    <span class="input-group-btn">
+                      <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-3 form-group">
+                <label>计划日期止</label>
+                <div class="" ng-controller="DatepickerDemoCtrl">
+                  <div class="input-group">
+                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="searcher.date" is-open="opened" datepicker-options="dateOptions" close-text="Close" />
+                    <span class="input-group-btn">
+                      <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-3 form-group">
+                <label>材质</label>
+                <input type="text" class="form-control" placeholder="输入材质"  ng-model="searcher.material">
+              </div>
+              <div class="col-sm-3 form-group">
+                <label>&nbsp</label>
+                <div class="block">
+                  <button class="btn btn-primary" ng-disabled="form.$invalid" ng-click="search(searcher.machine,searcher.types,searcher.productName,searcher.taskNo,searcher.material)"><i class="fa fa-search"></i> 查   询</button>
+                  <button class="btn btn-success" ng-disabled="form.$invalid" ng-click="add(row)"><i class="fa fa-plus"></i> 新   增</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </form>
+    </div>
+  </div>
+
+	<div class="row">
+        <div class="col col-md-12">
+            <table ng-table="myTable" class="table table-condensed table-bordered table-striped table-alink table-admin table-td5-color">
+                <tr ng-repeat="row in $data | filter:searcher.companyName">
+                    <td data-title="'机台'" sortable="'machine'">{{row.machine}}</td>
+                    <td data-title="'机型'" sortable="'types'">{{row.types}}</td>
+                    <td data-title="'产品名称'" sortable="'productName'">{{row.productName}}</td>
+                    <td data-title="'任务单号'" sortable="'taskNo'">{{row.taskNo}}</td>
+                    <td data-title="'任务单数量'" sortable="'taskNumber'">{{row.taskNumber}}</td>
+                    <td data-title="'损耗时间/小时'" sortable="'waste'">{{row.waste}}</td>
+                    <td data-title="'材质'" sortable="'material'">{{row.material}}</td>
+                    <td data-title="'日期'" sortable="'date'">{{row.date}}</td>
+                    <td data-title="'本日计划量'" sortable="'InvName'">{{row.InvName}}</td>
+                    <td data-title="'计划换模'">{{row.changeover}}</td>
+                    <td data-title="'产品图纸'"><img src="{{row.drawing}}"/></td>
+                    <td data-title="'产品检验标准'"><img src="{{row.standard}}"/></td>
+                    <td data-title="'操作'" style="width: 12%">
+                        <a href="" class="active" ng-click="modify(row)">编辑</a>
+                        <a href="" class="active text-danger" ng-click="delete()">删除</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+  

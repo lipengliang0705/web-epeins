@@ -1,0 +1,41 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{title}}</h3>
+</div>
+
+<div class="modal-body ">
+        <form name="form" class="form-validation">
+          <div class="panel panel-default">
+            <!-- <div class="panel-heading">
+              <span class="h4">{{title}}</span>
+            </div> -->
+            <div class="panel-body">
+              <div class="form-group pull-in clearfix">
+                      <div class="col-sm-12 col-b10">
+                        <label>产品名：</label>
+                        <select name="account" class="form-control">
+                            <option value="option 1">生铁</option>
+                            <option value="option 2">高炉煤气</option>
+                            <option value="option 3">炉渣</option>
+                            <option value="option 4">option 4</option>
+                        </select>
+                      </div>
+                      <div class="col-sm-12">
+                        <label>描述：</label>
+                        <textarea  class="form-control">炉渣少、提炼成都高</textarea>
+                      </div>
+
+              </div>
+            </div>
+          </div>
+        </form>
+
+</div>
+<div class="modal-footer">                  
+    <button class="btn btn-default" ng-click="cancel()">取 消</button>
+    <button class="btn btn-success" ng-disabled="form.$invalid" ng-click="save()">确 定</button>
+</div>
+
+
+
+
+

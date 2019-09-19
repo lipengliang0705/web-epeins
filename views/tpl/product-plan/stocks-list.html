@@ -1,0 +1,52 @@
+<div class="bg-light lter b-b wrapper">
+  <h1 class="m-n font-thin h4">库存管理</h1>
+</div>
+
+<div class="wrapper" ng-controller="stocksController">
+	<div class="row">
+		<div class="col col-md-12">
+        <form name="form" class="form-validation">
+          <div class="panel panel-default">
+            <div class="panel-body bg-light" style="padding:5px; padding-left:0px;">
+              	<div class="col-sm-2">
+	               <label>矿石名称：</label> 
+	               <input type="text" class="form-control"  ng-model="searcher.companyName" >
+	             </div>
+	             <div class="col-md-3">
+                    <label>&nbsp;</label> 
+                    <div class="btn-block">
+                       <button class="btn btn-primary form-control" ng-disabled="form.$invalid" ng-click="search()"><i class="fa fa-search"></i> 检   索</button>
+                       <button class="btn btn-success form-control"  ng-click="create()"><i class="fa fa-plus"></i> 添加</button>
+                    </div>
+                </div>
+                </div>
+          </div>
+        </form>
+		</div>
+	</div>
+
+	<div class="row">
+        <div class="col col-md-12">
+            <div class="table-responsive">
+                <table ng-table="myTable" class="table table-condensed table-bordered table-striped table-td4-color">
+                    <tr ng-repeat="row in $data">
+                        <td data-title="'编号'" sortable="'code'">{{row.code}}</td>
+                        <td data-title="'矿石名称'" sortable="'oreName'">{{row.oreName}}</td>
+                        <td data-title="'产地'" sortable="'area'">{{row.area}}</td>
+                        <td data-title="'品味'" sortable="'taste'">{{row.taste}}</td>
+                        <td data-title="'SIO2'" sortable="'sio2'">{{row.sio2}}</td>
+                        <td data-title="'AL2O3'" sortable="'al2o3'">{{row.al2o3}}</td>
+                        <td data-title="'P'" sortable="'p'">{{row.p}}</td>
+                        <td data-title="'LOI'" sortable="'loi'">{{row.loi}}</td>
+                        <td data-title="'分类'" sortable="'classy'">{{row.classy}}</td>
+                        <td data-title="'库存（t）'" sortable="'stock'">{{row.stock}}</td>
+                        <td data-title="'备注'" style="width: 15%;">{{row.remark}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+  </div>
+
+  

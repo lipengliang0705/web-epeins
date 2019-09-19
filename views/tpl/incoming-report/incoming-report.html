@@ -1,0 +1,79 @@
+<div class="bg-light lter b-b wrapper">
+  <h1 class="m-n font-thin h4">来料检验报告</h1>
+</div>
+
+<div class="wrapper" ng-controller="incomingReportController">
+  <div class="row">
+    <div class="col col-md-12">
+        <form role="form" class="ng-pristine ng-valid">
+          <div class="panel panel-default">
+            <div class="panel-body" style="padding:10px; padding-left:0px;">
+              <div class="col-sm-2 form-group">
+                <label>来料报告号</label>
+                <input type="text" class="form-control" placeholder="输入报告号"  ng-model="searcher.reportNo">
+              </div>
+              <div class="col-sm-2 form-group">
+                <label>入货批号</label>
+                <input type="text" class="form-control" placeholder="输入批号"  ng-model="searcher.batchNumber">
+              </div>
+              <div class="col-sm-2 form-group">
+                <label>材料名称</label>
+                <input type="text" class="form-control" placeholder="输入材料名称"  ng-model="searcher.materialName">
+              </div>
+              <div class="col-sm-2 form-group">
+                <label>检查者</label>
+                <input type="text" class="form-control" placeholder="输入检查者"  ng-model="searcher.inspector">
+              </div>
+              <div class="col-sm-2 form-group">
+                <label>检查日期</label>
+                <input type="text" class="form-control" placeholder="输入日期"  ng-model="searcher.checkDate">
+              </div>
+              <div class="col-sm-2 form-group">
+                <label>来料检验标准</label>
+                <!-- <input ui-jq="filestyle" type="file" data-icon="false" data-classButton="btn btn-default" data-classInput="form-control inline v-middle input-s"> -->
+                <div class="fileLoadDown">
+                  <a href=""><img src="views/imgs/standard.svg"></a>
+                </div>
+              </div>
+              <div class="col-sm-2 form-group">
+                <label>检验作业指导书</label>
+                <div class="fileLoadDown">
+                  <a href=""><img src="views/imgs/standard.svg"></a>
+                </div>
+              </div>
+              <div class="col-sm-2 form-group">
+                <label>&nbsp</label>
+                <div class="block">
+                  <button class="btn btn-primary" ng-disabled="form.$invalid" ng-click="search(searcher.reportNo,searcher.materialName,searcher.inspector)"><i class="fa fa-search"></i> 查   询</button>
+                  <button class="btn btn-success" ng-disabled="form.$invalid" ng-click="add(row)"><i class="fa fa-plus"></i> 新   增</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </form>
+    </div>
+  </div>
+
+	<div class="row">
+        <div class="col col-md-12">
+            <table ng-table="myTable" class="table table-condensed table-bordered table-striped table-alink table-admin table-td5-color">
+                <tr ng-repeat="row in $data | filter:searcher.companyName">
+                    <td data-title="'来料报告号'" sortable="'reportNo'">{{row.reportNo}}</td>
+                    <td data-title="'材料名称'" sortable="'materialName'">{{row.materialName}}</td>
+                    <td data-title="'供应商名称'" sortable="'supplierName'">{{row.supplierName}}</td>
+                    <td data-title="'入货批号'" sortable="'batchNumber'">{{row.batchNumber}}</td>
+                    <td data-title="'检查日期'" sortable="'checkDate'">{{row.checkDate}}</td>
+                    <td data-title="'检查者'" sortable="'inspector'">{{row.inspector}}</td>
+                    <td data-title="'确认者'" sortable="'confirmer'">{{row.confirmer}}</td>
+                    <td data-title="'检验结果'" sortable="'result'">{{row.result}}</td>
+                    <td data-title="'操作'" style="width: 12%">
+                        <a href="" class="active" ng-click="modify(row)">编辑</a>
+                        <a href="" class="active text-danger" ng-click="delete()">删除</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+  

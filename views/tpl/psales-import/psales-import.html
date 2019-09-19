@@ -1,0 +1,43 @@
+<div class="bg-light lter b-b wrapper">
+  <h1 class="m-n font-thin h4">采购/销售计划导入</h1>
+</div>
+
+<div class="wrapper" ng-controller="psalesImportController">
+	<div class="row">
+		<div class="col col-md-12">
+        <tabset justified="true" class="tab-container tab-overflow">
+          <tab heading="采购到达计划">
+            <form role="form" class="ng-pristine ng-valid">
+              <div class="col-sm-6 form-group">
+                <label>导入文件</label>
+                <input ui-jq="filestyle" type="file" data-icon="false" data-classButton="btn btn-default" data-classInput="form-control inline v-middle input-s">
+              </div>
+              <div class="col-sm-3 form-group">
+                <label>&nbsp</label>
+                <div class="block">
+                  <button class="btn btn-primary" ng-disabled="form.$invalid" ng-click="add(row)"><i class="fa fa-arrow-circle-o-up"></i> 导 入</button>
+                </div>
+              </div>
+            </form>
+            <div class="clearfix"></div>
+          </tab>
+          <tab heading="销售出库计划">
+            <form role="form" class="ng-pristine ng-valid">
+              <div class="col-sm-6 form-group">
+                <label>导入文件</label>
+                <input ui-jq="filestyle" type="file" data-icon="false" data-classButton="btn btn-default" data-classInput="form-control inline v-middle input-s">
+              </div>
+              <div class="col-sm-3 form-group">
+                <label>&nbsp</label>
+                <div class="block">
+                  <button class="btn btn-primary" ng-disabled="form.$invalid" ng-click="add(row)"><i class="fa fa-arrow-circle-o-up"></i> 导 入</button>
+                </div>
+              </div>
+            </form>
+            <div class="clearfix"></div>
+          </tab>
+        </tabset>
+		</div>
+	</div>
+</div>
+  

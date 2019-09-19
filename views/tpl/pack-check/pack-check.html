@@ -1,0 +1,61 @@
+<div class="bg-light lter b-b wrapper">
+  <h1 class="m-n font-thin h4">包装数据查询</h1>
+</div>
+
+<div class="wrapper" ng-controller="productAdminController">
+  <div class="row">
+    <div class="col col-md-12">
+        <form role="form" class="ng-pristine ng-valid">
+          <div class="panel panel-default">
+            <div class="panel-body" style="padding:10px; padding-left:0px;">
+              <div class="col-sm-3 form-group">
+                <label>日期</label>
+                <div class="" ng-controller="DatepickerDemoCtrl">
+                  <div class="input-group">
+                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="searcher.date" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                    <span class="input-group-btn">
+                      <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-3 form-group">
+                <label>产品名称</label>
+                <select ui-jq="chosen" class="w-md s-w100" ng-model="searcher.productName">
+                  <option ng-repeat="m in testData" value="{{m.productName}}">{{m.productName}}</option>
+                </select>
+              </div>
+              
+              <div class="col-sm-3 form-group">
+                <label>&nbsp</label>
+                <div class="block">
+                  <button class="btn btn-primary" ng-disabled="form.$invalid" ng-click="search(searcher.date,searcher.productName)"><i class="fa fa-search"></i> 查   询</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </form>
+    </div>
+  </div>
+
+	<div class="row">
+        <div class="col col-md-12">
+            <table ng-table="myTable" class="table table-condensed table-bordered table-striped table-alink table-admin table-td5-color">
+                <tr ng-repeat="row in $data | filter:searcher.companyName">
+                    <td data-title="'产品名称'" sortable="'productName'">{{row.productName}}</td>
+                    <td data-title="'模块数量'" sortable="'numbers'">{{row.numbers}}</td>
+                    <td data-title="'状态'" sortable="'status'">{{row.status}}</td>
+                    <td data-title="'包装数量'" sortable="'packNumbers'">{{row.packNumbers}}</td>
+                    <td data-title="'包装报废率'" sortable="'scrapRate'">{{row.scrapRate}}</td>
+                    <td data-title="'日期'" sortable="'date'">{{row.date}}</td>
+                    <td data-title="'操作'" style="width: 12%">
+                        <!-- <a href="" class="active" ng-click="modify(row)">编辑</a> -->
+                        <a href="" class="active text-danger" ng-click="delete()">删除</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+  

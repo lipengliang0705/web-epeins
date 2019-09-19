@@ -1,0 +1,123 @@
+<div class="modal-header">
+    <h5 class="modal-title">添加来料检验报告</h5>
+</div>
+
+<div class="modal-body">
+    <form name="form" class="form-validation">
+      <div class="panel panel-default panel-b0 ">
+        <div class="panel-body">
+            <div class="form-group pull-in clearfix">
+              <div class="col-sm-3 col-b10">
+                <label>来料报告号：</label>
+                <select ui-jq="chosen" class="w-md s-w100" ng-model="row.reportNo">
+                  <option ng-repeat="m in testData" value="{{m.reportNo}}">{{m.reportNo}}</option>
+                </select>              
+              </div>
+              <div class="col-sm-3 col-b10">
+                <label>来料检验标准：</label>
+                <input ui-jq="filestyle" type="file" data-icon="false" data-classButton="btn btn-default" data-classInput="form-control inline v-middle input-s">
+              </div>
+              <div class="col-sm-3 col-b10">
+                <label>检验作业指导书：</label>
+                <input ui-jq="filestyle" type="file" data-icon="false" data-classButton="btn btn-default" data-classInput="form-control inline v-middle input-s">
+              </div>
+              <div class="col-sm-3 col-b10">
+                <label>材料名称：</label>
+                <input type="text" class="form-control" ng-model="row.materialName" required >              
+              </div>
+              <div class="col-sm-3 col-b10">
+                <label>供应商名称：</label>
+                <select ui-jq="chosen" class="w-md s-w100" ng-model="row.supplierName">
+                  <option value="杰斯比">杰斯比</option>
+                  <option value="吉列">吉列</option>
+                </select>             
+              </div>
+              <div class="col-sm-3 col-b10">
+                <label>入货批号：</label>
+                <input type="text" class="form-control" ng-model="row.batchNumber" required >              
+              </div>
+              <div class="col-sm-3 col-b10">
+                <label>到货日期：</label>
+                <input type="text" class="form-control" ng-model="row.arrivalDate" required >              
+              </div>
+              <div class="col-sm-3 col-b10">
+                <label>检查日期：</label>
+                <input type="text" class="form-control" ng-model="row.checkDate" required >              
+              </div>
+              <div class="col-sm-3 col-b10">
+                <label>到货数量：</label>
+                <input type="text" class="form-control" ng-model="row.arrivalNumbers" required >              
+              </div>
+              <div class="col-sm-3 col-b10">
+                <label>检查数量：</label>
+                <input type="text" class="form-control" ng-model="row.checkNumbers" required >              
+              </div>
+              <div class="col-sm-3 col-b10">
+                <label>检验结果：</label>
+                <select ui-jq="chosen" class="w-md s-w100" ng-model="row.whether">
+                  <option value="合格">合格</option>
+                  <option value="不合格">不合格</option>
+                </select> 
+              </div>
+              <div class="col-sm-3 col-b10">
+                <label>检查者：</label>
+                <input type="text" class="form-control" ng-model="row.inspector" required >              
+              </div>
+              <div class="col-sm-3 col-b10">
+                <label>确认者：</label>
+                <input type="text" class="form-control" ng-model="row.confirmer" required >              
+              </div>
+              
+              <div class="col-sm-12 col-b10">
+                <table class="table table-striped m-b-none">
+                  <thead>
+                    <tr>
+                      <th style="width:60px;">样品号</th>
+                      <th>检查内容</th>                    
+                      <th>检查要求</th>
+                      <th>检查值</th>
+                      <th>结果</th>
+                      <th>判定</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="item in testData track by $index">                   
+                      <td><input type="text" class="form-control" placeholder="{{item.sampleNo}}"/></td>
+                      <td>
+                        <select ui-jq="chosen" class="w-md s-wp150">
+                          <!-- <option value="标签注假密度及其它（见标准）25.3g/l">{{标签注假密度及其它（见标准）25.3g/l}}</option> -->
+                          <option ng-repeat="m in testData" value="{{m.content}}">{{m.content}}</option>
+                        </select>
+                      </td>
+                      <td>
+                        <select ui-jq="chosen" class="w-md s-wp100">
+                          <option ng-repeat="m in testData" value="{{m.standard}}">{{m.standard}}</option>
+                        </select>
+                      </td>
+                      <td><input type="text" class="form-control s-wp100" placeholder="{{item.checkValue}}"/></td>
+                      <td><input type="text" class="form-control s-wp100" placeholder="{{item.result}}"/></td>
+                      <td>
+                        <select ui-jq="chosen" class="w-md s-wp80">
+                          <option value="合格">合格</option>
+                          <option value="合格">不合格</option>
+                        </select>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+        </div>
+      </div>
+    </form>
+
+</div>
+<div class="modal-footer">                  
+    <button class="btn btn-default" ng-click="cancel()">取 消</button>
+    <button class="btn btn-success" ng-disabled="form.$invalid" ng-click="save()">确 定</button>
+</div>
+
+
+
+
+

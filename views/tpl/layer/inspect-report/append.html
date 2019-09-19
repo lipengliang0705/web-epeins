@@ -1,0 +1,94 @@
+<div class="modal-header">
+    <h5 class="modal-title">{{title}}</h5>
+</div>
+
+<div class="modal-body">
+    <form name="form" class="form-validation">
+      <div class="panel panel-default panel-b0 ">
+        <div class="panel-body">
+            <div class="form-group pull-in clearfix">
+              <div class="col-sm-3 col-b10">
+                <label>机台号：</label>
+                <select ui-jq="chosen" class="w-md s-w100" ng-model="row.machine">
+                  <option ng-repeat="m in addresources" value="{{m.machine}}">{{m.machine}}</option>
+                </select>            
+              </div>
+              <div class="col-sm-3 col-b10">
+                <label>产品编号：</label>
+                <select ui-jq="chosen" class="w-md s-w100" ng-model="row.productNo">
+                  <option ng-repeat="m in addresources" value="{{m.productNo}}">{{m.productNo}}</option>
+                </select>            
+              </div>
+              <div class="col-sm-3 col-b10">
+                <label>检查内容：</label>
+                <select ui-jq="chosen" class="w-md s-w100" ng-model="row.content">
+                  <option ng-repeat="m in addresources" value="{{m.content}}">{{m.content}}</option>
+                </select>            
+              </div>
+              <div class="col-sm-3 col-b10">
+                <label>湿重：</label>
+                <input type="text" class="form-control" placeholder="127" />            
+              </div>
+              <div class="col-sm-3 col-b10">
+                <label>熔合：</label>
+                <input type="text" class="form-control" placeholder="127" />            
+              </div>
+              <div class="col-sm-3 col-b10">
+                <label>填料：</label>
+                <input type="text" class="form-control" placeholder="127" />            
+              </div>
+              <div class="col-sm-3 col-b10">
+                <label>叠模：</label>
+                <input type="text" class="form-control" placeholder="127" />            
+              </div>
+              <div class="col-sm-3 col-b10">
+                <label>破损：</label>
+                <input type="text" class="form-control" placeholder="127" />            
+              </div>
+              <div class="col-sm-3 col-b10">
+                <label>混料：</label>
+                <input type="text" class="form-control" placeholder="127" />            
+              </div>
+              <div class="col-sm-3 col-b10">
+                <label>脏污：</label>
+                <input type="text" class="form-control" placeholder="127" />            
+              </div>
+              <div class="col-sm-3 col-b10">
+                <label>料枪：</label>
+                <input type="text" class="form-control" placeholder="127" />            
+              </div>
+              <div class="col-sm-3 col-b10">
+                <label>顶杆：</label>
+                <input type="text" class="form-control" placeholder="127" />            
+              </div>
+              <div class="col-sm-3 col-b10">
+                <label>气塞：</label>
+                <input type="text" class="form-control" placeholder="127" />            
+              </div>
+              <div class="col-sm-3 col-b10">
+                <label>判定结果：</label>
+                <select ui-jq="chosen" class="w-md s-w100" ng-model="row.result">
+                  <option value="OK">OK</option>
+                </select>            
+              </div>
+              <div class="col-sm-3 col-b10">
+                <label>判定：</label>
+                <select ui-jq="chosen" class="w-md s-w100" ng-model="row.judge">
+                  <option ng-repeat="m in addresources" value="O">O</option>
+                </select>            
+              </div>
+            </div>
+        </div>
+      </div>
+    </form>
+
+</div>
+<div class="modal-footer">                  
+    <button class="btn btn-default" ng-click="cancel()">取 消</button>
+    <button class="btn btn-success" ng-disabled="form.$invalid" ng-click="save()">确 定</button>
+</div>
+
+
+
+
+

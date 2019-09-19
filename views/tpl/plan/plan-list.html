@@ -1,0 +1,48 @@
+<div class="bg-light lter b-b wrapper">
+  <h1 class="m-n font-thin h4">炼铁计划一览</h1>
+</div>
+
+<div class="wrapper" ng-controller="planController">
+	<div class="row">
+		<div class="col col-md-12">
+        <form name="form" class="form-validation">
+          <div class="panel panel-default">
+            <div class="panel-body bg-light" style="padding:5px;padding-left:0px;">
+               <div class="col-sm-2">
+	               <label>计划名称：</label> 
+	               <input type="text" class="form-control"  ng-model="searcher.companyName" />
+	           </div>
+	           <div class="col-md-3">
+	               <label>&nbsp;</label> 
+                   <div class="btn-block">
+                       <button class="btn btn-primary form-control" ng-disabled="form.$invalid" ng-click="search()"><i class="fa fa-search"></i> 检   索</button>
+                       <button class="btn btn-success form-control"  ng-click="delete()"><i class="fa fa-keyboard-o"></i> 试算</button>
+                   </div>
+                   
+               </div>
+            </div>
+          </div>
+        </form>
+		</div>
+	</div>
+
+	<div class="row">
+        <div class="col col-md-12">
+            <table ng-table="myTable" class="table table-condensed table-bordered table-striped table-alink">
+                <tr ng-repeat="row in $data">
+                    <td data-title="'编号'" sortable="'code'" style="width: 7%">{{row.code}}</td>
+                    <td data-title="'常用计划'" sortable="'planName'">{{row.planName}}</td>
+                    <td data-title="'生产数量（吨）'" sortable="'productNumber'">{{row.productNumber}}</td>
+                    <td data-title="'生产工艺'" sortable="'arts'">{{row.arts}}</td>
+                    <td data-title="'生产原料'" sortable="'material'">{{row.material}}</td>
+                    <td data-title="'操作'" style="width: 8%">
+                        <a ui-sref="app.s7.cost-mgmt" class="active">生成计划</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<style type="text/css">
+    .modal-dialog{ width: 750px; }
+</style>

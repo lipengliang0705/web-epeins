@@ -1,0 +1,7 @@
+.idea
+.settings
+.project
+target
+node_modules
+package-lock.json
+dist

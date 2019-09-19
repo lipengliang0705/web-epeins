@@ -1,0 +1,70 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{title}}</h3>
+</div>
+
+<div class="modal-body">
+    <form name="form" class="form-validation">
+      <div class="panel panel-default panel-b0 ">
+        <!-- <div class="panel-heading">
+          <span class="h4">{{title}}</span>
+        </div> -->
+        <div class="panel-body">
+            <div class="form-group pull-in clearfix">
+      
+              <div class="col-sm-6 col-b10">
+                <label>矿石名称：</label>
+                <input type="text" class="form-control" ng-model="bank.bankAddress" required >              
+              </div>
+              <div class="col-sm-6 col-b10">
+                <label>小类：</label>
+                <select class="select_self" ng-model="datasource.dataType" required
+          ng-options="opt.id as opt.name for opt in bankTypes">
+                  <option>分隔符</option>
+                  <option>键值对</option>
+                  <option>正则表达式</option>
+                </select>
+              </div>
+              <div class="col-sm-6 col-b10">
+                <label>英文名：</label>
+                <input type="text" class="form-control" ng-model="bank.contactPhone" required value="ES://HOST1:9200">
+              </div>
+              <div class="col-sm-6 col-b10">
+                <label>FE：</label>
+                <input type="text" class="form-control" ng-model="bank.contactPhone" required value="ES://HOST1:9200">
+              </div>
+              <div class="col-sm-6 col-b10">
+                <label>SIO2：</label>
+                <input type="text" class="form-control" ng-model="bank.contactPhone" required value="ES://HOST1:9200">
+              </div>
+              <div class="col-sm-6 col-b10">
+                <label>AL2O3：</label>
+                <input type="text" class="form-control" ng-model="bank.contactPhone" required value="">
+              </div>
+              <div class="col-sm-6 col-b10">
+                <label>P：</label>
+                <input type="text" class="form-control" ng-model="bank.contactPhone" required value="">
+              </div>
+              <div class="col-sm-6 col-b10">
+                <label>LOI：</label>
+                <input type="text" class="form-control" ng-model="bank.contactPhone" required value="">
+              </div>
+              <div class="col-sm-12 col-b10">
+                <label>备注：</label>
+                <textarea class="textarea1"></textarea>
+              </div>
+
+            </div>
+        </div>
+      </div>
+    </form>
+
+</div>
+<div class="modal-footer">                  
+    <button class="btn btn-default" ng-click="cancel()">取 消</button>
+    <button class="btn btn-success" ng-disabled="form.$invalid" ng-click="save()">确 定</button>
+</div>
+
+
+
+
+

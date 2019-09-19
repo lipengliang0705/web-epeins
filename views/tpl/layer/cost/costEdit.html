@@ -1,0 +1,345 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{title}}</h3>
+</div>
+<div class="modal-body ">
+        <form name="form" class="form-validation">
+            <div class="panel b-a pd-t10">
+                <div class="panel-heading"><span class="plan-color text-stroke">方案一</span></div>
+                <div class="iron-label-box">
+                    <div class="sum-money">
+                        <h5>本期：￥ 100,000.00</h5>
+                        <h5 class="txt-gray line-through">上期：￥ 150,000.00</h5>
+                    </div>
+                    <div class="m-b-sm">
+                        <div class="btn-label label-bold">标签：</div>
+                        <div class="btn-group btn-group-label">
+                            <label class="btn btn-sm btn-default active" ng-model="checkModel" ui-toggle-class="button"><i class="fa fa-check text-active"></i> 综合最优</label>
+                            <label class="btn btn-sm btn-default active" ng-model="checkModel" ui-toggle-class="button"><i class="fa fa-check text-active"></i> 工艺要求低</label>
+                            <label class="btn btn-sm btn-default" ng-model="checkModel" ui-toggle-class="button"><i class="fa fa-check text-active"></i>工艺要求高</label>
+                            <label class="btn btn-sm btn-default" ng-model="checkModel" ui-toggle-class="button"><i class="fa fa-check text-active"></i>最便宜</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                  <div class="form-group pull-in clearfix">
+                        <div class="col-sm-12"><h5 class="h5-xl label-bold">计划生产数量：</h5></div>
+                        <div class="col-sm-3 col-b10">
+                            <label>生铁：</label> 
+                            <input type="text" class="form-control" value="10，000吨" disabled="" />
+                        </div>
+                        <div class="col-sm-3 col-b10">
+                            <label>高炉煤气：</label> 
+                            <input type="text" class="form-control" value="20立方" disabled="" />
+                        </div>
+                        <div class="col-sm-3 col-b10">
+                            <label>产物3：</label> 
+                            <input type="text" class="form-control" value="N/A" disabled="" />
+                        </div>
+                        <div class="col-sm-3 col-b10">
+                            <label>产物4：</label> 
+                            <input type="text" class="form-control" value="N/A" disabled="" />
+                        </div>
+                        <div class="col-sm-12 col-b10">
+                            <div class="btn-label label-bold">矿石组合：</div>
+                            <table class="table table-striped m-b-none">
+                                <thead>
+                                    <tr>
+                                        <th>矿石名</th>
+                                        <th>品位</th>
+                                        <th>SIO2</th>
+                                        <th>AL2O3</th>
+                                        <th>p</th>
+                                        <th>LOI</th>
+                                        <th>价格（元/t）</th>
+                                        <th>用量（t）</th>
+                                        <th>货源（港口、贸易商）</th>
+                                        <th>比例</th>
+                                        <th>库存（t）</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>纽曼粉</td>
+                                        <td><span class="txt-yellow">59.7</span></td>
+                                        <td>7</td>
+                                        <td>2.5</td>
+                                        <td>0.05</td>
+                                        <td>10</td>
+                                        <td>455</td>
+                                        <td>80</td>
+                                        <td>日照港</td>
+                                        <td>10%</td>
+                                        <td>200</td>
+                                    </tr>
+                                    <tr>
+                                        <td>杨迪粉</td>
+                                        <td><span class="txt-yellow">58.25</span></td>
+                                        <td>5</td>
+                                        <td>1.7</td>
+                                        <td>0.07</td>
+                                        <td>5</td>
+                                        <td>497</td>
+                                        <td>40</td>
+                                        <td>洋山港</td>
+                                        <td>15%</td>
+                                        <td>100</td>
+                                    </tr>
+                                    <tr>
+                                        <td>FB粉</td>
+                                        <td><span class="txt-yellow">61.44</span></td>
+                                        <td>3</td>
+                                        <td>41.5 </td>
+                                        <td>0.07</td>
+                                        <td>4</td>
+                                        <td>513</td>
+                                        <td>75</td>
+                                        <td>宁波港</td>
+                                        <td>30%</td>
+                                        <td>50</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-sm-12 col-b10 txt-gray">
+                            <label>生产工艺：</label>
+                            <span>工艺模板1</span>              
+                        </div>
+                        <div class="col-sm-12">
+                            <label>炼铁产品：</label>
+                            <span>生铁、炉渣</span>              
+                        </div>
+                        
+                  </div>
+                </div>
+                <div class="cut-line"></div>
+                <div class="panel-heading"><span class="plan-color text-stroke-light">方案二</span></div>
+                <div class="iron-label-box">
+                    <div class="sum-money">
+                        <h5>本期：￥ 90,000.00</h5>
+                        <h5 class="txt-gray line-through">上期：￥ 130,000.00</h5>
+                    </div>
+                    <div class="m-b-sm">
+                        <div class="btn-label label-bold">标签：</div>
+                        <div class="btn-group btn-group-label">
+                            <label class="btn btn-sm btn-default active" ng-model="checkModel" ui-toggle-class="button"><i class="fa fa-check text-active"></i> 工艺要求高</label>
+                            <label class="btn btn-sm btn-default active" ng-model="checkModel" ui-toggle-class="button"><i class="fa fa-check text-active"></i> 最便宜</label>
+                            <label class="btn btn-sm btn-default" ng-model="checkModel" ui-toggle-class="button"><i class="fa fa-check text-active"></i>综合最优</label>
+                            <label class="btn btn-sm btn-default" ng-model="checkModel" ui-toggle-class="button"><i class="fa fa-check text-active"></i>工艺要求低</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                  <div class="form-group pull-in clearfix">
+                        <div class="col-sm-12"><h5 class="h5-xl label-bold">计划生产数量：</h5></div>
+                        <div class="col-sm-3 col-b10">
+                            <label>生铁：</label> 
+                            <input type="text" class="form-control" value="10，000吨" disabled="" />
+                        </div>
+                        <div class="col-sm-3 col-b10">
+                            <label>高炉煤气：</label> 
+                            <input type="text" class="form-control" value="20立方" disabled="" />
+                        </div>
+                        <div class="col-sm-3 col-b10">
+                            <label>产物3：</label> 
+                            <input type="text" class="form-control" value="N/A"  disabled=""/>
+                        </div>
+                        <div class="col-sm-3 col-b10">
+                            <label>产物4：</label> 
+                            <input type="text" class="form-control" value="N/A" disabled="" />
+                        </div>
+                        <div class="col-sm-12 col-b10">
+                            <div class="btn-label label-bold">矿石组合：</div>
+                            <table class="table table-striped m-b-none">
+                                <thead>
+                                    <tr>
+                                        <th>矿石名</th>
+                                        <th>品位</th>
+                                        <th>SIO2</th>
+                                        <th>AL2O3</th>
+                                        <th>p</th>
+                                        <th>LOI</th>
+                                        <th>价格（元/t）</th>
+                                        <th>用量（t）</th>
+                                        <th>货源（港口、贸易商）</th>
+                                        <th>比例</th>
+                                        <th>库存（t）</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>纽曼粉</td>
+                                        <td><span class="txt-yellow">59.7</span></td>
+                                        <td>7</td>
+                                        <td>2.5</td>
+                                        <td>0.05</td>
+                                        <td>10</td>
+                                        <td>500</td>
+                                        <td>80</td>
+                                        <td>连云港</td>
+                                        <td>10%</td>
+                                        <td>200</td>
+                                    </tr>
+                                    <tr>
+                                        <td>杨迪粉</td>
+                                        <td><span class="txt-yellow">58.25</span></td>
+                                        <td>5</td>
+                                        <td>1.7</td>
+                                        <td>0.07</td>
+                                        <td>5</td>
+                                        <td>542</td>
+                                        <td>40</td>
+                                        <td>南通港</td>
+                                        <td>15%</td>
+                                        <td>100</td>
+                                    </tr>
+                                    <tr>
+                                        <td>FB粉</td>
+                                        <td><span class="txt-yellow">61.44</span></td>
+                                        <td>3</td>
+                                        <td>41.5 </td>
+                                        <td>0.07</td>
+                                        <td>4</td>
+                                        <td>499.5</td>
+                                        <td>75</td>
+                                        <td>洋山港</td>
+                                        <td>30%</td>
+                                        <td>50</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-sm-12 col-b10 txt-gray">
+                            <label>生产工艺：</label>
+                            <span>工艺模板1</span>              
+                        </div>
+                        <div class="col-sm-12">
+                            <label>炼铁产品：</label>
+                            <span>生铁、高炉煤气</span>              
+                        </div>
+                        
+                  </div>
+                </div>
+                <div class="cut-line"></div>
+                <div class="panel-heading"><span class="plan-color text-stroke-green">方案三</span></div>
+                <div class="iron-label-box">
+                    <div class="sum-money">
+                        <h5>本期：￥ 120,000.00</h5>
+                        <h5 class="txt-gray line-through">上期：￥ 140,000.00</h5>
+                    </div>
+                    <div class="m-b-sm">
+                        <div class="btn-label label-bold">标签：</div>
+                        <div class="btn-group btn-group-label">
+                            <label class="btn btn-sm btn-default active" ng-model="checkModel" ui-toggle-class="button"><i class="fa fa-check text-active"></i> 价格最高</label>
+                            <label class="btn btn-sm btn-default active" ng-model="checkModel" ui-toggle-class="button"><i class="fa fa-check text-active"></i> 工艺要求低</label>
+                            <label class="btn btn-sm btn-default" ng-model="checkModel" ui-toggle-class="button"><i class="fa fa-check text-active"></i>工艺要求高</label>
+                            <label class="btn btn-sm btn-default" ng-model="checkModel" ui-toggle-class="button"><i class="fa fa-check text-active"></i>最便宜</label>
+                            <label class="btn btn-sm btn-default" ng-model="checkModel" ui-toggle-class="button"><i class="fa fa-check text-active"></i>综合最优</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                  <div class="form-group pull-in clearfix">
+                        <div class="col-sm-12"><h5 class="h5-xl label-bold">计划生产数量：</h5></div>
+                        <div class="col-sm-3 col-b10">
+                            <label>生铁：</label> 
+                            <input type="text" class="form-control" value="10，000吨" disabled="" />
+                        </div>
+                        <div class="col-sm-3 col-b10">
+                            <label>高炉煤气：</label> 
+                            <input type="text" class="form-control" value="20立方" disabled="" />
+                        </div>
+                        <div class="col-sm-3 col-b10">
+                            <label>产物3：</label> 
+                            <input type="text" class="form-control" value="N/A" disabled="" />
+                        </div>
+                        <div class="col-sm-3 col-b10">
+                            <label>产物4：</label> 
+                            <input type="text" class="form-control" value="N/A" disabled="" />
+                        </div>
+                        <div class="col-sm-12 col-b10">
+                            <div class="btn-label label-bold">矿石组合：</div>
+                            <table class="table table-striped m-b-none">
+                                <thead>
+                                    <tr>
+                                        <th>矿石名</th>
+                                        <th>品位</th>
+                                        <th>SIO2</th>
+                                        <th>AL2O3</th>
+                                        <th>p</th>
+                                        <th>LOI</th>
+                                        <th>价格（元/t）</th>
+                                        <th>用量（t）</th>
+                                        <th>货源（港口、贸易商）</th>
+                                        <th>比例</th>
+                                        <th>库存（t）</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>纽曼粉</td>
+                                        <td><span class="txt-yellow">59.7</span></td>
+                                        <td>7</td>
+                                        <td>2.5</td>
+                                        <td>0.05</td>
+                                        <td>10</td>
+                                        <td>465</td>
+                                        <td>80</td>
+                                        <td>北仑港</td>
+                                        <td>10%</td>
+                                        <td>200</td>
+                                    </tr>
+                                    <tr>
+                                        <td>杨迪粉</td>
+                                        <td><span class="txt-yellow">58.25</span></td>
+                                        <td>5</td>
+                                        <td>1.7</td>
+                                        <td>0.07</td>
+                                        <td>5</td>
+                                        <td>500.4</td>
+                                        <td>40</td>
+                                        <td>温州港</td>
+                                        <td>15%</td>
+                                        <td>100</td>
+                                    </tr>
+                                    <tr>
+                                        <td>FB粉</td>
+                                        <td><span class="txt-yellow">61.44</span></td>
+                                        <td>3</td>
+                                        <td>41.5 </td>
+                                        <td>0.07</td>
+                                        <td>4</td>
+                                        <td>511.6</td>
+                                        <td>75</td>
+                                        <td>洋山港</td>
+                                        <td>30%</td>
+                                        <td>50</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-sm-12 col-b10 txt-gray">
+                            <label>生产工艺：</label>
+                            <span>工艺模板1</span>              
+                        </div> 
+                        <div class="col-sm-12">
+                            <label>炼铁产品：</label>
+                            <span>生铁、炉渣</span>              
+                        </div>
+                        
+                  </div>
+                </div>
+                </div>
+            </div>
+        </form>
+
+</div>
+<div class="modal-footer">                  
+    <button class="btn btn-default" ng-click="cancel()">取 消</button>
+    <button class="btn btn-success" ng-disabled="form.$invalid" ng-click="save()">另存为</button>
+    <button class="btn btn-success" ng-disabled="form.$invalid" ng-click="save()">确 定</button>
+</div>
+
+
+
+
+

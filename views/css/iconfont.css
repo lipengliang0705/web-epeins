@@ -1,0 +1,63 @@
+
+/**
+ * lipengliang  
+ * 此文件是为了拓展ChinaMobile的图标库文件
+ * 如果有新的图标添加 请前往 http://iconfont.cn/ 
+ * 参考文档 http://ask.dcloud.net.cn/article/128 
+ */
+@font-face {
+  font-family: 'iconfont';
+  src: url('../fonts/iconfont/iconfont.eot');
+  src: url('../fonts/iconfont/iconfont.eot?#iefix') format('embedded-opentype'),
+  url('../fonts/iconfont/iconfont.woff') format('woff'),
+  url('../fonts/iconfont/iconfont.ttf') format('truetype'),
+  url('../fonts/iconfont/iconfont.svg#iconfont') format('svg');
+}
+.iconfont {
+    font-family:"iconfont" !important;
+    font-size:20px;
+    font-style:normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-stroke-width: 0.2px;
+    padding-top: 1px;
+}
+/*终端管理*/
+.icon-terminal:before {
+  content: "\e63d";
+}
+/*生产管理*/
+.icon-produce:before {
+  content: "\e6ee";
+}
+/*包装管理*/
+.icon-pack:before {
+  content: "\e604";
+}
+/*巡检管理*/
+.icon-inspect:before {
+  content: "\e6dc";
+}
+/*仓库管理*/
+.icon-warehouse:before {
+  content: "\e617";
+}
+/*大屏管理*/
+.icon-bigscreen:before {
+  content: "\e611";
+}
+/*基础数据维护*/
+.icon-basedata:before {
+  content: "\e678";
+}
+/*追加*/
+.icon-append:before {
+  content: "\e600";
+}
+
+
+
+
+
+
+

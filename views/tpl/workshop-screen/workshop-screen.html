@@ -1,0 +1,43 @@
+<div class="bg-light lter b-b wrapper">
+  <h1 class="m-n font-thin h4 crumbs-list">生产车间大屏</h1>
+</div>
+
+<div class="wrapper" ng-controller="workshopController">
+  <div class="row">
+    <div class="col col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+              2019年8月18日上午 车间                   
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col col-md-12">
+                  <div class="machineflex">
+                    <div class="classy-list" ng-repeat="item in testData">
+                      <h4>{{item.machineNo}}</h4>
+                      <p>生产情况汇总</p>
+                      <ul>
+                        <li>
+                          <b class="text-success">{{item.completionRate}}</b>
+                          <span>计划达成率</span>
+                        </li>
+                        <li>
+                          <b class="text-warning">{{item.lossRate}}</b>
+                          <span>生产损耗率</span>
+                        </li>
+                        <li>
+                          <b class="text-danger">{{item.turnonRate}}</b>
+                          <span>开机率</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+  

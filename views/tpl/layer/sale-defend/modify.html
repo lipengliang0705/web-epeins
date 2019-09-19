@@ -1,0 +1,61 @@
+<div class="modal-header">
+    <h5 class="modal-title">销售出库计划变更</h5>
+</div>
+
+<div class="modal-body">
+    <form name="form" class="form-validation">
+      <div class="panel panel-default panel-b0 ">
+        <div class="panel-body">
+            <div class="form-group pull-in clearfix">
+              <div class="col-sm-6 col-b10">
+                <label>订单号：</label>
+                <select ui-jq="chosen" class="w-md s-w100" ng-model="row.orderNo">
+                  <option value="ZJG-20190806A-206">ZJG-20190806A-206</option>
+                </select>             
+              </div>
+              <div class="col-sm-6 col-b10">
+                <label>产品名称：</label>
+                <select ui-jq="chosen" class="w-md s-w100" ng-model="row.productName">
+                  <option ng-repeat="m in testData" value="{{m.productName}}">{{m.productName}}</option>
+                </select>
+              </div>
+               <div class="col-sm-6 col-b10">
+                <label>送货日期：</label>
+                <input type="text" class="form-control" ng-model="row.deliveryDate" required >              
+              </div>
+               <div class="col-sm-6 col-b10">
+                <label>送到时间：</label>
+                <input type="text" class="form-control" ng-model="row.arrivalTime" required >              
+              </div>
+              <div class="col-sm-6 col-b10">
+                <label>数量：</label>
+                <input type="text" class="form-control" ng-model="row.numbers" required >              
+              </div>
+              <div class="col-sm-6 col-b10">
+                <label>送货地址/联系人：</label>
+                <input type="text" class="form-control" ng-model="row.adress" required >              
+              </div>
+              <div class="col-sm-6 col-b10">
+                <label>备注：</label>
+                <select ui-jq="chosen" class="w-md s-w100" ng-model="row.result">
+                  <option value="完成">完成</option>
+                  <option value="未完成">未完成</option>
+                  <option value="进行中">进行中</option>
+                </select>              
+              </div>
+              
+            </div>
+        </div>
+      </div>
+    </form>
+
+</div>
+<div class="modal-footer">                  
+    <button class="btn btn-default" ng-click="cancel()">取 消</button>
+    <button class="btn btn-success" ng-disabled="form.$invalid" ng-click="save()">确 定</button>
+</div>
+
+
+
+
+

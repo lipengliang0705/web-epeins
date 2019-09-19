@@ -1,0 +1,160 @@
+<div class="modal-header">
+    <h5 class="modal-title">产品检验标准数据变更</h5>
+</div>
+
+<div class="modal-body">
+    <form name="form" class="form-validation">
+      <div class="panel panel-default panel-b0 ">
+        <div class="panel-body">
+            <div class="form-group pull-in clearfix">
+              <div class="col-sm-3 col-b10">
+                <label>产品检验标准编号</label>
+                <input type="text" class="form-control" ng-model="row.standardNo">
+              </div>
+              <div class="col-sm-3 col-b10">
+                <label>产品编号</label>
+                <select ui-jq="chosen" class="w-md s-w100" ng-model="row.standardNo">
+                  <option ng-repeat="m in testData" value="{{m.standardNo}}">{{m.standardNo}}</option>
+                </select>
+              </div>
+              <div class="col-sm-3 col-b10">
+                <label>产品描述</label>
+                <input type="text" class="form-control" ng-model="row.productDescribe">
+              </div>
+              <div class="col-sm-3 col-b10">
+                <label>材质</label>
+                <select ui-jq="chosen" class="w-md s-w100" ng-model="row.material">
+                  <option ng-repeat="m in testData" value="{{m.material}}">{{m.material}}</option>
+                </select>
+              </div>
+              <div class="col-sm-3 col-b10">
+                <label>所供客户</label>
+                <input type="text" class="form-control" ng-model="row.customers">
+              </div>
+              <div class="col-sm-3 col-b10">
+                <label>原料产地</label>
+                <input type="text" class="form-control" ng-model="row.materialarea">
+              </div>
+              <div class="col-sm-3 col-b10">
+                <label>模控数</label>
+                <input type="text" class="form-control" ng-model="row.modularNumbers">
+              </div>
+              <div class="col-sm-12 col-b10">
+                <table class="table table-bordered table-defind">
+                  <tbody>
+                    <tr>                    
+                      <td>检验阶段</td>
+                      <td>检验项目</td>
+                      <td>标准</td>
+                      <td>单位</td>
+                      <td>允差</td>
+                      <td>允许范围</td>
+                    </tr>
+                    <tr>                    
+                      <td>进货检验</td>
+                      <td>原料密度</td>
+                      <td><input type="text" class="form-control"/></td>
+                      <td><input type="text" class="form-control"/></td>
+                      <td><input type="text" class="form-control"/></td>
+                      <td><input type="text" class="form-control"/></td>
+                    </tr>
+                    <tr>                    
+                      <td>工序检验</td>
+                      <td>内压ICP</td>
+                      <td><input type="text" class="form-control"/></td>
+                      <td><input type="text" class="form-control"/></td>
+                      <td><input type="text" class="form-control"/></td>
+                      <td><input type="text" class="form-control"/></td>
+                    </tr>
+                    <tr>                    
+                      <td rowspan="2">巡检</td>
+                      <td>内压ICP</td>
+                      <td><input type="text" class="form-control"/></td>
+                      <td><input type="text" class="form-control"/></td>
+                      <td><input type="text" class="form-control"/></td>
+                      <td><input type="text" class="form-control"/></td>
+                    </tr>
+                    <tr>                    
+                      <td>其它要求</td>
+                      <td colspan="4"><textarea class="form-control"></textarea></td>
+                    </tr>
+                    <tr>                    
+                      <td rowspan="8">成品检验</td>
+                      <td>干重</td>
+                      <td><input type="text" class="form-control"/></td>
+                      <td><input type="text" class="form-control"/></td>
+                      <td><input type="text" class="form-control"/></td>
+                      <td><input type="text" class="form-control"/></td>
+                    </tr>
+                    <tr>                    
+                      <td>长度</td>
+                      <td><input type="text" class="form-control"/></td>
+                      <td><input type="text" class="form-control"/></td>
+                      <td><input type="text" class="form-control"/></td>
+                      <td><input type="text" class="form-control"/></td>
+                    </tr>
+                    <tr>                    
+                      <td>高度</td>
+                      <td><input type="text" class="form-control"/></td>
+                      <td><input type="text" class="form-control"/></td>
+                      <td><input type="text" class="form-control"/></td>
+                      <td><input type="text" class="form-control"/></td>
+                    </tr>
+                    <tr>                    
+                      <td>宽度</td>
+                      <td><input type="text" class="form-control"/></td>
+                      <td><input type="text" class="form-control"/></td>
+                      <td><input type="text" class="form-control"/></td>
+                      <td><input type="text" class="form-control"/></td>
+                    </tr>
+                    <tr>                    
+                      <td>关键尺寸1</td>
+                      <td><input type="text" class="form-control"/></td>
+                      <td><input type="text" class="form-control"/></td>
+                      <td><input type="text" class="form-control"/></td>
+                      <td><input type="text" class="form-control"/></td>
+                    </tr>
+                    <tr>                    
+                      <td>关键尺寸2</td>
+                      <td><input type="text" class="form-control"/></td>
+                      <td><input type="text" class="form-control"/></td>
+                      <td><input type="text" class="form-control"/></td>
+                      <td><input type="text" class="form-control"/></td>
+                    </tr>
+                    <tr>                    
+                      <td>关键尺寸3</td>
+                      <td><input type="text" class="form-control"/></td>
+                      <td><input type="text" class="form-control"/></td>
+                      <td><input type="text" class="form-control"/></td>
+                      <td><input type="text" class="form-control"/></td>
+                    </tr>
+                    <tr>                    
+                      <td>其它要求</td>
+                      <td colspan="4"><textarea class="form-control"></textarea></td>
+                    </tr>
+                    <tr>                    
+                      <td>含水量</td>
+                      <td colspan="5"><input type="text" class="form-control"/></td>
+                    </tr>
+                    <tr>                    
+                      <td>备注</td>
+                      <td colspan="5"><textarea class="form-control"></textarea></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+        </div>
+      </div>
+    </form>
+
+</div>
+<div class="modal-footer">                  
+    <button class="btn btn-default" ng-click="cancel()">取 消</button>
+    <button class="btn btn-success" ng-disabled="form.$invalid" ng-click="save()">确 定</button>
+</div>
+
+
+
+
+

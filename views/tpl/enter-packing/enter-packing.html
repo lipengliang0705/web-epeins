@@ -1,0 +1,175 @@
+<div class="bg-light lter b-b wrapper">
+  <h1 class="m-n font-thin h4">待包装产品列表</h1>
+</div>
+
+<div class="wrapper" ng-controller="productAdminController">
+  <div class="row">
+    <div class="col col-md-12">
+        <form role="form" class="ng-pristine ng-valid">
+          <div class="panel panel-default">
+            <div class="panel-body" style="padding:10px; padding-left:0px;">
+              <div class="enter-row">
+                <div class="col-sm-3 form-group">
+                  <label>产品名称</label>
+                  <select ui-jq="chosen" class="w-md s-w100" ng-model="searcher.productName">
+                    <option ng-repeat="m in testData" value="{{m.productName}}">{{m.productName}}</option>
+                  </select>
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label>数量</label>
+                  <input type="text" class="form-control" placeholder="输入数量"  ng-model="searcher.numbers">
+                </div>
+                <div class="col-sm-3 form-group">
+                  <label>包装作业指导书</label>
+                  <input ui-jq="filestyle" type="file" data-icon="false" data-classButton="btn btn-default" data-classInput="form-control inline v-middle input-s">
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label>包装数量</label>
+                  <input type="text" class="form-control" placeholder="输入包装数量"  ng-model="searcher.numbers">
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label>&nbsp</label>
+                  <div class="block">
+                    <button class="btn btn-primary" ng-disabled="form.$invalid" ng-click="search()"><i class="fa fa-check"></i> 录 入</button>
+                  </div>
+                </div>
+              </div>
+              <div class="enter-row">
+                <div class="col-sm-3 form-group">
+                  <label>产品名称</label>
+                  <select ui-jq="chosen" class="w-md s-w100" ng-model="searcher.productName">
+                    <option ng-repeat="m in testData" value="{{m.productName}}">{{m.productName}}</option>
+                  </select>
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label>数量</label>
+                  <input type="text" class="form-control" placeholder="输入数量"  ng-model="searcher.numbers">
+                </div>
+                <div class="col-sm-3 form-group">
+                  <label>包装作业指导书</label>
+                  <input ui-jq="filestyle" type="file" data-icon="false" data-classButton="btn btn-default" data-classInput="form-control inline v-middle input-s">
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label>包装数量</label>
+                  <input type="text" class="form-control" placeholder="输入包装数量"  ng-model="searcher.numbers">
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label>&nbsp</label>
+                  <div class="block">
+                    <button class="btn btn-primary" ng-disabled="form.$invalid" ng-click="search()"><i class="fa fa-check"></i> 录 入</button>
+                  </div>
+                </div>
+              </div>
+              <div class="enter-row">
+                <div class="col-sm-3 form-group">
+                  <label>产品名称</label>
+                  <select ui-jq="chosen" class="w-md s-w100" ng-model="searcher.productName">
+                    <option ng-repeat="m in testData" value="{{m.productName}}">{{m.productName}}</option>
+                  </select>
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label>数量</label>
+                  <input type="text" class="form-control" placeholder="输入数量"  ng-model="searcher.numbers">
+                </div>
+                <div class="col-sm-3 form-group">
+                  <label>包装作业指导书</label>
+                  <input ui-jq="filestyle" type="file" data-icon="false" data-classButton="btn btn-default" data-classInput="form-control inline v-middle input-s">
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label>包装数量</label>
+                  <input type="text" class="form-control" placeholder="输入包装数量"  ng-model="searcher.numbers">
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label>&nbsp</label>
+                  <div class="block">
+                    <button class="btn btn-primary" ng-disabled="form.$invalid" ng-click="search()"><i class="fa fa-check"></i> 录 入</button>
+                  </div>
+                </div>
+              </div>
+              <div class="enter-row">
+                <div class="col-sm-3 form-group">
+                  <label>产品名称</label>
+                  <select ui-jq="chosen" class="w-md s-w100" ng-model="searcher.productName">
+                    <option ng-repeat="m in testData" value="{{m.productName}}">{{m.productName}}</option>
+                  </select>
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label>数量</label>
+                  <input type="text" class="form-control" placeholder="输入数量"  ng-model="searcher.numbers">
+                </div>
+                <div class="col-sm-3 form-group">
+                  <label>包装作业指导书</label>
+                  <input ui-jq="filestyle" type="file" data-icon="false" data-classButton="btn btn-default" data-classInput="form-control inline v-middle input-s">
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label>包装数量</label>
+                  <input type="text" class="form-control" placeholder="输入包装数量"  ng-model="searcher.numbers">
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label>&nbsp</label>
+                  <div class="block">
+                    <button class="btn btn-primary" ng-disabled="form.$invalid" ng-click="search()"><i class="fa fa-check"></i> 录 入</button>
+                  </div>
+                </div>
+              </div>
+              <div class="enter-row">
+                <div class="col-sm-3 form-group">
+                  <label>产品名称</label>
+                  <select ui-jq="chosen" class="w-md s-w100" ng-model="searcher.productName">
+                    <option ng-repeat="m in testData" value="{{m.productName}}">{{m.productName}}</option>
+                  </select>
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label>数量</label>
+                  <input type="text" class="form-control" placeholder="输入数量"  ng-model="searcher.numbers">
+                </div>
+                <div class="col-sm-3 form-group">
+                  <label>包装作业指导书</label>
+                  <input ui-jq="filestyle" type="file" data-icon="false" data-classButton="btn btn-default" data-classInput="form-control inline v-middle input-s">
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label>包装数量</label>
+                  <input type="text" class="form-control" placeholder="输入包装数量"  ng-model="searcher.numbers">
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label>&nbsp</label>
+                  <div class="block">
+                    <button class="btn btn-primary" ng-disabled="form.$invalid" ng-click="search()"><i class="fa fa-check"></i> 录 入</button>
+                  </div>
+                </div>
+              </div>
+              <div class="enter-row">
+                <div class="col-sm-3 form-group">
+                  <label>产品名称</label>
+                  <select ui-jq="chosen" class="w-md s-w100" ng-model="searcher.productName">
+                    <option ng-repeat="m in testData" value="{{m.productName}}">{{m.productName}}</option>
+                  </select>
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label>数量</label>
+                  <input type="text" class="form-control" placeholder="输入数量"  ng-model="searcher.numbers">
+                </div>
+                <div class="col-sm-3 form-group">
+                  <label>包装作业指导书</label>
+                  <input ui-jq="filestyle" type="file" data-icon="false" data-classButton="btn btn-default" data-classInput="form-control inline v-middle input-s">
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label>包装数量</label>
+                  <input type="text" class="form-control" placeholder="输入包装数量"  ng-model="searcher.numbers">
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label>&nbsp</label>
+                  <div class="block">
+                    <button class="btn btn-primary" ng-disabled="form.$invalid" ng-click="search()"><i class="fa fa-check"></i> 录 入</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </form>
+    </div>
+  </div>
+
+</div>
+  

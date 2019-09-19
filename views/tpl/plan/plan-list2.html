@@ -1,0 +1,126 @@
+<div class="bg-light lter b-b wrapper">
+  <h1 class="m-n font-thin h3">生产计划</h1>
+</div>
+
+<div class="wrapper" ng-controller="planController">
+	<div class="row">
+		<div class="col col-md-12">
+            <div class="panel b-a">
+                <div class="panel-heading b-b b-light">生产计划 </div>
+                <div collapse="isCollapsed" class="panel-body collapse in" style="height: auto;">
+                    <div class="col-sm-6 col-b10">
+                        <label>历史计划：</label> 
+                        <select name="account" class="form-control">
+                            <option value="option 1">20170615_生产计划1</option>
+                            <option value="option 2">20170615_生产计划2</option>
+                            <option value="option 3">20170615_生产计划3</option>
+                            <option value="option 4">20170615_生产计划4</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-12"><h5>计划生产数量</h5></div>
+                    <div class="col-sm-3 col-b10">
+                        <label>生铁：</label> 
+                        <input type="text" class="form-control" value="10，000吨" >
+                    </div>
+                    <div class="col-sm-3 col-b10">
+                        <label>高炉煤气：</label> 
+                        <input type="text" class="form-control" value="20立方" >
+                    </div>
+                    <div class="col-sm-3 col-b10">
+                        <label>产物3：</label> 
+                        <input type="text" class="form-control" value="N/A" >
+                    </div>
+                    <div class="col-sm-3 col-b10">
+                        <label>产物4：</label> 
+                        <input type="text" class="form-control" value="N/A" >
+                    </div>
+                    <div class="col-sm-6 col-b10">
+                        <label>工艺选择：</label> 
+                        <select name="account" class="form-control">
+                            <option value="option 1">工艺计划1</option>
+                            <option value="option 2">工艺计划2</option>
+                            <option value="option 3">工艺计划3</option>
+                            <option value="option 4">工艺计划4</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-8 col-b10">
+                        <label>矿石指定：</label>
+                        <div class="radio-box"> 
+                            <div class="radio">
+                                <label class="i-checks">
+                                    <input type="radio" name="a" value="option1" checked="">
+                                    <i></i>
+                                    指定
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label class="i-checks">
+                                    <input type="radio" name="a" value="option1">
+                                    <i></i>
+                                    不指定
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-b10">
+                        <label>生产原料：</label> 
+                        <table class="table table-striped m-b-none">
+                            <thead>
+                                <tr>
+                                    <th>矿石名</th>
+                                    <th>需要数量(吨)</th>
+                                    <th>库存数量(吨)</th>
+                                    <th>需采购数量(吨)/t</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <select name="account" class="form-control">
+                                            <option value="option 1">纽曼粉</option>
+                                            <option value="option 2">杨迪粉</option>
+                                            <option value="option 3">PB粉</option>
+                                        </select>
+                                    </td>
+                                    <td><input type="text" class="form-control" value="5000" /></td>
+                                    <td><input type="text" class="form-control" value="1000" /></td>
+                                    <td><input type="text" class="form-control" value="4000" disabled="" /></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <select name="account" class="form-control">
+                                            <option value="option 1">杨迪粉</option>
+                                            <option value="option 2">纽曼粉</option>
+                                            <option value="option 3">PB粉</option>
+                                        </select>
+                                    </td>
+                                    <td><input type="text" class="form-control" value="4000" /></td>
+                                    <td><input type="text" class="form-control" value="0" /></td>
+                                    <td><input type="text" class="form-control" value="4000" disabled="" /></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <select name="account" class="form-control">
+                                            <option value="option 3">PB粉</option>
+                                            <option value="option 1">纽曼粉</option>
+                                            <option value="option 2">杨迪粉</option>
+                                        </select>
+                                    </td>
+                                    <td><input type="text" class="form-control" value="6000" /></td>
+                                    <td><input type="text" class="form-control" value="1500" /></td>
+                                    <td><input type="text" class="form-control" value="4500" disabled="" /></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="col-md-2">
+                       <label>&nbsp;</label> 
+                       <a class="btn btn-success form-control"  ng-click="delete()">试算</a>
+                    </div>
+                </div>
+            </div>
+		</div>
+	</div>
+
+</div>

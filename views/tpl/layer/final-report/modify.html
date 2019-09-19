@@ -1,0 +1,305 @@
+<div class="modal-header">
+    <h5 class="modal-title">{{title}}</h5>
+</div>
+
+<div class="modal-body">
+    <form name="form" class="form-validation">
+      <div class="panel panel-default panel-b0 ">
+        <div class="panel-body">
+            <div class="form-group pull-in clearfix">
+              <div class="col-sm-3 col-b10">
+                <label>任务单号：</label>
+                <select ui-jq="chosen" class="w-md s-w100" ng-model="row.taskNo">
+                  <option value="ZJG-20190722F2-119">ZJG-20190722F2-119</option>
+                  <option value="SC20190611X1-416">SC20190611X1-416</option>
+                  <option value="SC20190619F2-452">SC20190619F2-452</option>
+                </select>             
+              </div>
+              <div class="col-sm-3 col-b10">
+                <label>客户名称：</label>
+                <input type="text" class="form-control" ng-model="row.customerName" required >              
+              </div>
+              <div class="col-sm-3 col-b10">
+                <label>产品名称：</label>
+                <select ui-jq="chosen" class="w-md s-w100" ng-model="row.productName">
+                  <option value="XJ-50-B">XJ-50-B</option>
+                  <option value="XJ-50B">XJ-50B</option>
+                </select>             
+              </div>
+              <div class="col-sm-3 col-b10">
+                <label>生产日期：</label>
+                <input type="text" class="form-control" ng-model="row.productDate" required >              
+              </div>
+              <div class="col-sm-3 col-b10">
+                <label>检验日期：</label>
+                <input type="text" class="form-control" ng-model="row.testDate" required >              
+              </div>
+              <div class="col-sm-3 col-b10">
+                <label>此批数量：</label>
+                <input type="text" class="form-control" ng-model="row.batchNumbers" required >              
+              </div>
+              <div class="col-sm-3 col-b10">
+                <label>抽样数：</label>
+                <input type="text" class="form-control" ng-model="row.samplingNumber" required >              
+              </div>
+              <div class="col-sm-3 col-b10">
+                <label>合格品数：</label>
+                <input type="text" class="form-control" ng-model="row.qualifiedNum" required >              
+              </div>
+              <div class="col-sm-3 col-b10">
+                <label>不合格品数：</label>
+                <input type="text" class="form-control" ng-model="row.unqualifiedNum" required >              
+              </div>
+              
+              <div class="col-sm-3 col-b10">
+                <label>产品图纸：</label>
+                <div class="fileLoadDown">
+                  <a href=""><img src="views/imgs/standard.svg"></a>
+                </div>
+              </div>
+              <div class="col-sm-3 col-b10">
+                <label>产品检验标准：</label>
+                <div class="fileLoadDown">
+                  <a href=""><img src="views/imgs/standard.svg"></a>
+                </div>
+              </div>
+              <div class="col-sm-3 col-b10">
+                <label>包装作业指导书：</label>
+                <div class="fileLoadDown">
+                  <a href=""><img src="views/imgs/standard.svg"></a>
+                </div>
+              </div>
+              <div class="col-sm-12 col-b10">
+                <div class="scroll-x">
+                  <table class="table table-striped table-bordered table-defind m-b-none">
+                    <thead>
+                      <tr>
+                        <th>项目</th>
+                        <th>标准</th>
+                        <th>允差/要求</th>                     
+                        <th>测量方法</th>
+                        <th colspan="10">测量结果</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>              
+                        <td rowspan="3">尺寸(mm)</td>
+                        <td>长度</td>
+                        <td>482.6 +0-5</td>
+                        <td>
+                          <select ui-jq="chosen" class="w-md s-wp80" ng-model="row.sizeZool">
+                            <option value="卷尺">卷尺</option>
+                            <option value="卡尺">卡尺</option>
+                            <option value="钢尺">钢尺</option>
+                          </select> 
+                        </td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="480"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="481"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="480"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="479"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="480"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="481"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="480"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="482"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="479"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="478"/></td>
+                      </tr>
+                      <tr>              
+                        <td>宽度</td>
+                        <td>232.9±3</td>
+                        <td>
+                          <select ui-jq="chosen" class="w-md s-wp80" ng-model="row.sizeZool">
+                            <option value="卷尺">卷尺</option>
+                            <option value="卡尺">卡尺</option>
+                            <option value="钢尺">钢尺</option>
+                          </select> 
+                        </td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="232"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="231"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="230"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="232"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="231"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="230"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="231"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="232"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="231"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="232"/></td>
+                      </tr>
+                      <tr>              
+                        <td>高度</td>
+                        <td>117.2±2</td>
+                        <td>
+                          <select ui-jq="chosen" class="w-md s-wp80" ng-model="row.sizeZool">
+                            <option value="卷尺">卷尺</option>
+                            <option value="卡尺">卡尺</option>
+                            <option value="钢尺">钢尺</option>
+                          </select> 
+                        </td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="116"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="117"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="116"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="116"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="117"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="116"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="117"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="116"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="118"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="116"/></td>
+                      </tr>
+                      <tr>              
+                        <td>重量(g)</td>
+                        <td>干重</td>
+                        <td>109±10%</td>
+                        <td>
+                          <select ui-jq="chosen" class="w-md s-wp80" ng-model="row.sizeZool">
+                            <option value="电子天平">电子天平</option>
+                          </select> 
+                        </td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="110"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="108"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="107"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="106"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="111"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="110"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="115"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="109"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="108"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="109"/></td>
+                      </tr>
+                      <tr>              
+                        <td>外观</td>
+                        <td colspan="2">融接、充填、变形、破损、清洁、翘曲、废边</td>
+                        <td>手测/目测</td>
+                        <td>
+                          <select ui-jq="chosen" class="w-md s-wp80" ng-model="row.judge">
+                            <option value="OK">OK</option>
+                          </select> 
+                        </td>
+                        <td>
+                          <select ui-jq="chosen" class="w-md s-wp80" ng-model="row.judge">
+                            <option value="OK">OK</option>
+                          </select> 
+                        </td>
+                        <td>
+                          <select ui-jq="chosen" class="w-md s-wp80" ng-model="row.judge">
+                            <option value="OK">OK</option>
+                          </select> 
+                        </td>
+                        <td>
+                          <select ui-jq="chosen" class="w-md s-wp80" ng-model="row.judge">
+                            <option value="OK">OK</option>
+                          </select> 
+                        </td>
+                        <td>
+                          <select ui-jq="chosen" class="w-md s-wp80" ng-model="row.judge">
+                            <option value="OK">OK</option>
+                          </select> 
+                        </td>
+                        <td>
+                          <select ui-jq="chosen" class="w-md s-wp80" ng-model="row.judge">
+                            <option value="OK">OK</option>
+                          </select> 
+                        </td>
+                        <td>
+                          <select ui-jq="chosen" class="w-md s-wp80" ng-model="row.judge">
+                            <option value="OK">OK</option>
+                          </select> 
+                        </td>
+                        <td>
+                          <select ui-jq="chosen" class="w-md s-wp80" ng-model="row.judge">
+                            <option value="OK">OK</option>
+                          </select> 
+                        </td>
+                        <td>
+                          <select ui-jq="chosen" class="w-md s-wp80" ng-model="row.judge">
+                            <option value="OK">OK</option>
+                          </select> 
+                        </td>
+                        <td>
+                          <select ui-jq="chosen" class="w-md s-wp80" ng-model="row.judge">
+                            <option value="OK">OK</option>
+                          </select> 
+                        </td>
+                      </tr>
+                      <tr>              
+                        <td colspan="3" rowspan="4">XRF测试结果（PPM）</td>
+                        <td>项目</td>
+                        <td colspan="2">Cd</td>
+                        <td colspan="2">Pb</td>
+                        <td colspan="2">Br</td>
+                        <td colspan="2">Hg</td>
+                        <td colspan="2">Cr</td>
+                      </tr>
+                      <tr>              
+                        <td>要求</td>
+                        <td colspan="2">﹤52</td>
+                        <td colspan="2">﹤70</td>
+                        <td colspan="2">﹤300</td>
+                        <td colspan="2">﹤70</td>
+                        <td colspan="2">﹤70</td>
+                      </tr>
+                      <tr>              
+                        <td>实测</td>
+                        <td colspan="2"><input type="text" class="form-control s-w100" placeholder="ND"/></td>
+                        <td colspan="2"><input type="text" class="form-control s-w100" placeholder="ND"/></td>
+                        <td colspan="2"><input type="text" class="form-control s-w100" placeholder="ND"/></td>
+                        <td colspan="2"><input type="text" class="form-control s-w100" placeholder="ND"/></td>
+                        <td colspan="2"><input type="text" class="form-control s-w100" placeholder="ND"/></td>
+                      </tr>
+                      <tr>              
+                        <td>判定</td>
+                        <td colspan="2"><input type="text" class="form-control s-w100" placeholder="Pass"/></td>
+                        <td colspan="2"><input type="text" class="form-control s-w100" placeholder="Pass"/></td>
+                        <td colspan="2"><input type="text" class="form-control s-w100" placeholder="Pass"/></td>
+                        <td colspan="2"><input type="text" class="form-control s-w100" placeholder="Pass"/></td>
+                        <td colspan="2"><input type="text" class="form-control s-w100" placeholder="Pass"/></td>
+                      </tr>
+                      <tr>              
+                        <td>其它/ESD</td>
+                        <td colspan="2">电阻108-1011</td>
+                        <td>电阻仪</td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="10～11"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="10～11"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="10～11"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="10～11"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="10～11"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="10～11"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="10～11"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="10～11"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="10～11"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="10～11"/></td>
+                      </tr>
+                      <tr>              
+                        <td>含水率</td>
+                        <td colspan="2">≤10%</td>
+                        <td>针式测试</td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="6"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="5"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="6"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="6"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="6"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="6"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="5"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="5"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="7"/></td>
+                        <td><input type="text" class="form-control s-wp60" placeholder="8"/></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </form>
+
+</div>
+<div class="modal-footer">                  
+    <button class="btn btn-default" ng-click="cancel()">取 消</button>
+    <button class="btn btn-success" ng-disabled="form.$invalid" ng-click="save()">确 定</button>
+</div>
+
+
+
+
+

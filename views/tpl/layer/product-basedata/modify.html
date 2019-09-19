@@ -1,0 +1,75 @@
+<div class="modal-header">
+    <h5 class="modal-title">生产基础数据变更</h5>
+</div>
+
+<div class="modal-body">
+    <form name="form" class="form-validation">
+      <div class="panel panel-default panel-b0 ">
+        <div class="panel-body">
+            <div class="form-group pull-in clearfix">
+              <div class="col-sm-6 col-b10">
+                <label>产品名称：</label>
+                <select ui-jq="chosen" class="w-md s-w100" ng-model="row.productName">
+                  <option ng-repeat="m in testData" value="{{m.productName}}">{{m.productName}}</option>
+                </select>             
+              </div>
+              <div class="col-sm-6 col-b10">
+                <label>标准重量/g：</label>
+                <input type="text" class="form-control" ng-model="row.weight">        
+              </div>
+              <div class="col-sm-6 col-b10">
+                <label>成型重量/Kg：</label>
+                <input type="text" class="form-control" ng-model="row.moldingWeight">        
+              </div>
+              <div class="col-sm-6 col-b10">
+                <label>每模产出数：</label>
+                <input type="text" class="form-control" ng-model="row.outputs">        
+              </div>
+              <div class="col-sm-6 col-b10">
+                <label>模数/天：</label>
+                <input type="text" class="form-control" ng-model="row.modulus">        
+              </div>
+              <div class="col-sm-6 col-b10">
+                <label>生产周期/秒：</label>
+                <input type="text" class="form-control" ng-model="row.productionCycle">        
+              </div>
+              <div class="col-sm-6 col-b10">
+                <label>产能/天：</label>
+                <input type="text" class="form-control" ng-model="row.capacity">        
+              </div>
+              <div class="col-sm-6 col-b10">
+                <label>实际小时生产数：</label>
+                <input type="text" class="form-control" ng-model="row.actual">        
+              </div>
+              <div class="col-sm-6 col-b10">
+                <label>产能/小时：</label>
+                <input type="text" class="form-control" ng-model="row.hourlyCapacity">        
+              </div>
+              <div class="col-sm-6 col-b10">
+                <label>产品图纸：</label>
+                <input ui-jq="filestyle" type="file" data-icon="false" data-classButton="btn btn-default" data-classInput="form-control inline v-middle input-s">
+              </div>
+              <div class="col-sm-6 col-b10">
+                <label>产品检验标准：</label>
+                <input ui-jq="filestyle" type="file" data-icon="false" data-classButton="btn btn-default" data-classInput="form-control inline v-middle input-s">
+              </div>
+              <div class="col-sm-6 col-b10">
+                <label>包装作业指导书：</label>
+                <input ui-jq="filestyle" type="file" data-icon="false" data-classButton="btn btn-default" data-classInput="form-control inline v-middle input-s">
+              </div>
+              
+            </div>
+        </div>
+      </div>
+    </form>
+
+</div>
+<div class="modal-footer">                  
+    <button class="btn btn-default" ng-click="cancel()">取 消</button>
+    <button class="btn btn-success" ng-disabled="form.$invalid" ng-click="save()">确 定</button>
+</div>
+
+
+
+
+

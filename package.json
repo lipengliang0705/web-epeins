@@ -1,0 +1,21 @@
+{
+  "name": "cms-web",
+  "version": "1.0.0",
+  "description": "cms-web description",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "gulp local"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.dev.pi/cucc/cms-web.git"
+  },
+  "devDependencies": {
+    "browser-sync": "2.17.0",
+    "gulp": "3.9.1",
+    "http-proxy-middleware": "^0.19.1",
+    "proxy-middleware": "0.15.0"
+  },
+  "author": "",
+  "license": "ISC"
+}

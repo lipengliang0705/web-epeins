@@ -1,0 +1,62 @@
+<div class="modal-header">
+    <h5 class="modal-title">{{title}}</h5>
+</div>
+
+<div class="modal-body">
+    <form name="form" class="form-validation">
+      <div class="panel panel-default panel-b0 ">
+        <div class="panel-body">
+            <div class="form-group pull-in clearfix">
+      
+              <div class="col-sm-6 col-b10">
+                <label>机台：</label>
+                <input type="text" class="form-control" ng-model="row.machine" required >              
+              </div>
+              <div class="col-sm-6 col-b10">
+                <label>机型：</label>
+                <input type="text" class="form-control" ng-model="row.type" required value="ES://HOST1:9200">
+              </div>
+              <div class="col-sm-6 col-b10">
+                <label>产品名称：</label>
+                <input type="text" class="form-control" ng-model="row.name" required value="ES://HOST1:9200">
+              </div>
+              <div class="col-sm-6 col-b10">
+                <label>任务单号：</label>
+                <input type="text" class="form-control" ng-model="row.numbers" required value="ES://HOST1:9200">
+              </div>
+              <div class="col-sm-6 col-b10">
+                <label>任务单数量：</label>
+                <input type="text" class="form-control" ng-model="row.taskNumber" required value="">
+              </div>
+              <div class="col-sm-6 col-b10">
+                <label>计划达成率：</label>
+                <input type="text" class="form-control" ng-model="row.successRate" required value="">
+              </div>
+              <div class="col-sm-6 col-b10">
+                <label>开机时间：</label>
+                <input type="text" class="form-control" ng-model="row.startTime" required value="">
+              </div>
+              <div class="col-sm-6 col-b10">
+                <label>开机率：</label>
+                <input type="text" class="form-control" ng-model="row.hut" required value="">
+              </div>
+              <div class="col-sm-6 col-b10">
+                <label>材质：</label>
+                <input type="text" class="form-control" ng-model="row.material" required value="">
+              </div>
+
+            </div>
+        </div>
+      </div>
+    </form>
+
+</div>
+<div class="modal-footer">                  
+    <button class="btn btn-default" ng-click="cancel()">取 消</button>
+    <button class="btn btn-success" ng-disabled="form.$invalid" ng-click="save()">确 定</button>
+</div>
+
+
+
+
+

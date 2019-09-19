@@ -1,0 +1,82 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{title}}</h3>
+</div>
+
+<div class="modal-body ">
+        <form name="form" class="form-validation">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <div class="form-group pull-in clearfix">
+                      <h4 class="title-h4">生产数量：</h4>
+                      <div class="col-sm-6 col-b10">
+                        <label>生铁：</label>
+                        <input type="text" class="form-control" ng-model="bank.bankAddress" required />         
+                      </div>
+                      <div class="col-sm-6 col-b10">
+                        <label>燃气：</label>
+                        <input type="text" class="form-control" ng-model="bank.bankAddress" required />         
+                      </div>
+                      <div class="col-sm-6 col-b10">
+                        <label>产物1：</label>
+                        <input type="text" class="form-control" ng-model="bank.bankAddress" required />         
+                      </div>
+                      <div class="col-sm-6 col-b10">
+                        <label>产物2：</label>
+                        <input type="text" class="form-control" ng-model="bank.bankAddress" required />         
+                      </div>
+                      <h4 class="title-h4">生产原料：</h4>
+                      <div class="col-sm-6 col-b10">
+                        <label>矿石原料：</label>
+                        <input type="text" class="form-control" ng-model="bank.bankAddress" required />         
+                      </div>
+                      <div class="col-sm-6 col-b10">
+                        <label>需求数量/t：</label>
+                        <input type="text" class="form-control" ng-model="bank.bankAddress" required />         
+                      </div>
+                      <div class="col-sm-6 col-b10">
+                        <label>已有数量/t：</label>
+                        <input type="text" class="form-control" ng-model="bank.bankAddress" required />         
+                      </div>
+                      <div class="col-sm-6 col-b10">
+                        <label>生产原料（燃料）：</label>
+                        <select name="account" class="form-control">
+                            <option value="option 1">炼铁</option>
+                            <option value="option 2">option 2</option>
+                            <option value="option 3">option 3</option>
+                            <option value="option 4">option 4</option>
+                        </select>
+                      </div>
+                      <div class="col-sm-6 col-b10">
+                        <label>生产原料（熔剂）：</label>
+                        <select name="account" class="form-control">
+                            <option value="option 1">焦炭</option>
+                            <option value="option 2">option 2</option>
+                            <option value="option 3">option 3</option>
+                            <option value="option 4">option 4</option>
+                        </select>
+                      </div>
+                      <div class="col-sm-6 col-b10">
+                        <label>生产工艺：</label>
+                        <select name="account" class="form-control">
+                            <option value="option 1">溶剂1</option>
+                            <option value="option 2">option 2</option>
+                            <option value="option 3">option 3</option>
+                            <option value="option 4">option 4</option>
+                        </select>
+                      </div>
+
+              </div>
+            </div>
+          </div>
+        </form>
+
+</div>
+<div class="modal-footer">                  
+    <button class="btn btn-default" ng-click="cancel()">取 消</button>
+    <button class="btn btn-success" ng-disabled="form.$invalid" ng-click="save()">确 定</button>
+</div>
+
+
+
+
+

@@ -1,0 +1,208 @@
+<div class="bg-light lter b-b wrapper">
+  <h1 class="m-n font-thin h3">键值对</h1>
+</div>
+
+<div class="wrapper" ng-controller="KeyValueController">
+	<div class="row">
+    <div class="col col-md-12">
+      <div class="panel">
+          <div class="panel-body">
+            <form class="bs-example form-horizontal">
+              <div class="form-group">
+                <label class="col-lg-2 control-label">规则名称</label>
+                <div class="col-lg-9">
+                  <input type="email" class="form-control" placeholder="" value="waf_alarms">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-lg-2 control-label">文件名</label>
+                <div class="col-lg-9">
+                  <div class="form_module">
+                    <div class="col-lg-5">
+                      <input type="email" class="form-control" placeholder="" value="">
+                    </div>
+                    <label class="col-sm-2 control-label">文件路径</label>
+                    <div class="col-lg-5">
+                      <input type="email" class="form-control" placeholder="" value="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-lg-2 control-label">目标源名</label>
+                <div class="col-lg-9">
+                  <div class="input-group">
+                    <input type="text" class="form-control" value="Impala" />
+                    <span class="input-group-btn">
+                      <button type="button" class="btn btn-default" ng-click="open($event)"><i class="fa fa-eraser"></i></button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-lg-2 control-label">目标库名</label>
+                <div class="col-lg-9">
+                  <div class="form_module">
+                    <div class="col-lg-5">
+                      <input type="email" class="form-control" placeholder="" value="">
+                    </div>
+                    <label class="col-sm-2 control-label">目标表名</label>
+                    <div class="col-lg-5">
+                      <input type="email" class="form-control" placeholder="" value="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-lg-2 control-label">样例数据</label>
+                <div class="col-lg-9">
+                  <textarea class="textarea1">"2016-06-28 09:21:17",nbogpt.nbcb.cn:9080.SQL.注入攻击.SQL注入攻击.高。58.101.202.226，31476,11.99.236.225
+                  </textarea>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-lg-2 control-label">字段分隔符</label>
+                <div class="col-lg-9">
+                  <div class="form_module">
+                    <div class="col-sm-5">
+                      <input type="email" class="form-control" placeholder="" value=":">
+                    </div>
+                    <label class="col-sm-2 control-label">键值分隔符</label>
+                    <div class="col-sm-5">
+                      <input type="email" class="form-control" placeholder="" value="=">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-lg-2 control-label">字段列表</label>
+                <div class="col-lg-9">
+                  <div class="form_module">
+                    <div class="col-lg-3">
+                      <div class="input-group input-mb">
+                        <input type="text" class="form-control" value="time">
+                        <span class="input-group-btn">
+                          <button class="btn btn-default" type="button"><i class="fa fa-times"></i></button>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-lg-3">
+                      <div class="input-group input-mb">
+                        <input type="text" class="form-control" value="hostname">
+                        <span class="input-group-btn">
+                          <button class="btn btn-default" type="button"><i class="fa fa-times"></i></button>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-lg-3">
+                      <div class="input-group input-mb">
+                        <input type="text" class="form-control" value="label">
+                        <span class="input-group-btn">
+                          <button class="btn btn-default" type="button"><i class="fa fa-times"></i></button>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-lg-3">
+                      <div class="input-group input-mb">
+                        <input type="text" class="form-control" value="event">
+                        <span class="input-group-btn">
+                          <button class="btn btn-default" type="button"><i class="fa fa-times"></i></button>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-lg-3">
+                      <div class="input-group input-mb">
+                        <input type="text" class="form-control" value="menace">
+                        <span class="input-group-btn">
+                          <button class="btn btn-default" type="button"><i class="fa fa-times"></i></button>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-lg-3">
+                      <div class="input-group input-mb">
+                        <input type="text" class="form-control" value="src_ip">
+                        <span class="input-group-btn">
+                          <button class="btn btn-default" type="button"><i class="fa fa-times"></i></button>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-lg-3">
+                      <div class="input-group input-mb">
+                        <input type="text" class="form-control" value="url">
+                        <span class="input-group-btn">
+                          <button class="btn btn-default" type="button"><i class="fa fa-times"></i></button>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-lg-3">
+                      <div class="input-group input-mb">
+                        <input type="text" class="form-control" value="action">
+                        <span class="input-group-btn">
+                          <button class="btn btn-default" type="button"><i class="fa fa-times"></i></button>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-lg-2 control-label">添加字段</label>
+                <div class="col-lg-9">
+                  <div class="form_module">
+                    <div class="col-lg-3">
+                      <div class="input-group input-mb">
+                        <input type="text" class="form-control" value="timestamp">
+                        <span class="input-group-btn">
+                          <button class="btn btn-default" type="button"><i class="fa fa-arrow-right"></i></button>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-lg-3">
+                      <div class="input-group input-mb">
+                        <input type="text" class="form-control" value="12163216461471">
+                        <span class="input-group-btn">
+                          <button class="btn btn-default" type="button"><i class="fa fa-arrow-right"></i></button>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-lg-3">
+                      <div class="input-group input-mb">
+                        <input type="text" class="form-control" value="hostname">
+                        <span class="input-group-btn">
+                          <button class="btn btn-default" type="button"><i class="fa fa-arrow-right"></i></button>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-lg-3">
+                      <div class="input-group input-mb">
+                        <input type="text" class="form-control" value="host1:KUX">
+                        <span class="input-group-btn">
+                          <button class="btn btn-default" type="button"><i class="fa fa-times"></i></button>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-lg-1">
+                      <button class="btn btn-info">
+                        <i class="fa fa-plus"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-lg-2 control-label">解析预览</label>
+                <div class="col-lg-9">
+                  <button class="btn btn-success">
+                    <i class="glyphicon glyphicon-ok"></i>
+                    同意
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>

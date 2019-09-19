@@ -1,0 +1,57 @@
+<div class="modal-dialog">
+<div class="modal-content">
+
+<div class="wrapper" ng-controller="LogEditController">
+  <div class="modal-header">
+    <h3 class="modal-title">新建/修改日志</h3>
+</div>
+
+<div class="modal-body ">
+        <form name="form" class="form-validation">
+          <div class="panel panel-default">
+            <!-- <div class="panel-heading">
+              <span class="h4">{{title}}</span>
+            </div> -->
+            <div class="panel-body">
+      <div class="form-group pull-in clearfix">
+      
+              <div class="col-sm-12">
+                <label>名称：</label>
+                <input type="text" class="form-control" ng-model="bank.bankAddress" required >              
+              </div>
+              <div class="col-sm-6">
+                <label>数据源名称：</label>
+                <input type="text" class="form-control" ng-model="bank.contactPhone" required >
+              </div>
+              <div class="col-sm-6">
+                <label>解析规则：</label>
+                <select class="select_self">
+                  <option>分隔符</option>
+                  <option>键值对</option>
+                  <option>正则表达式</option>
+                  <option>ITM</option>
+                </select>
+              </div>
+              <div class="col-sm-12">
+                <label>描述：</label>
+                <textarea class="textarea1">LOG1</textarea>
+              </div>
+
+      </div>
+            </div>
+          </div>
+        </form>
+
+</div>
+<div class="modal-footer">                  
+    <button class="btn btn-default" ng-click="cancel()">取 消</button>
+    <button class="btn btn-success" ng-disabled="form.$invalid" ng-click="save()">确 定</button>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+

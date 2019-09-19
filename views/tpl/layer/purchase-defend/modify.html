@@ -1,0 +1,63 @@
+<div class="modal-header">
+    <h5 class="modal-title">采购到达计划变更</h5>
+</div>
+
+<div class="modal-body">
+    <form name="form" class="form-validation">
+      <div class="panel panel-default panel-b0 ">
+        <div class="panel-body">
+            <div class="form-group pull-in clearfix">
+              <div class="col-sm-6 col-b10">
+                <label>采购单号：</label>
+                <select ui-jq="chosen" class="w-md s-w100" ng-model="row.purchaseNo">
+                  <option ng-repeat="m in testData" value="{{m.purchaseNo}}">{{m.purchaseNo}}</option>
+                </select>             
+              </div>
+              <div class="col-sm-6 col-b10">
+                <label>原料编号：</label>
+                <select ui-jq="chosen" class="w-md s-w100" ng-model="row.materialNo">
+                  <option ng-repeat="m in testData" value="{{m.materialNo}}">{{m.materialNo}}</option>
+                </select>                
+              </div>
+              <div class="col-sm-6 col-b10">
+                <label>车型：</label>
+                <select ui-jq="chosen" class="w-md s-w100" ng-model="row.vehicleType">
+                  <option value="JSP 36包/车">JSP 36包/车</option>
+                </select>                   
+              </div>
+              <div class="col-sm-6 col-b10">
+                <label>送货地点：</label>
+                <input type="text" class="form-control" ng-model="row.deliveryDddress" required >                 
+              </div>
+              <div class="col-sm-6 col-b10">
+                <label>重量/包：</label>
+                <input type="text" class="form-control" ng-model="row.weight" required >                 
+              </div>
+              <div class="col-sm-6 col-b10">
+                <label>包数：</label>
+                <input type="text" class="form-control" ng-model="row.packetNumber" required >              
+              </div>
+              <div class="col-sm-6 col-b10">
+                <label>重量：</label>
+                <input type="text" class="form-control" ng-model="row.allWeight" required >              
+              </div>
+              <div class="col-sm-6 col-b10">
+                <label>日期：</label>
+                <input type="text" class="form-control" ng-model="row.date" required >              
+              </div>
+              
+            </div>
+        </div>
+      </div>
+    </form>
+
+</div>
+<div class="modal-footer">                  
+    <button class="btn btn-default" ng-click="cancel()">取 消</button>
+    <button class="btn btn-success" ng-disabled="form.$invalid" ng-click="save()">确 定</button>
+</div>
+
+
+
+
+

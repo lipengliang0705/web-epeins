@@ -1,0 +1,236 @@
+<ul class="nav">
+ 
+    <li ng-class="{active:$state.includes('app.s1')}">
+        <!-- <a href class="auto" ui-sref="app.s1.product-plan-mgmt">      
+            <i class="fa fa-upload icon text-lg text-info-lter"></i>
+            <span>生产计划导入</span>
+        </a> -->
+        <a href class="auto">      
+          <span class="pull-right text-muted">
+            <i class="fa fa-fw fa-angle-right text"></i>
+            <i class="fa fa-fw fa-angle-down text-active"></i>
+          </span>
+          <i class="fa iconfont icon-produce text-x text-info-lter"></i>
+          <span class="font-bold">生产管理</span>
+        </a>
+        <ul class="nav nav-sub dk">
+          <li ui-sref-active="active">
+            <a ui-sref="app.s1.product-plan-mgmt">
+              <span>生产计划导入</span>
+            </a>
+          </li>
+          <li ui-sref-active="active">
+            <a ui-sref="app.s1.product-admin-mgmt">
+              <span>生产计划维护</span>
+            </a>
+          </li>
+        </ul>
+    </li>
+    <li ng-class="{active:$state.includes('app.s2')}">
+        <a href class="auto">
+          <span class="pull-right text-muted">
+            <i class="fa fa-fw fa-angle-right text"></i>
+            <i class="fa fa-fw fa-angle-down text-active"></i>
+          </span>        
+          <i class="fa iconfont icon-pack text-x text-info-lter"></i>
+          <span>包装管理</span>
+        </a>
+        <ul class="nav nav-sub dk">
+          <li ui-sref-active="active">
+            <a ui-sref="app.s2.enter-packing-mgmt">
+              <span>包装数据录入</span>
+            </a>
+          </li>
+          <li ui-sref-active="active">
+            <a ui-sref="app.s2.pack-check-mgmt">
+              <span>包装数据查询</span>
+            </a>
+          </li>
+        </ul>
+    </li>
+    <li ng-class="{active:$state.includes('app.s3')}">
+        <a href class="auto">
+          <span class="pull-right text-muted">
+            <i class="fa fa-fw fa-angle-right text"></i>
+            <i class="fa fa-fw fa-angle-down text-active"></i>
+          </span>     
+          <i class="fa iconfont icon-inspect text-x text-info-lter"></i>
+          <span>巡检管理</span>
+        </a>
+        <ul class="nav nav-sub dk">
+          <li ui-sref-active="active">
+            <a ui-sref="app.s3.incoming-report-mgmt">
+              <span>来料检验报告</span>
+            </a>
+          </li>
+          <li ui-sref-active="active">
+            <a ui-sref="app.s3.first-report-mgmt">
+              <span>生产首检报告</span>
+            </a>
+          </li>
+          <li ui-sref-active="active">
+            <a ui-sref="app.s3.inspect-report-mgmt">
+              <span>工程巡检报告</span>
+            </a>
+          </li>
+          <li ui-sref-active="active">
+            <a ui-sref="app.s3.final-report-mgmt">
+              <span>最终检验报告</span>
+            </a>
+          </li>
+        </ul>
+    </li>
+    <li ng-class="{active:$state.includes('app.s4')}">
+        <a href class="auto">
+          <span class="pull-right text-muted">
+            <i class="fa fa-fw fa-angle-right text"></i>
+            <i class="fa fa-fw fa-angle-down text-active"></i>
+          </span>      
+          <i class="fa iconfont icon-warehouse text-x text-info-lter"></i>
+          <span>仓库管理</span>
+        </a>
+        <ul class="nav nav-sub dk">
+          <li ui-sref-active="active">
+            <a ui-sref="app.s4.psales-import-mgmt">
+              <span>采购/销售计划导入</span>
+            </a>
+          </li>
+          <li ui-sref-active="active">
+            <a ui-sref="app.s4.purchase-defend-mgmt">
+              <span>采购到达计划维护</span>
+            </a>
+          </li>
+          <li ui-sref-active="active">
+            <a ui-sref="app.s4.sale-defend-mgmt">
+              <span>销售出库计划维护</span>
+            </a>
+          </li>
+        </ul>
+    </li>
+    <li ng-class="{active:$state.includes('app.s5')}">
+        <a href class="auto">      
+          <span class="pull-right text-muted">
+            <i class="fa fa-fw fa-angle-right text"></i>
+            <i class="fa fa-fw fa-angle-down text-active"></i>
+          </span>
+          <i class="fa iconfont icon-bigscreen text-x text-info-lter"></i>
+          <span class="font-bold">大屏显示</span>
+        </a>
+        <ul class="nav nav-sub dk">
+          <li ui-sref-active="active">
+            <a ui-sref="app.s5.workshop-screen-mgmt">
+              <span>生产车间1</span>
+            </a>
+          </li>
+          <li ui-sref-active="active">
+            <a ui-sref="app.s5.workshop-screen-mgmt">
+              <span>生产车间2</span>
+            </a>
+          </li>
+          <li ui-sref-active="active">
+            <a ui-sref="app.s5.packing-screen-mgmt">
+              <span>包装检验</span>
+            </a>
+          </li>
+          <li ui-sref-active="active">
+            <a ui-sref="app.s5.storehouse-screen-mgmt">
+              <span>仓库</span>
+            </a>
+          </li>
+        </ul>
+    </li>
+    <li ng-class="{active:$state.includes('app.s6')}">
+        <a href class="auto">      
+          <span class="pull-right text-muted">
+            <i class="fa fa-fw fa-angle-right text"></i>
+            <i class="fa fa-fw fa-angle-down text-active"></i>
+          </span>
+          <i class="fa iconfont icon-basedata text-x text-info-lter"></i>
+          <span class="font-bold">基础数据维护</span>
+        </a>
+        <ul class="nav nav-sub dk">
+          <li ui-sref-active="active">
+            <a ui-sref="app.s6.product-basedata-mgmt">
+              <span>生产基础数据维护</span>
+            </a>
+          </li>
+          <li ui-sref-active="active">
+            <a ui-sref="app.s6.model-basedata-mgmt">
+              <span>机型基础数据维护</span>
+            </a>
+          </li>
+          <li ui-sref-active="active">
+            <a ui-sref="app.s6.teststandard-basedata-mgmt">
+              <span>产品检验标准数据维护</span>
+            </a>
+          </li>
+        </ul>
+    </li>
+    <!-- <li ng-class="{active:$state.includes('app.s7')}">
+        <a href class="auto" ui-sref="app.s7.workshop-mgmt">      
+            <i class="fa icon-layers icon text-lg text-info-lter"></i>
+            <span>生产车间管理</span>
+        </a>
+    </li>
+    
+    <li ng-class="{active:$state.includes('app.s8')}">
+        <a href class="auto" ui-sref="app.s8.realtime-list-mgmt">      
+            <i class="fa fa-crosshairs icon text-lg text-info-lter"></i>
+            <span>生产实时状态</span>
+        </a>
+    </li> 
+    <li ng-class="{active:$state.includes('app.ui')}">
+      <a href class="auto">      
+        <span class="pull-right text-muted">
+          <i class="fa fa-fw fa-angle-right text"></i>
+          <i class="fa fa-fw fa-angle-down text-active"></i>
+        </span>
+        <i class="fa fa-cogs icon text-lg text-info-lter"></i>
+        <span class="font-bold">页面组件(参考)</span>
+      </a>
+      <ul class="nav nav-sub dk">
+        <li ui-sref-active="active">
+          <a ui-sref="app.ui.buttons">
+            <span>各式按钮</span>
+          </a>
+        </li>
+        <li ui-sref-active="active">
+          <a ui-sref="app.ui.icons">
+            <span>多样图标</span>
+          </a>
+        </li>
+        <li ui-sref-active="active">
+          <a ui-sref="app.ui.bootstrap">
+            <span>Bootstrap组件</span>
+          </a>
+        </li>
+        <li ui-sref-active="active">
+          <a ui-sref="app.ui.tree">
+            <span>TreeView</span>
+          </a>
+        </li>
+        <li ui-sref-active="active">
+          <a ui-sref="app.ui.table">
+            <span>Table</span>
+          </a>
+        </li>
+        <li ui-sref-active="active">
+          <a ui-sref="app.ui.elements">
+            <span>输入项组件</span>
+          </a>
+        </li>      
+        <li ui-sref-active="active">
+          <a ui-sref="app.ui.validation">
+            <span>客户端验证</span>
+          </a>
+        </li>
+        <li ui-sref-active="active">
+          <a ui-sref="app.ui.fileupload">
+            <span>文件上传</span>
+          </a>
+        </li>
+	    </ul>
+    </li> -->
+    <li class="line dk hidden-folded"></li>
+ 
+</ul>

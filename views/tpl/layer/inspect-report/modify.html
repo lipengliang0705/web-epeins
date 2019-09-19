@@ -1,0 +1,136 @@
+<div class="modal-header">
+    <h5 class="modal-title">巡检报告变更</h5>
+</div>
+
+<div class="modal-body">
+    <form name="form" class="form-validation">
+      <div class="panel panel-default panel-b0 ">
+        <div class="panel-body">
+            <div class="form-group pull-in clearfix">
+              <div class="col-sm-3 col-b10">
+                <label>巡检日期：</label>
+                <input type="text" class="form-control" ng-model="row.inspectDate" required >              
+              </div>
+              <div class="col-sm-3 col-b10">
+                <label>检查时间：</label>
+                <input type="text" class="form-control" ng-model="row.inspectTime" required >              
+              </div>
+              <div class="col-sm-3 col-b10">
+                <label>产品图纸：</label>
+                <div class="fileLoadDown">
+                  <a href=""><img src="views/imgs/standard.svg"></a>
+                </div>
+              </div>
+              <div class="col-sm-3 col-b10">
+                <label>产品检验标准：</label>
+                <div class="fileLoadDown">
+                  <a href=""><img src="views/imgs/standard.svg"></a>
+                </div>
+              </div>
+              <div class="col-sm-12 col-b10">
+                <div class="scroll-x">
+                  <table class="table table-striped table-bordered table-defind m-b-none">
+                    <thead>
+                      <tr>
+                        <th rowspan="2">机台号</th>
+                        <th rowspan="2">产品编号</th>
+                        <th rowspan="2">标准范围</th>                     
+                        <th colspan="11">检查内容</th>
+                        <th rowspan="2">检查结果</th>
+                        <th rowspan="2">判定</th>
+                      </tr>
+                      <tr>                 
+                        <th>湿重（均值）</th>
+                        <th>熔合</th>
+                        <th>填料</th>
+                        <th>叠模</th>
+                        <th>破损</th>
+                        <th>混料</th>
+                        <th>脏污</th>
+                        <th>料枪</th>
+                        <th>顶杆</th>
+                        <th>气塞</th>
+                        <th>异常变形</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="item in addresources track by $index">              
+                        <td>
+                          <select ui-jq="chosen" class="w-md s-wp80" ng-model="row.machine">
+                            <option ng-repeat="m in addresources" value="{{m.machine}}">{{m.machine}}</option>
+                          </select>
+                        </td>
+                        <td>
+                          <select ui-jq="chosen" class="w-md s-wp80" ng-model="row.productNo">
+                            <option ng-repeat="m in addresources" value="{{m.productNo}}">{{m.productNo}}</option>
+                          </select>
+                        </td>
+                        <td>
+                          <select ui-jq="chosen" class="w-md s-wp80" ng-model="row.scope">
+                            <option ng-repeat="m in addresources" value="{{m.scope}}">{{m.scope}}</option>
+                          </select>
+                        </td>
+                        <td>
+                          <input type="text" class="form-control s-wp60" placeholder="{{}}"/>
+                        </td>
+                        <td>
+                          <input type="text" class="form-control s-wp60" placeholder="{{}}"/>
+                        </td>
+                        <td>
+                          <input type="text" class="form-control s-wp60" placeholder="{{}}"/>
+                        </td>
+                        <td>
+                          <input type="text" class="form-control s-wp60" placeholder="{{}}"/>
+                        </td>
+                        <td>
+                          <input type="text" class="form-control s-wp60" placeholder="{{}}"/>
+                        </td>
+                        <td>
+                          <input type="text" class="form-control s-wp60" placeholder="{{}}"/>
+                        </td>
+                        <td>
+                          <input type="text" class="form-control s-wp60" placeholder="{{}}"/>
+                        </td>
+                        <td>
+                          <input type="text" class="form-control s-wp60" placeholder="{{}}"/>
+                        </td>
+                        <td>
+                          <input type="text" class="form-control s-wp60" placeholder="{{}}"/>
+                        </td>
+                        <td>
+                          <input type="text" class="form-control s-wp60" placeholder="{{}}"/>
+                        </td>
+                        <td>
+                          <input type="text" class="form-control s-wp60" placeholder="{{}}"/>
+                        </td>
+                        <td>
+                          <select ui-jq="chosen" class="w-md s-wp80" ng-model="row.result">
+                            <option>OK</option>
+                          </select>
+                        </td>
+                        <td>
+                          <select ui-jq="chosen" class="w-md s-wp80" ng-model="row.judge">
+                            <option>Ο</option>
+                          </select>
+                        </td>
+                      </tr>
+                      
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </form>
+
+</div>
+<div class="modal-footer">                  
+    <button class="btn btn-default" ng-click="cancel()">取 消</button>
+    <button class="btn btn-success" ng-disabled="form.$invalid" ng-click="save()">确 定</button>
+</div>
+
+
+
+
+

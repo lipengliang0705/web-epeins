@@ -1,0 +1,193 @@
+<div class="bg-light lter b-b wrapper">
+  <h1 class="m-n font-thin h4 crumbs-list">包装检验大屏</h1>
+</div>
+
+<div class="wrapper" ng-controller="packingScreenController">
+  <div class="row">
+    <div class="col col-md-12">
+      
+      <!-- carousel -->
+        <div class="panel panel-default packscreen b-a" set-ng-animate="false">
+          <div class="panel-heading">
+            产品名称：YFL-1-T/B
+          </div>
+          <carousel interval="myInterval">
+            <slide>
+              <!-- <img ng-src="{{slide.image}}" class="img-full"> -->
+              <div class="packcarousel">
+                <div class="carousel-module">
+                  <div class="modulecharts" id="incoming"></div>
+                  <div class="classy-list packlindex-list">
+                    <h4>来料不良缺陷</h4>
+                    <ul class="index-list">
+                      <li><i class="fa fa-arrow-circle-o-right"></i> 1,缺陷一</li>
+                      <li><i class="fa fa-arrow-circle-o-right"></i> 2,缺陷二</li>
+                      <li><i class="fa fa-arrow-circle-o-right"></i> 3,缺陷三</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="carousel-module">
+                  <div class="modulecharts" id="qualified"></div>
+                  <div class="classy-list packlindex-list">
+                    <h4>制造不良数量统计</h4>
+                    <ul class="bigtext-list">
+                      <li>
+                        <b class="text-warning">50000</b>
+                        <span>制造不良数量统计</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="carousel-module">
+                  <div class="modulecharts" id="inspect"></div>
+                  <div class="classy-list packlindex-list">
+                    <h4>巡检情况统计</h4>
+                    <ul class="index-list">
+                      <li>正态分布</li>
+                      <li><i class="fa fa-arrow-circle-o-right"></i> 方差</li>
+                      <li><i class="fa fa-arrow-circle-o-right"></i> 标准</li>
+                      <li><i class="fa fa-arrow-circle-o-right"></i> 控制</li>
+                    </ul>
+                    <ul class="index-list">
+                      <li>不良缺陷类别</li>
+                      <li><i class="fa fa-arrow-circle-o-right"></i> 1,缺陷一</li>
+                      <li><i class="fa fa-arrow-circle-o-right"></i> 2,缺陷二</li>
+                      <li><i class="fa fa-arrow-circle-o-right"></i> 3,缺陷三</li>
+                    </ul>
+                    <ul class="bigtext-list">
+                      <li>
+                        <b class="text-warning">276</b>
+                        <span>制造不良数统计</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="carousel-module">
+                  <div class="modulecharts" id="final"></div>
+                  <div class="classy-list packlindex-list">
+                    <h4>最终产品合格情况</h4>
+                    <ul class="bigtext-list">
+                      <li>
+                        <b class="text-success">95%</b>
+                        <span>一次检验合格率</span>
+                      </li>
+                    </ul>
+                    <ul class="index-list">
+                      <li>不良缺陷类别</li>
+                      <li><i class="fa fa-arrow-circle-o-right"></i> 1,缺陷一</li>
+                      <li><i class="fa fa-arrow-circle-o-right"></i> 2,缺陷二</li>
+                      <li><i class="fa fa-arrow-circle-o-right"></i> 3,缺陷三</li>
+                    </ul>
+                    <ul class="bigtext-list">
+                      <li>
+                        <b class="text-warning">276</b>
+                        <span>包装不良统计</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="carousel-module">
+                  <div class="modulecharts" id="scrap"></div>
+                  <div class="classy-list">
+                    
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="carousel-caption">
+                <h4>Slide {{$index}}</h4>
+                <p>{{slide.text}}</p>
+              </div> -->
+            </slide>
+            <slide>
+              <!-- <img ng-src="{{slide.image}}" class="img-full"> -->
+              <div class="packcarousel">
+                <div class="carousel-module">
+                  <div class="modulecharts" id="incoming"></div>
+                  <div class="classy-list packlindex-list">
+                    <h4>来料不良缺陷</h4>
+                    <ul class="index-list">
+                      <li><i class="fa fa-arrow-circle-o-right"></i> 1,缺陷一</li>
+                      <li><i class="fa fa-arrow-circle-o-right"></i> 2,缺陷二</li>
+                      <li><i class="fa fa-arrow-circle-o-right"></i> 3,缺陷三</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="carousel-module">
+                  <div class="modulecharts" id="qualified"></div>
+                  <div class="classy-list packlindex-list">
+                    <h4>制造不良数量统计</h4>
+                    <ul class="bigtext-list">
+                      <li>
+                        <b class="text-warning">50000</b>
+                        <span>制造不良数量统计</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="carousel-module">
+                  <div class="modulecharts" id="inspect"></div>
+                  <div class="classy-list packlindex-list">
+                    <h4>巡检情况统计</h4>
+                    <ul class="index-list">
+                      <li>正态分布</li>
+                      <li><i class="fa fa-arrow-circle-o-right"></i> 方差</li>
+                      <li><i class="fa fa-arrow-circle-o-right"></i> 标准</li>
+                      <li><i class="fa fa-arrow-circle-o-right"></i> 控制</li>
+                    </ul>
+                    <ul class="index-list">
+                      <li>不良缺陷类别</li>
+                      <li><i class="fa fa-arrow-circle-o-right"></i> 1,缺陷一</li>
+                      <li><i class="fa fa-arrow-circle-o-right"></i> 2,缺陷二</li>
+                      <li><i class="fa fa-arrow-circle-o-right"></i> 3,缺陷三</li>
+                    </ul>
+                    <ul class="bigtext-list">
+                      <li>
+                        <b class="text-warning">276</b>
+                        <span>制造不良数统计</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="carousel-module">
+                  <div class="modulecharts" id="final"></div>
+                  <div class="classy-list packlindex-list">
+                    <h4>最终产品合格情况</h4>
+                    <ul class="bigtext-list">
+                      <li>
+                        <b class="text-success">95%</b>
+                        <span>一次检验合格率</span>
+                      </li>
+                    </ul>
+                    <ul class="index-list">
+                      <li>不良缺陷类别</li>
+                      <li><i class="fa fa-arrow-circle-o-right"></i> 1,缺陷一</li>
+                      <li><i class="fa fa-arrow-circle-o-right"></i> 2,缺陷二</li>
+                      <li><i class="fa fa-arrow-circle-o-right"></i> 3,缺陷三</li>
+                    </ul>
+                    <ul class="bigtext-list">
+                      <li>
+                        <b class="text-warning">276</b>
+                        <span>包装不良统计</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="carousel-module">
+                  <div class="modulecharts" id="scrap"></div>
+                  <div class="classy-list">
+                    
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="carousel-caption">
+                <h4>Slide {{$index}}</h4>
+                <p>{{slide.text}}</p>
+              </div> -->
+            </slide>
+          </carousel>
+        </div>
+        <!-- / carousel -->    
+    </div>
+    
+</div>
+  
