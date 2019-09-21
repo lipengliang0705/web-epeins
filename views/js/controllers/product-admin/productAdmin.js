@@ -1,139 +1,334 @@
-app.controller('productAdminController', ['$scope', 'Restangular' ,'ngTableParams', 'dialogs', 'toaster', 
-	function($scope, Restangular, NgTableParams, dialogs, toaster) {
+app.controller('productAdminController', productAdminController);
+productAdminController.$inject = ['$scope', 'Restangular' ,'ngTableParams', 'dialogs', 'toaster', '$http', '$rootScope','$filter'];
+function productAdminController($scope, Restangular, NgTableParams, dialogs, toaster, $http, $rootScope,$filter) {
+	 //查询所有知识分类列表
+	 //var baseBanks = Restangular.one('/api/knowledge/knowledge-all');
+	$scope.resoures = {
+		list: [],//信息列表
+	};
+	function checkKnowledgeAll() {
+		var params = { 
+			categoryId: '', 
+			knowledge: '', 
+			beginTime: '', 
+			endTime: '' 
+		}
+		Restangular.all('/api/knowledge/knowledge-all').post(params).then(function(res) {
+			if (res) {
+				//console.log('测试', $scope.resoures.list);
+				var len = 30;
+                // 截取描述
+                angular.forEach(res, function (item, index) {
+                    var ele = $('<div>' + item.content + '</div>');
+                    var text = ele.text();
+                    if (item.content && text.length > len) {
+                        item.subTitle = text.substring(0, len) + '...';
+                    } else if (item.content && text.length <= len) {
+                        item.subTitle = text;
+                    } else {
+                        item.subTitle = '';
+                    }
+				});
+				$scope.resoures.list = res;
+				$scope.myTable = new NgTableParams({count: 5, sorting: { title: "desc" } }, { counts: [5, 10, 20], dataset: $scope.resoures.list});
+				toaster.pop('success', '', '列表数据成功！');
+			}	
+		}, function(errRes) {
+			console.log("Error with status code", errRes.status);}
+	)};
+	//时间插件
+	$scope.today = function() {
+		$scope.dt = new Date();
+	};
+	$scope.today();
 
-	 var testData = [
-	 	{code:'1', machine:"1#机",types:'K1214', productName:"YFL-1-T/B",taskNo:'ZJG-20190722F2-119', taskNumber:"2000",waste:'0', date:"2019-07-28", InvName:"1000", material:"LBK15D", changeover:"是", drawing:"views/imgs/standard.svg", standard:"views/imgs/standard.svg"},
-	 	{code:'2', machine:"1#机",types:'K1214', productName:"XJ-50B",taskNo:'SC20190718X1-521', taskNumber:"50000",waste:'0', date:"2019-07-28", InvName:"2000", material:"PB4520", changeover:"是", drawing:"views/imgs/standard.svg", standard:"views/imgs/standard.svg"},
-	 	{code:'3', machine:"2#机",types:'K1214', productName:"XJ-20-T",taskNo:'SC20190617X1-437', taskNumber:"20000",waste:'0', date:"2019-07-28", InvName:"3500", material:"PB4520", changeover:"是", drawing:"views/imgs/standard.svg", standard:"views/imgs/standard.svg"},
-	 	{code:'4', machine:"2#机",types:'K1214', productName:"PLKPA45*50T",taskNo:'SC20190718X1-521', taskNumber:"50000",waste:'0', date:"2019-07-28", InvName:"4000", material:"PB4520", changeover:"否", drawing:"views/imgs/standard.svg", standard:"views/imgs/standard.svg"},
-	 	{code:'5', machine:"2#机",types:'K1214', productName:"PLKPA45*60T",taskNo:'SC20190718X1-521', taskNumber:"50000",waste:'0', date:"2019-07-28", InvName:"4000", material:"PB4520", changeover:"是", drawing:"views/imgs/standard.svg", standard:"views/imgs/standard.svg"},
-	 	{code:'6', machine:"2#机",types:'K1214', productName:"LG-16-T/B",taskNo:'SC20190718X1-521', taskNumber:"50000",waste:'0', date:"2019-07-28", InvName:"4500", material:"PB4520", changeover:"是", drawing:"views/imgs/standard.svg", standard:"views/imgs/standard.svg"},
-	 ];
+	$scope.clear = function () {
+		$scope.dt = null;
+	};
 
-	 $scope.testData = testData;
-     $scope.myTable = new NgTableParams({count: 5, sorting: { name: "desc", money:"asc" } }, { counts: [5, 10, 20], dataset: testData});
-     var search = function() {	
-		$scope.myTable = new NgTableParams({count: 5, sorting: { name: "desc", money:"asc" } }, { counts: [5, 10, 20], dataset: testData});
-     };
-     $scope.toggleDropdown = function($event) {
-      $event.preventDefault();
-      $event.stopPropagation();
-      $scope.status.isopen = !$scope.status.isopen;
+	// Disable weekend selection
+	$scope.disabled = function(date, mode) {
+		return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
+	};
+
+	$scope.toggleMin = function() {
+		$scope.minDate = $scope.minDate ? null : new Date();
+	};
+	$scope.toggleMin();
+
+	$scope.open = function($event, target) {
+		$event.preventDefault();
+		$event.stopPropagation();
+
+		$scope[target] = !$scope[target];
+	};
+
+	$scope.dateOptions = {
+		formatYear: 'yy',
+		startingDay: 1,
+		class: 'datepicker'
+	};
+	$scope.initDate = new Date('2016-15-20');
+	$scope.formats = ['dd-MMMM-yyyy', 'yyyy-MM-dd', 'dd.MM.yyyy', 'shortDate'];
+	$scope.format = $scope.formats[1];
+
+
+	//  $scope.testData = testData;
+    //  $scope.myTable = new NgTableParams({count: 5, sorting: { name: "desc", money:"asc" } }, { counts: [5, 10, 20], dataset: testData});
+    $scope.toggleDropdown = function($event) {
+		$event.preventDefault();
+		$event.stopPropagation();
+		$scope.status.isopen = !$scope.status.isopen;
     };
-	
-	var baseBanks = Restangular.one('master/datasource');
-	$scope.search = function(machine,types,productName,taskNo,material){
-		// $scope.searcher.date
-		console.log(999,machine,types,productName,taskNo,material);
-		var filterData = [];
-		angular.forEach(testData,function(item,index){
-			if(item.machine.indexOf(machine) > -1 || item.types.indexOf(types) > -1 || item.productName.indexOf(productName) > -1 || item.taskNo.indexOf(taskNo) > -1 || item.material.indexOf(material) > -1){
-				filterData.push(item);
+	function search(){
+		if ($scope.data.title || $scope.data.startDate || $scope.data.endDate) {
+			var params = { 
+				categoryId:'', 
+				knowledge:'', 
+				beginTime:'',
+				endTime:'',
+			};
+			//判断是否为空
+			if($scope.data.title){
+				params.knowledge = $scope.data.title;
 			}
-		});
-
-		$scope.myTable = new NgTableParams({count: 5, sorting: { name: "desc", money:"asc" } }, { counts: [5, 10, 20], dataset: filterData});
-
+			if($scope.data.startDate){
+				params.beginTime =  $filter('date')($scope.data.startDate, 'yyyy-MM-dd');
+			}if($scope.data.endDate){
+				params.endTime = $filter('date')($scope.data.endDate, 'yyyy-MM-dd');
+			}
+			console.log(885555891, params);
+			$scope.resoures.list = [];
+			Restangular.all('/api/knowledge/knowledge-all').post(params).then(function(res) {
+				//查询列表
+				if (res) {
+					//查询列表
+					$scope.resoures.list = res;
+					$scope.myTable = new NgTableParams({count: 5, sorting: { title: "desc" } }, { counts: [5, 10, 20], dataset: $scope.resoures.list});
+				}
+			}, function(errRes) {
+				//console.log("Error with status code", errRes.status);
+			});
+		}
 	}
 
-	var add = function (item) {
-		var dlg = dialogs.create('views/tpl/layer/product-admin/add.html','addController',{},{size:'md'});
+	function add(item) {
+		var dlg = dialogs.create('views/tpl/product-admin/add.html','addController',{data:item},{size:'md'});
     };
 	
     function modify(item) {
-    	console.log(item);
-		var dlg = dialogs.create('views/tpl/layer/product-admin/modify.html','modifyController',{data:item},{size:'md'});
-		
-		// dlg.result.then(function(resDate){
-		// 	console.log('cdsajs999999999',data);
-		// })
-
-		// dlg.result.then(function(bank){
-		// 	Restangular.all('master/banks').post(bank).then(function(result) {
-	 //    		if (result) {
-	 //    			toaster.pop('success', '', '新建银行数据成功！');
-	 //    			search();
-	 //    		}	
-		// 	}, function(errResponse) {
-		// 		console.log("Error with status code", errResponse.status);
-		// 	}); 
-
-		// },function(){
-		// 	console.log("Cancelled");
-		// });
-		
+		var dlg = dialogs.create('views/tpl/product-admin/modify.html','modifyController',{data:item},{size:'md'});	
     };
 
-    var deleted = function () {
-		var dlg = dialogs.create('views/tpl/layer/product-admin/delete.html','deteleDataController',{},{size:'sm'});
+    function deleted(item) {
+		var dlg = dialogs.create('views/tpl/product-admin/delete.html','deteleDataController',{data:item},{size:'sm'});	
+	};
+	$scope.data = {
 		
-    };
-	$scope.delete = deleted;
-	$scope.modify = modify;
-	$scope.add = add;
+	};
+	//定义方法
+	$scope.method = {
+		add:add,
+		modify:modify,
+		deleted:deleted,
+		search:search,
+	};
+	//初始化方法
+	function init(){
+		checkKnowledgeAll();
+	};
+	// 新建列表成功
+	$rootScope.$on('addSuccess', function (event, data) {
+		checkKnowledgeAll();
+	})
+	// 修改列表成功
+	$rootScope.$on('modifySuccess', function (event, data) {
+		checkKnowledgeAll();
+	})
+	// 删除列表成功
+	$rootScope.$on('deleteSuccess', function (event, data) {
+		checkKnowledgeAll();
+	})
+	// $scope.delete = deleted;
+	// $scope.modify = modify;
+	// $scope.add = add;
+
+	init();
+};
 
 
-}]);
 
-
-
-app.controller('addController',function($scope,$modalInstance,data,toaster){
+app.controller('addController',function($scope, $modalInstance, Restangular, data, toaster, $rootScope){
 	$scope.title = "添加生产计划";
-	var row = {};
-    $scope.testData =[
-    	{machine:"1#机",types:"K1214",productName:"YFL-1-T/B",taskNo:"ZJG-20190722F2-119"},
-    	{machine:"2#机",types:"K1214",productName:"XJ-50B",taskNo:"SC20190718X1-521"},
-    	{machine:"3#机",types:"K1214",productName:"XJ-20-T",taskNo:"SC20190617X1-437"}
-    ]
-	
-	$scope.cancel = function(){
+	//添加数据对象
+	$scope.data = {
+		title: '',
+		content: '',
+		labels: '',
+		createdTime: new Date(),
+		modifiedTime: new Date(),
+		createdBy: '',
+		editor: null,
+		kcategory: [],
+	}
+	$scope.kcategory = {
+		list: [],//分类列表
+	}
+	//$scope.data.editor = new window.wangEditor('#ueditor');
+    //如果需要使用 base64 编码直接将图片插入到内容中，可参考一下示例配置
+	//$scope.data.editor.customConfig.uploadImgShowBase64 = true;
+	//$scope.data.editor.create();
+
+	// 方法
+	$scope.method = {
+		submit: submit,
+		cancel: cancel,
+	}
+	function init() {
+		//getAccount();
+		kcategorySelect();
+	}
+	//筛选分类 GET
+	function kcategorySelect() {
+		Restangular.one('/api/kcategory/category-all').get().then(function(res) {
+			if (res) {
+				$scope.kcategory.list = res;
+				console.log('筛选分类', $scope.kcategory.list);
+			}	
+		}, function(errResponse) {
+			console.log("Error with status code", errResponse.status);
+		}); 
+
+	}
+	function cancel(){
 		$modalInstance.dismiss('Cancelled');
 	};
 	
-	$scope.save = function(){
-		var item = {};
-		$scope.item = {
-            machine: $scope.row.machine,
-            types: $scope.row.types,
-            name: $scope.row.name,
-        }
-        console.log(89898989,$scope.item);
-        toaster.pop('success', '', '新建数据成功！');
-		$modalInstance.close($scope.bank);
-	};
+	function submit(){
+		//获取输入数据
+		var item = {
+			title: $scope.data.title,
+			labels: $scope.data.labels,
+			content: $scope.data.content,
+			// createdTime: vm.data.createdTime,
+			// modifiedTime: vm.data.modifiedTime,
+			// createdBy: vm.data.createdBy,
+			knowledgeCategory: $scope.data.knowledgeCategory,
+		}
 
+		console.log(item);
+
+		// 调接口，储存
+		Restangular.all('/api/knowledge/knowledge-create').post(item).then(function(res) {
+			console.log('添加列表', res);
+			if (res.status == 0) {
+				// 储存成功后，并且刷新页面
+				toaster.pop('success', '', '新建数据成功！');
+				$rootScope.$broadcast('addSuccess');
+			}	
+		}, function(errRes) {
+			console.log("Error with status code", errRes.status);
+		});
+		cancel();
+	};
+	init();
 });
-app.controller('modifyController',function($scope,$modalInstance,data){
-	//$scope.dataTypes = [{"id":"1", "name":"总行"},{"id":"2", "name":"分行"},{"id":"3", "name":"支行"}];
+app.controller('modifyController',function($scope, $modalInstance, data, Restangular, $rootScope, toaster){
+	//修改列表接口method: 'PUT',url: '/api/knowledge/knowledge-infos'
+	console.log(data);
 	$scope.title = "生产计划变更";
-	$scope.testData =[
-    	{machine:"1#机",types:"K1214",productName:"YFL-1-T/B",taskNo:"ZJG-20190722F2-119"},
-    	{machine:"2#机",types:"K1215",productName:"XJ-50B",taskNo:"SC20190718X1-521"},
-    	{machine:"3#机",types:"K1216",productName:"XJ-20-T",taskNo:"SC20190617X1-437"}
-    ]
-    //var row = {};
-    $scope.row = data.data;
-	console.log(999,$scope.row);
-	$scope.cancel = function(){
+	//数据对象
+	$scope.details = [];
+	//选中的行赋给details数组
+	$scope.details = data.data;
+	console.log('ceshi',$scope.details.knowledgeCategorytitle);
+	$scope.kcategory = {
+		list: [],//分类列表
+	}
+	function init() {
+		//getAccount();
+		kcategorySelect();
+	}
+	//筛选分类 GET
+	function kcategorySelect() {
+		Restangular.one('/api/kcategory/category-all').get().then(function(res) {
+			if (res) {
+				$scope.kcategory.list = res;
+				console.log('筛选分类', $scope.kcategory.list);
+			}	
+		}, function(errResponse) {
+			console.log("Error with status code", errResponse.status);
+		}); 
+
+	}
+	//方法
+	$scope.method = {
+		submit: submit,
+		cancel: cancel,
+	}
+	function cancel(){
 		$modalInstance.dismiss('Cancelled');
 	};
 	
-	$scope.save = function(){
-		$modalInstance.close($scope.bank);
+	function submit(){
+		var item = {
+			id: $scope.details.id,
+			title: $scope.details.title,
+			labels: $scope.details.labels,
+			content: $scope.details.content,
+			knowledgeCategory:$scope.details.knowledgeCategory,
+		}
+		console.log(item);
+		Restangular.all('/api/knowledge/knowledge-infos').customPUT(item).then(function(res) {
+			console.log(res);
+			if (res.status == 0) {
+				// 储存成功后，跳转到列表页，并且刷新页面
+				$rootScope.$broadcast('modifySuccess');
+				toaster.pop('success', '修改数据成功！');
+				// 关闭
+				cancel();
+			}	
+		}, function(errResponse) {
+			console.log("Error with status code", errResponse.status);
+		});
 	};
+	init();
 
 });
 
-app.controller('deteleDataController',function($scope,$modalInstance,data){
-
+app.controller('deteleDataController',function($scope, $modalInstance, data, Restangular, $rootScope){
+	console.log(data);
 	$scope.title = "删除机器";
-	
-	$scope.cancel = function(){
+	$scope.data = {
+		id: data.data,
+	}
+	// 方法
+	$scope.method = {
+		submit: submit,
+		cancel: cancel,
+	}
+	function cancel(){
 		$modalInstance.dismiss('Cancelled');
 	};
 	
-	$scope.save = function(){
+	function submit(){
 		$modalInstance.close($scope.bank);
 	};
-
+	function submit(id) {
+		//调删除接口/api/knowledge/knowledge-delete/:id
+		// get
+		Restangular.one('/api/knowledge/knowledge-delete/', $scope.data.id).get().then(function(res) {
+			console.log(res);
+			if (res.status == 200) {
+				//请求删除数据
+				$rootScope.$broadcast('deleteSuccess', data);
+				toaster.pop('success', '删除数据成功！');
+				// 关闭
+				cancel();
+				//$modalInstance.close($scope.bank);
+			}	
+		}, function(errResponse) {
+			console.log("Error with status code", errResponse.status);
+		}); 	
+	}
 });

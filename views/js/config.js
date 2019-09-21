@@ -27,18 +27,20 @@ angular.module('app')
   .config(function(RestangularProvider) {
 	  
 	//RestangularProvider.setBaseUrl('http://localhost:8080/bdp');
-	console.log("rootURL: " + rootUrl);
+	//console.log("rootURL: " + rootUrl);
 	RestangularProvider.setBaseUrl(rootUrl);
 	RestangularProvider.setResponseExtractor(function(response, operation) {
-		if (response.status == "SUCCESS"){
-			return response.result;
-		} else {
-			console.log("status: " + response.status);
-		}
+    return response;
+		// if (response.status == "SUCCESS"){
+		// 	return response.result;
+		// } else {
+		// 	console.log("status: " + response.status);
+		// }
     });
-	//RestangularProvider.setRequestSuffix('.json');
-	RestangularProvider.setDefaultHeaders({'content-type': 'application/json; charset=utf-8'});
-
+  //RestangularProvider.setRequestSuffix('.json');
+  var token='Bearer ' + window.localStorage.getItem('authenticationToken');
+	RestangularProvider.setDefaultHeaders({'content-type': 'application/json; charset=utf-8','Authorization':token});
+  
   })
   .config(['$translateProvider', function($translateProvider){
     // Register a loader for the static files

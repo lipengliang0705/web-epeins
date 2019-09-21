@@ -14,6 +14,7 @@ angular.module('app', [
     'ui.jq',
     'ui.validate',
     'oc.lazyLoad',
+    'ui.select',
     'pascalprecht.translate',
 	//'ng-wrap', // wrap window
 	'restangular', 

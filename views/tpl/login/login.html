@@ -124,18 +124,18 @@
             <b><i class="fa iconfont icon-terminal"></i></b>
             <span>终端数据管理</span>
         </h2>
-        <form onsubmit="checked(event);">
+        <form>
             <div class="login—form">
                 <div class="form-group">
                     <div class="form-label">用户名</div>
-                    <input type="text" class="form-control" id="inputName" placeholder="用户名" ng-model="vm.username">
+                    <input type="text" class="form-control" id="inputName" placeholder="用户名" ng-model="data.username">
                 </div>
                 <div class="form-group">
                     <div class="form-label">密码</div>
-                    <input type="password" class="form-control" id="inputPassword" placeholder="密码" ng-model="vm.password">
+                    <input type="password" class="form-control" id="inputPassword" placeholder="密码" ng-model="data.password">
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-info" ui-sref="app.s5.storehouse-screen-mgmt">登 录</button>
+                    <button type="submit" class="btn btn-info" ng-click="method.login()">登 录</button>
                 </div>
             </div>
         </form>

@@ -1,0 +1,100 @@
+<div class="modal-header">
+    <h5 class="modal-title">{{title}}</h5>
+</div>
+
+<div class="modal-body">
+    <form name="form" class="form-validation">
+      <div class="panel panel-default panel-b0 ">
+        <div class="panel-body">
+            <div class="form-group pull-in clearfix">
+              <div class="col-sm-12 col-b10">
+                <label>标题：</label>
+                <div class="" ng-controller="DatepickerDemoCtrl">
+                  <div class="input-group">
+                      <input type="text" class="form-control" ng-model="data.title">
+                  </div>
+                </div>         
+              </div>
+              <div class="col-sm-12 col-b10">
+                <label>知识库分类：</label>
+                <select ui-jq="chosen" class="s-w100" ng-options="m.title for m in kcategory.list" ng-model="data.knowledgeCategory">
+                  <option>请选择</option>
+                </select>           
+              </div>
+              <div class="col-sm-12 col-b10">
+                <label>内容：</label>
+                <input type="text" class="form-control" ng-model="data.content">
+              </div>
+              <div class="col-sm-12 col-b10">
+                <label>所属人：</label>
+                <input type="text" class="form-control" ng-model="data.createdBy">
+              </div>
+              <!-- <div class="col-sm-6 col-b10">
+                <label>产品名称：</label>
+                <select ui-jq="chosen" class="s-w100" ng-options="m.productName for m in testData" ng-model="row.productName">
+                  <option>请选择</option>
+                </select>
+              </div>
+              <div class="col-sm-6 col-b10">
+                <label>任务单号：</label>
+                <select ui-jq="chosen" class="s-w100" ng-options="m.taskNo for m in testData" ng-model="row.taskNo">
+                  <option>请选择</option>
+                </select>
+              </div>
+              <div class="col-sm-6 col-b10">
+                <label>任务单数量：</label>
+                <input type="text" class="form-control" ng-model="row.taskNumber">
+              </div>
+              <div class="col-sm-6 col-b10">
+                <label>换模：</label>
+                <select ui-jq="chosen" class="w-md s-w100" ng-model="row.changeover">
+                  <option value="是">是</option>
+                  <option value="否">否</option>
+                </select>
+              </div>
+              <div class="col-sm-6 col-b10">
+                <label>材质：</label>
+                <input type="text" class="form-control" ng-model="row.material">
+              </div>
+              <div class="col-sm-6 col-b10">
+                <label>本日计划量：</label>
+                <input type="text" class="form-control" ng-model="row.InvName">
+              </div>
+              <div class="col-sm-12">
+                <label class="form-title">损耗时间/小时：</label>
+              </div>
+              <div class="col-sm-6 col-b10">
+                <label>换模：</label>
+                <input type="text" class="form-control" ng-model="row.changeover">
+              </div>
+              <div class="col-sm-6 col-b10">
+                <label>设备维修：</label>
+                <input type="text" class="form-control" ng-model="row.repair">
+              </div>
+              <div class="col-sm-6 col-b10">
+                <label>待料：</label>
+                <input type="text" class="form-control" ng-model="row.pending">
+              </div>
+              <div class="col-sm-6 col-b10">
+                <label>其它：</label>
+                <input type="text" class="form-control" ng-model="row.other">
+              </div>
+              <div class="col-sm-12 col-b10">
+                <label>备注：</label>
+                <textarea class="form-control" ng-model="row.remarks"></textarea>
+              </div>
+            </div> -->
+        </div>
+      </div>
+    </form>
+
+</div>
+<div class="modal-footer">                  
+    <button class="btn btn-default" ng-click="method.cancel()">取 消</button>
+    <button class="btn btn-success" ng-click="method.submit()">确 定</button>
+</div>
+
+
+
+
+
