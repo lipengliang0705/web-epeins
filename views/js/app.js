@@ -2,6 +2,7 @@
 
 
 angular.module('app', [
+    '$idle',
     'ngAnimate',
     'ngCookies',
     'ngResource',
@@ -13,6 +14,7 @@ angular.module('app', [
     'ui.load',
     'ui.jq',
     'ui.validate',
+    'angularShiro',
     'oc.lazyLoad',
     'ui.select',
     'pascalprecht.translate',
@@ -20,10 +22,11 @@ angular.module('app', [
 	'restangular', 
 	'dialogs.main',
 	'toaster',
-	'ngMask',
+    'ngMask',
+    'angular-storage',
 	//'ngWebSocket',
 	'ngSocket',
 	'angular-echarts',
-	'ngLoadingSpinner',
+    'ngLoadingSpinner',
 	//'angularFileUpload',
 ]);

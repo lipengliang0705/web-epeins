@@ -5,8 +5,9 @@
  * @param {Service} $http, http service to make ajax requests from angular
  * @param {String} type, chart type
  */
-function getLinkFunction($http, theme, util, type) {
+function getLinkFunction($http, $timeout, theme, util, type) {
     return function (scope, element, attrs) {
+
         scope.config = scope.config || {};
         var ndWrapper = element.find('div')[0], ndParent = element.parent()[0], parentWidth = ndParent.clientWidth, parentHeight = ndParent.clientHeight, width, height, chart;
         var chartEvent = {};
@@ -16,7 +17,59 @@ function getLinkFunction($http, theme, util, type) {
             ndWrapper.style.width = width + 'px';
             ndWrapper.style.height = height + 'px';
         }
-        function getOptions(data, config, type) {
+        
+        function getOptions(dataInput, config, type) {
+
+            var data = _.cloneDeep(dataInput);
+
+            if (data.length == 1) {
+                data[0].datapoints = _.sortBy(data[0].datapoints, function(o) { return o.x; });
+            }
+
+            if (data.length > 1) {
+                var lowerIndex = _.findIndex(data, function(o) { return o.type == 'lower'; });
+                if (lowerIndex > 0 ) {
+                    var lower = data.splice(lowerIndex,1);
+                    data.unshift(lower[0]);
+                }
+            }
+            if (data.length > 1) {
+                // merge different xAxis
+                var allX = [];
+                angular.forEach(data, function (serie) {
+                    angular.forEach(serie.datapoints, function (datapoint) {
+                        allX.push(datapoint.x);
+                    });
+                });
+                var uniqX = _.uniq(allX);
+                angular.forEach(data, function (serie) {
+                    var serieX = _.map(serie.datapoints, 'x');
+                    for (i=0; i<uniqX.length; i++) {
+                        if (!_.includes(serieX, uniqX[i])){
+                            serie.datapoints.push({x:uniqX[i], y:undefined});
+                        }
+                    }
+                    serie.datapoints = _.sortBy(serie.datapoints, function(o) { return o.x; });    
+                });
+
+                // standarize process
+                if (config && config.standardize == true) {
+                    for(var i=0; i<data.length; i++) {
+                        var allY = []; 
+                        var standard = [];
+                        _.forEach(data[i].datapoints, function(point) {
+                            allY.push(point.y);
+                        });
+                        var maxY = _.maxBy(allY);
+                        var minY = _.minBy(allY);
+                        _.map(data[i].datapoints, function (item) {
+                            standard.push({x: item.x, y: _.round((item.y-minY)/(maxY-minY),2) });
+                        });
+                        data[i].datapoints = standard;
+                    }
+                }
+            }
+
             // merge default config
             config = angular.extend({
                 showXAxis: true,
@@ -25,13 +78,22 @@ function getLinkFunction($http, theme, util, type) {
             }, config);
             var xAxis = angular.extend({
                     orient: 'top',
-                    axisLine: { show: false }
+                    axisLine: { show: false },
+                    splitLine: {show: true, lineStyle: {width:1, color:"#ddd", opacity:0.5}},
+/*                    axisLabel: {
+                        //rotate: 10,
+                        formatter: function (value, index) {
+                            return value.length > 8 ? value.substr(value.length-8,8) : value;
+                        }
+                    }*/
                 }, angular.isObject(config.xAxis) ? config.xAxis : {});
             var yAxis = angular.extend({
                     type: 'value',
                     orient: 'right',
-                    scale: false,
+                    //scale: false,
+                    scale: type=='line' ? true:false,
                     axisLine: { show: false },
+                    splitLine: {show: true, lineStyle: {width:1, color:"#ddd", opacity:0.5}},
                     axisLabel: {
                         formatter: function (v) {
                             return util.formatKMBT(v);
@@ -41,12 +103,18 @@ function getLinkFunction($http, theme, util, type) {
             // basic config
             var options = {
                     title: util.getTitle(data, config, type),
+                    grid: util.getGrid(data, config, type),
                     tooltip: util.getTooltip(data, config, type),
                     legend: util.getLegend(data, config, type),
                     toolbox: angular.extend({ show: false }, angular.isObject(config.toolbox) ? config.toolbox : {}),
                     xAxis: [ angular.extend(xAxis, util.getAxisTicks(data, config, type)) ],
                     yAxis: [ yAxis ],
-                    series: util.getSeries(data, config, type)
+                    color: util.getColor(data, config, type),
+                    geo: util.getGeo(data, config, type),
+                    series: util.getSeries(data, config, type, null),
+                    backgroundColor: util.getBgColor(data, config, type),
+                    dataZoom: util.getZoom(data, config, type),
+                    brush: util.getBrush(data, config, type),
                 };
             if (!config.showXAxis) {
                 angular.forEach(options.xAxis, function (axis) {
@@ -65,7 +133,7 @@ function getLinkFunction($http, theme, util, type) {
             if (!config.showLegend || type === 'gauge' || type === 'map') {
                 delete options.legend;
             }
-            if (!util.isAxisChart(type)) {
+            if (!util.isAxisChart(type, data)) {
                 delete options.xAxis;
                 delete options.yAxis;
             }
@@ -81,6 +149,7 @@ function getLinkFunction($http, theme, util, type) {
             if (config.polar) {
                 options.polar = config.polar;
             }
+            //console.log(options);
             return options;
         }
         var isAjaxInProgress = false;
@@ -113,7 +182,23 @@ function getLinkFunction($http, theme, util, type) {
                         }
                     });
                 }
+            } else {
+                //apply click event to save curent data into widget;
+                //TODO: for TSS bigdata platform only
+/*                if (!chartEvent['click']) {
+                    chartEvent['click'] = true;
+                    chart.on('click', function (param) {
+                        var curElement = {name:param.name, value:param.value};
+                        var widget = scope.$parent.$parent.vm.widget;
+                        widget.curElement = curElement;
+                        //alert(angular.toJson(scope.config.curElement));
+                    });
+                }*/
             }
+/*            chart.on('legendselected', function (param) {
+                console.log("legendselected");
+            });*/
+
             // string type for data param is assumed to ajax datarequests
             if (angular.isString(scope.data)) {
                 if (isAjaxInProgress) {
@@ -121,10 +206,10 @@ function getLinkFunction($http, theme, util, type) {
                 }
                 isAjaxInProgress = true;
                 // show loading
-                chart.showLoading({
+/*                chart.showLoading({
                     text: scope.config.loading || '\u594B\u529B\u52A0\u8F7D\u4E2D...',
                     textStyle: textStyle
-                });
+                });*/
                 // fire data request
                 $http.get(scope.data).success(function (response) {
                     isAjaxInProgress = false;
@@ -135,68 +220,102 @@ function getLinkFunction($http, theme, util, type) {
                             chart.clear();
                         }
                         if (options.series.length) {
+                            if (options.geo == null) delete options.geo;
                             chart.setOption(options);
                             chart.resize();
                         } else {
-                            chart.showLoading({
+/*                            chart.showLoading({
                                 text: scope.config.errorMsg || '\u6CA1\u6709\u6570\u636E',
                                 textStyle: textStyle
-                            });
+                            });*/
                         }
                     } else {
-                        chart.showLoading({
+/*                        chart.showLoading({
                             text: scope.config.emptyMsg || '\u6570\u636E\u52A0\u8F7D\u5931\u8D25',
                             textStyle: textStyle
-                        });
+                        });*/
                     }
                 }).error(function (response) {
                     isAjaxInProgress = false;
-                    chart.showLoading({
+/*                    chart.showLoading({
                         text: scope.config.emptyMsg || '\u6570\u636E\u52A0\u8F7D\u5931\u8D25',
                         textStyle: textStyle
-                    });
+                    });*/
                 });    // if data is avaliable, render immediately
             } else {
                 options = getOptions(scope.data, scope.config, type);
-                if (scope.config.forceClear) {
+                //if (scope.config.forceClear) {
                     chart.clear();
-                }
+                //}
                 if (options.series.length) {
+                    if (options.geo == null) delete options.geo;
                     chart.setOption(options);
                     chart.resize();
                 } else {
-                    chart.showLoading({
+/*                    chart.showLoading({
                         text: scope.config.errorMsg || '\u6CA1\u6709\u6570\u636E',
                         textStyle: textStyle
-                    });
+                    });*/
                 }
+            }
+            // brush
+            if (scope.config.brush) {
+                var areas = [];
+                _(scope.config.brush).forEach( function (item) {
+                    var range = [item.start, item.end];
+                    areas.push({xAxisIndex: 0, coordRange: range});
+                }); 
+/*                chart.dispatchAction({
+                    type: 'brush',
+                    areas: areas
+                });*/
             }
         }
         // update when charts config changes
         scope.$watch(function () {
             return scope.config;
-        }, function (value) {
+        }, function (value, oldValue) {
             if (value) {
                 setOptions();
+            //console.log('reset config', value.changing, oldValue.changing);
+/*                if(scope.config.changing !== true) {
+                    //setOptions();
+                    $timeout(function() {
+                        setOptions();
+                    }, 500);
+                }*/
             }
         }, true);
         scope.$watch(function () {
             return scope.data;
-        }, function (value) {
+        }, function (value, oldValue) {
             if (value) {
+            //console.log('reset data', scope.config.changing, scope.config);
+/*                if(scope.config.changing !== true) {
+                    if (scope.config.maxSize) {
+                        setOptions();
+                    } else {
+                        $timeout(function() {
+                            setOptions();
+                        }, 500); 
+                    }   
+                    //setOptions();  
+                }*/
                 setOptions();
             }
         }, true);
+
+
     };
 }
 /**
  * add directives
  */
 var app = angular.module('angular-echarts', ['angular-echarts.theme', 'angular-echarts.util']);
-var types = ['line', 'bar', 'area', 'pie', 'donut', 'gauge', 'map', 'radar'];
+var types = ['scatter', 'bar', 'line', 'area', 'pie', 'donut', 'gauge', 'map', 'radar', 'mix'];
 for (var i = 0, n = types.length; i < n; i++) {
     (function (type) {
-        app.directive(type + 'Chart', ['$http', 'theme', 'util', function ($http, theme, util) {
+        app.directive(type + 'Chart', ['$http', '$timeout', 'theme', 'util', function ($http, $timeout, theme, util) {
                     return {
                         restrict: 'EA',
                         template: '<div></div>',
@@ -204,7 +323,7 @@ for (var i = 0, n = types.length; i < n; i++) {
                             config: '=config',
                             data: '=data'
                         },
-                        link: getLinkFunction($http, theme, util, type)
+                        link: getLinkFunction($http, $timeout, theme, util, type)
                     };
                 }]);
     }(types[i]));
@@ -214,14 +333,20 @@ for (var i = 0, n = types.length; i < n; i++) {
  * util services
  */
 angular.module('angular-echarts.util', []).factory('util', function () {
-    function isPieChart(type) {
-        return ['pie', 'donut'].indexOf(type) > -1;
+    function isPieChart(type, data) {
+        return ['pie', 'donut'].indexOf(type) > -1 
+            || _.includes(_.map(data, 'type'),'pie')
+            || _.includes(_.map(data, 'type'),'donut');
     }
     function isMapChart(type) {
         return ['map'].indexOf(type) > -1;
     }
-    function isAxisChart(type) {
-        return ['line', 'bar', 'area'].indexOf(type) > -1;
+    function isAxisChart(type, data) {
+        if (isPieChart(type, data)) {
+            return false;
+        } else {
+            return ['scatter', 'line', 'area', 'upper', 'lower', 'bar', 'stack', 'mix'].indexOf(type) > -1;
+        }
     }
     /**
      * get x axis ticks from the 1st serie
@@ -231,11 +356,15 @@ angular.module('angular-echarts.util', []).factory('util', function () {
         if (data[0]) {
             angular.forEach(data[0].datapoints, function (datapoint) {
                 ticks.push(datapoint.x);
+                //ticks.push('test');
             });
         }
         return {
             type: 'category',
-            boundaryGap: type === 'bar',
+            //boundaryGap: type === 'bar',
+            boundaryGap: type === 'bar' || _.includes(_.map(data, 'type'),'bar'),
+             
+            //splitNumber: 10,
             data: ticks
         };
     }
@@ -246,19 +375,153 @@ angular.module('angular-echarts.util', []).factory('util', function () {
      * @param {Object} config options
      * @param {String} chart type
      */
-    function getSeries(data, config, type) {
+    function getSeries(data, config, type, lows) {
+
+        var lowers = lows;
+        if (data.length > 1 && lowers == null) {
+            lowers = _.find(data, function(o) { return o.type =='lower'; }); 
+        }
+
+        //in case of mixed charts
+        if (type === 'mix') {
+            var mixSeries = [];
+            var itemSeries = [];
+            var itemData = [];
+            angular.forEach(data, function (item) {
+                itemData = [item];
+                itemSeries = getSeries(itemData, config, item.type, lowers)
+                mixSeries.push(itemSeries[0]);
+            });
+            //console.log(mixSeries);
+            return mixSeries;
+        }
+
         var series = [];
         angular.forEach(data, function (serie) {
             // datapoints for line, area, bar chart
             var datapoints = [];
             angular.forEach(serie.datapoints, function (datapoint) {
-                datapoints.push(datapoint.y);
+                if (serie.type === 'scatter') {
+                    datapoints.push([datapoint.x,datapoint.y,datapoint.z]);
+                } else if (serie.type === 'upper') { 
+                    var lower = _.find(lowers.datapoints, function(o) { 
+                            return o.x == datapoint.x; }
+                        );   
+                    datapoints.push(datapoint.y - lower.y);
+                } else { 
+                    datapoints.push(datapoint.y);
+                }
             });
             var conf = {
                     type: type || 'line',
+                    legend: {show:true},
                     name: serie.name,
-                    data: datapoints
+                    data: datapoints,
+                    showAllSymbol: false,
+                    symbol: 'emptyCircle',
+                    showSymbol: false,
+                    connectNulls: true,
+                    lineStyle: {normal: {
+                        width: config.lineWidth || 2,
+                        type: serie.lineType || 'solid'
+                    }},
+                    itemStyle: {normal:{}}
                 };
+            
+            if (type === 'lower') {
+                conf.stack = 'confidence-band';
+                conf.symbol = 'none';
+                conf.type = 'line';
+                conf.lineStyle = {
+                    normal: {
+                        opacity: 0.5,
+                        width:1,
+                        //type: 'dashed'
+                        //type: 'dotted'
+                    }
+                };
+            }
+
+            if (type === 'upper') {
+                conf.stack = 'confidence-band';
+                conf.symbol = 'none';
+                conf.type = 'line';
+                conf.lineStyle = {
+                    normal: {
+                        opacity: 0.5,
+                        width:1,
+                        //type: 'dashed'
+                        //type: 'dotted'
+                    }
+                };
+                conf.areaStyle = {
+                    normal: {
+                        color: serie.rangeColor || 'rgba(120, 36, 50, 0.3)'
+                    }
+                };
+            }
+
+            if (type === 'bar') {
+                var gap = '';
+                switch (data.length) {
+                    case 1:
+                        gap = '50%';
+                        break;
+                    case 2:
+                    case 3:
+                        gap = '30%';
+                        break;
+                    default:
+                        gap = '20%'
+                }
+                conf.barCategoryGap = gap;
+                conf.stack = serie.stack;
+
+                //handle single bar color
+                var defaultColors = [
+                    '#2ec7c9','#b6a2de','#5ab1ef','#ffb980','#d87a80',
+                    '#8d98b3','#e5cf0d','#97b552','#95706d','#dc69aa',
+                    '#07a2a4','#9a7fd1','#588dd5','#f5994e','#c05050',
+                    '#59678c','#c9ab00','#7eb00a','#6f5553','#c14089'
+                ];
+                var colors = config.color || defaultColors;
+                if (config.singleBarColor) {
+                    conf.itemStyle.normal.color = function(params) {
+                        return colors[params.dataIndex];
+                    };
+                } else {
+                    if (conf.itemStyle.normal.color) {
+                        delete conf.itemStyle.normal.color;
+                    } 
+                }
+
+            }
+            // scatter chart special config
+            if (type === 'scatter') {
+                conf.type = 'scatter';
+                //conf.symbol = 'emptyCircle';
+                delete conf.symbol;
+                conf.symbolSize = function (point) {
+                    //return Math.sqrt(point[1]) / 5e2;
+                    return point[2] || 5;
+                };
+                conf.label = {
+                    emphasis: {
+                        show: true,
+                        formatter: function (param) {
+                            return param.name;
+                        },
+                        position: 'top'
+                    }
+                };
+                conf.itemStyle = {
+                    normal: {
+                        shadowBlur: 5,
+                        shadowColor: 'rgba(120, 36, 50, 0.5)',
+                        shadowOffsetY: 2,
+                    }
+                };
+            }
             // area chart is actually line chart with special itemStyle
             if (type === 'area') {
                 conf.type = 'line';
@@ -326,8 +589,20 @@ angular.module('angular-echarts.util', []).factory('util', function () {
                     }
                 }, config.gauge || {});
             }
+
+            //add markArea
+            if (isAxisChart(type, data) && serie.markRange) {
+                conf.markArea = {};
+                conf.markArea.slient = true;
+                conf.markArea.data = [];
+                conf.markArea.data.push([]);
+                var areaData = conf.markArea.data[0];
+                areaData.push({xAxis:serie.markRange.start});
+                areaData.push({xAxis:serie.markRange.end});  
+            }
+
             // datapoints for pie chart and gauges are different
-            if (!isAxisChart(type)) {
+            if (!isAxisChart(type, data)) {
                 conf.data = [];
                 angular.forEach(serie.datapoints, function (datapoint) {
                     conf.data.push({
@@ -336,42 +611,59 @@ angular.module('angular-echarts.util', []).factory('util', function () {
                     });
                 });
             }
-            if (isPieChart(type)) {
+            if (isPieChart(type, data)) {
                 // donut charts are actually pie charts
                 conf.type = 'pie';
                 // pie chart need special radius, center config
-                conf.center = config.center || ['40%', '50%'];
-                conf.radius = config.radius || '60%';
+                conf.center = config.center || ['55%', '50%'];
+                conf.radius = config.radius || '65%';
+
                 // donut chart require special itemStyle
                 if (type === 'donut') {
+                    conf.center = config.center || ['50%', '50%'];
                     conf.radius = config.radius || ['50%', '70%'];
                     conf = angular.extend(conf, {
                         itemStyle: {
                             normal: {
-                                label: { show: false },
-                                labelLine: { show: false }
-                            },
-                            emphasis: {
-                                label: {
+                                label: { 
                                     show: true,
+                                    formatter: '{d}%',
+                                    //position: 'center',
+                                },
+                                labelLine: { 
+                                    show: true,
+                                    length:3,
+                                    length2:8
+                                }
+                            },
+/*                            emphasis: {
+                                label: {
+                                    show: false,
                                     position: 'center',
                                     textStyle: {
                                         fontSize: '50',
                                         fontWeight: 'bold'
                                     }
                                 }
-                            }
+                            }*/
                         }
                     }, config.donut || {});
                 } else if (type === 'pie') {
+                    conf.roseType = serie.roseType || false;
+                    if (conf.roseType) {
+                        conf.radius = ['15%','75%'];
+                    } else {
+                        delete conf.radius;
+                    }
                     conf = angular.extend(conf, {
                         itemStyle: {
                             normal: {
                                 label: {
                                     position: 'inner',
-                                    formatter: function (a, b, c, d) {
+/*                                    formatter: function (a, b, c, d) {
                                         return (d - 0).toFixed(0) + '%';
-                                    }
+                                    }*/
+                                    formatter: '{d}%'
                                 },
                                 labelLine: { show: false }
                             },
@@ -382,12 +674,42 @@ angular.module('angular-echarts.util', []).factory('util', function () {
                                 }
                             }
                         }
+
                     }, config.pie || {});
                 }
             }
             if (isMapChart(type)) {
-                conf.type = 'map';
-                conf = angular.extend(conf, {}, config.map || {});
+                var mapEffect = {
+                    type: 'effectScatter',
+                    coordinateSystem: 'geo',
+                    zlevel: 2,
+                    rippleEffect: {
+                        scale:20,
+                        period:5,
+                        brushType: 'stroke'
+                    },
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'left',
+                            formatter: '{b}',
+                            textStyle: {color:'#000'}
+                       }
+                    },
+                    symbolSize: function(val) {
+                        return val[2];
+                    },
+                    itemStyle: {
+                        normal: {
+                            //color: '#CC9933',
+                            color: '#F6A623',
+                            borderWidth: 5
+                        }
+                    },
+                };
+                //delete conf.type;
+                conf = angular.extend(conf, {}, config.mapEffect || mapEffect);
+                conf.data = serie;
             }
             // if stack set to true
             if (config.stack) {
@@ -398,27 +720,30 @@ angular.module('angular-echarts.util', []).factory('util', function () {
             }
             series.push(conf);
         });
+        //if (type != 'mix') {console.log(series);}
         return series;
     }
     /**
      * get legends from data series
      */
     function getLegend(data, config, type) {
-        var legend = { data: [] };
-        if (isPieChart(type)) {
+        //var legend = { data: [], textStyle:{color: "#999"} };
+        var legend = { data: []};
+        if (isPieChart(type, data)) {
             if (data[0]) {
                 angular.forEach(data[0].datapoints, function (datapoint) {
                     legend.data.push(datapoint.x);
                 });
             }
             legend.orient = 'verticle';
-            legend.x = 'right';
+            legend.x = 'left';
             legend.y = 'center';
         } else {
             angular.forEach(data, function (serie) {
                 legend.data.push(serie.name);
             });
             legend.orient = 'horizontal';
+            legend.show = !(data.length == 1 && data[0].type == "bar");
         }
         return angular.extend(legend, config.legend || {});
     }
@@ -427,36 +752,125 @@ angular.module('angular-echarts.util', []).factory('util', function () {
      */
     function getTooltip(data, config, type) {
         var tooltip = {};
-        switch (type) {
+        var items = config.traces || data;  //TODO: for TSS bigdata platform, data in config.traces
+        var itemType;
+        if (angular.isArray(items)){
+            itemType = items[0].type || type;
+        } else {
+            itemType = type;
+        }
+        //switch (type) {
+        switch (itemType) {
         case 'line':
         case 'area':
+        case 'mix':
             tooltip.trigger = 'axis';
+            //tooltip.formatter = '{a} <br/>{b}: {c} ({d}%)';
             break;
         case 'pie':
         case 'donut':
         case 'bar':
+        //case 'mix':
         case 'map':
         case 'gauge':
             tooltip.trigger = 'item';
             break;
         }
-        if (type === 'pie') {
-            tooltip.formatter = '{a} <br/>{b}: {c} ({d}%)';
+        if (itemType === 'pie' || itemType === 'donut') {
+            if (config.customTooltip) {
+                tooltip.formatter = function (params, ticket, callback) {
+                    return params.data.tooltip;
+                }
+            } else {
+                //tooltip.formatter = '{a} <br/>{b}: {c} ({d}%)';
+                tooltip.formatter = '{b}<br/> {c} ({d}%)';
+            }
         }
-        if (type === 'map') {
-            tooltip.formatter = '{b}';
+        if (itemType === 'map') {
+            if (config.tooltip) {
+                tooltip.formatter = config.tooltip.formatter || '{b}';
+            } else {
+                tooltip.formatter = '{b}';
+            }
         }
+        var upperIndex = _.findIndex(data, function(o) {return o.type=='upper'});    
+        if (upperIndex > 0) {
+            tooltip.formatter = function (params, ticket, callback) {
+                var strTip = params[0].name + "<br/>";
+                
+                for(var i=0; i<data.length;i++) {
+                    var value = (upperIndex==i) ? parseFloat(params[i].value) + parseFloat(params[0].value) : params[i].value;
+                    strTip += "<font size='4' color='" + params[i].color + "''>●</font>&nbsp;" + params[i].seriesName + ": " + value + "<br/>";
+                }
+                return strTip;
+            };
+        }
+
+
         return angular.extend(tooltip, angular.isObject(config.tooltip) ? config.tooltip : {});
     }
     function getTitle(data, config, type) {
         if (angular.isObject(config.title)) {
             return config.title;
         }
-        return isPieChart(type) ? null : {
+        return isPieChart(type, data) ? null : {
             text: config.title,
             subtext: config.subtitle || '',
             x: 50
         };
+    }
+    function getBrush(data, config, type) {
+        if (angular.isObject(config.brush)) {
+            var brushObj = {
+                brushType: 'lineX',
+                xAxisIndex: 'all',
+                transformable: false,
+                outOfBrush: {colorAlpha: 1}
+            }
+            return brushObj;
+        }
+    }
+    function getGrid(data, config, type) {
+        if (angular.isObject(config.grid)) {
+            return config.grid;
+        } else {
+            //return {};
+            return {show:false, left:50, top:40, right:40, bottom:40};
+        }
+    }
+    function getColor(data, config, type) {
+        if (angular.isArray(config.color)) {
+            return config.color;
+        } else {
+            return ['#d48265', '#91c7ae', '#ca8622', '#749f83', '#6e7074', '#bda29a', '#546570', '#c4ccd3'];
+        }
+    }
+    function getGeo(data, config, type) {
+        if (angular.isObject(config.geo)) {
+            return config.geo;
+        } else {
+            return null;
+        }
+    }
+    function getBgColor(data, config, type) {
+        if (config.bgColor) {
+            return config.bgColor;
+        } else {
+            return 'transparent';
+            //return "rgba(128, 128, 128, 0.1)";
+        }
+    }
+    function getZoom(data, config, type) {
+        var zooms = [];
+        if (config.zoomX == true) {
+            zooms.push({type:'slider', show:true}); 
+            zooms[0].xAxisIndex = 0;
+        }
+        if (config.zoomY == true) {
+            zooms.push({type:'slider', show:true}); 
+            zooms[1].yAxisIndex = 0;
+        }
+        return zooms;
     }
     function formatKMBT(y, formatter) {
         if (!formatter) {
@@ -485,10 +899,16 @@ angular.module('angular-echarts.util', []).factory('util', function () {
         isPieChart: isPieChart,
         isAxisChart: isAxisChart,
         getAxisTicks: getAxisTicks,
+        getColor: getColor,
+        getGeo: getGeo,
+        getBgColor: getBgColor,
+        getZoom: getZoom,
         getSeries: getSeries,
         getLegend: getLegend,
         getTooltip: getTooltip,
         getTitle: getTitle,
+        getBrush: getBrush,
+        getGrid: getGrid,
         formatKMBT: formatKMBT
     };
 });
@@ -566,7 +986,7 @@ angular.module('angular-echarts.theme').factory('blue', function () {
             // 填充颜色
             handleColor: '#1790cf'    // 手柄颜色
         },
-        grid: { borderWidth: 0 },
+        grid: { borderWidth: 1 },
         // 类目轴
         categoryAxis: {
             axisLine: {
@@ -758,7 +1178,7 @@ angular.module('angular-echarts.theme').factory('dark', function () {
         legend: {
             itemGap: 8,
             textStyle: {
-                color: '#ccc'    // 图例文字颜色
+                color: '#000000'    // 图例文字颜色
             }
         },
         // 值域
@@ -804,7 +1224,7 @@ angular.module('angular-echarts.theme').factory('dark', function () {
             handleColor: '#eee'    // 手柄颜色
         },
         // 网格
-        grid: { borderWidth: 0 },
+        grid: { borderWidth: 1 },
         // 类目轴
         categoryAxis: {
             axisLine: {
@@ -887,7 +1307,7 @@ angular.module('angular-echarts.theme').factory('dark', function () {
             symbolSize: 3
         },
         // 折线图默认参数
-        line: { smooth: true },
+        line: { smooth: false },
         // K线图默认参数
         k: {
             itemStyle: {
@@ -1013,7 +1433,7 @@ angular.module('angular-echarts.theme').factory('dark', function () {
                 // 属性length控制线长
                 lineStyle: {
                     // 属性lineStyle（详见lineStyle）控制线条样式
-                    width: 3,
+                    width: 1,
                     color: '#fff',
                     shadowColor: '#fff',
                     //默认透明
@@ -1116,7 +1536,7 @@ angular.module('angular-echarts.theme').factory('green', function () {
             // 填充颜色
             handleColor: '#408829'    // 手柄颜色
         },
-        grid: { borderWidth: 0 },
+        grid: { borderWidth: 1 },
         // 类目轴
         categoryAxis: {
             axisLine: {
@@ -1349,7 +1769,7 @@ angular.module('angular-echarts.theme').factory('infographic', function () {
             handleColor: '#27727B'
         },
         // 网格
-        grid: { borderWidth: 0 },
+        grid: { borderWidth: 1 },
         // 类目轴
         categoryAxis: {
             axisLine: {
@@ -1414,9 +1834,9 @@ angular.module('angular-echarts.theme').factory('infographic', function () {
         line: {
             itemStyle: {
                 normal: {
-                    borderWidth: 2,
+                    borderWidth: 1,
                     borderColor: '#fff',
-                    lineStyle: { width: 3 }
+                    lineStyle: { width: 1 }
                 },
                 emphasis: { borderWidth: 0 }
             },
@@ -1448,7 +1868,7 @@ angular.module('angular-echarts.theme').factory('infographic', function () {
                     borderWidth: 1,
                     borderColor: 'rgba(200,200,200,0.5)'
                 },
-                emphasis: { borderWidth: 0 }
+                emphasis: { borderWidth: 1 }
             },
             symbol: 'star4',
             // 图形类型
@@ -1660,7 +2080,7 @@ angular.module('angular-echarts.theme').factory('macarons', function () {
             },
             axisTick: {
                 // 坐标轴线
-                show: false,
+                show: true,
                 lineStyle: {
                     // 属性lineStyle控制线条样式
                     color: '#008acd',
@@ -1747,7 +2167,7 @@ angular.module('angular-echarts.theme').factory('macarons', function () {
             smooth: true,
             symbol: 'circle',
             // 拐点图形类型
-            symbolSize: 3    // 拐点图形大小
+            symbolSize: 5    // 拐点图形大小
         },
         // K线图默认参数
         k: {
@@ -1837,7 +2257,7 @@ angular.module('angular-echarts.theme').factory('macarons', function () {
             },
             axisTick: {
                 // 坐标轴小标记
-                splitNumber: 10,
+                splitNumber: 20,
                 // 每份split细分多少段
                 length: 15,
                 // 属性length控制线长
@@ -1932,7 +2352,7 @@ angular.module('angular-echarts.theme').factory('red', function () {
             // 填充颜色
             handleColor: '#d8361b'    // 手柄颜色
         },
-        grid: { borderWidth: 0 },
+        grid: { borderWidth: 1 },
         // 类目轴
         categoryAxis: {
             axisLine: {
@@ -2137,7 +2557,7 @@ angular.module('angular-echarts.theme').factory('shine', function () {
             // 填充颜色
             handleColor: '#005eaa'    // 手柄颜色
         },
-        grid: { borderWidth: 0 },
+        grid: { borderWidth: 1 },
         // 类目轴
         categoryAxis: {
             axisLine: {

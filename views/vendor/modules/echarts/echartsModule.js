@@ -1,6 +1,6 @@
 ﻿var eCharts = angular.module('eCharts', []);  
 
-eCharts.directive('line', function() {  
+eCharts.directive('eLine', function() {  
     return {  
         scope: {  
             id: "@",  
@@ -62,7 +62,7 @@ eCharts.directive('line', function() {
     };  
 }); 
 
-eCharts.directive('ebar', function() {  
+eCharts.directive('eBar', function() {  
     return {  
         scope: {  
             id: "@",  
@@ -124,7 +124,7 @@ eCharts.directive('ebar', function() {
 }); 
 
 
-app.directive('scatter', function() {  
+eCharts.directive('eScatter', function() {  
     return {  
         scope: {  
             id: "@",  
@@ -175,7 +175,7 @@ app.directive('scatter', function() {
     };  
 }); 
 
-app.directive('map', function() {  
+eCharts.directive('eMap', function() {  
     return {  
         scope: {  
             id: "@",  
@@ -230,7 +230,7 @@ app.directive('map', function() {
     };  
 }); 
 
-app.directive('pie', function() {  
+eCharts.directive('ePie', function() {  
     return {  
         scope: {  
             id: "@",  
@@ -268,7 +268,7 @@ app.directive('pie', function() {
     };  
 }); 
 
-app.directive('radar', function() {  
+eCharts.directive('eRadar', function() {  
     return {  
         scope: {  
             id: "@",  

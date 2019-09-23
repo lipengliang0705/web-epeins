@@ -1,9 +1,10 @@
 /* Custom dialog/modal headers */
 
-.dialog-header-error { background-color: #d2322d; }
-.dialog-header-wait { background-color: #428bca; }
-.dialog-header-notify { background-color: #eeeeee; }
-.dialog-header-confirm { background-color: #333333; }
+.dialog-header-error { background-color: #d2322d; border-radius: 5px 5px 0 0;}
+.dialog-header-wait { background-color: #428bca; border-radius: 5px 5px 0 0;}
+.dialog-header-notify { background-color: #23b7e5; border-radius: 5px 5px 0 0;}
+.dialog-header-confirm { background-color: #23b7e5; border-radius: 5px 5px 0 0;}
 	.dialog-header-error span, .dialog-header-error h4,
 	.dialog-header-wait span, .dialog-header-wait h4,
+	.dialog-header-notify span, .dialog-header-confirm h4 { color: #ffffff; },
 	.dialog-header-confirm span, .dialog-header-confirm h4 { color: #ffffff; }

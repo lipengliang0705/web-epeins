@@ -4,6 +4,42 @@
 
 <div class="wrapper" ng-controller="productAdminController">
   <div class="row">
+      <div class="col col-md-6">
+        <div class="panel panel-default">
+              <div class="panel-heading">
+                一号楼PUE预测                    
+              </div>
+              <div class="panel-body">
+                <div line-chart config="chartConfig" data="pueTrends" height="200px"></div>
+              </div>
+          </div>
+      </div>
+      <div class="col col-md-6">
+        <div class="panel panel-default">
+              <div class="panel-heading">
+                一号楼本月告警汇总                    
+              </div>
+              <div class="panel-body">
+                <div pie-chart config="chartPieConfig" data="warnSummary1" height="200px"></div>
+                <!-- <pie-chart config="chartConfig" data="warnSummary1"></pie-chart> -->
+              </div>
+          </div>
+      </div>
+      <div class="col col-md-4">
+          <div class="panel panel-default">
+              <div class="panel-heading">
+                  温湿度
+        </span>
+              </div>
+              <div class="panel-body">
+                  <!--humitureTrends 温湿度-->
+                  <div bar-chart config="chartConfig" data="humitureTrends" height="200px"></div>
+              </div>
+          </div>
+      </div>
+  </div>
+  
+  <div class="row">
     <div class="col col-md-12">
         <form role="form" class="ng-pristine ng-valid">
           <div class="panel panel-default">
