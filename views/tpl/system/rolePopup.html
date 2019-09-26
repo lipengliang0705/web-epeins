@@ -1,0 +1,95 @@
+<div class="modal-body ">
+	<form name="form" class="form-validation" novalidate>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<span class="h4">{{user.realname}}&nbsp; 用户角色一览</span>
+			</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col col-md-12">
+			          <div class="panel panel-danger">
+			            <div class="panel-body" style="padding:10px;padding-bottom:5px;">
+			            <span ng-repeat="role in user.roles" style="padding:5px">
+			            <span	class="btn m-b-xs btn-sm btn-primary btn-addon">
+			             	<i class="fa fa-trash-o" ng-click="remove($index)"></i>{{role.rolename}}
+			             </span>
+			            </span> 
+			            <span ng-if="user.roles.length==0" class="error-info">该用户尚未配置任何角色</span>		
+			            </div>
+			          </div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col col-md-12">
+			        <form name="form" class="form-validation">
+			          <div class="panel panel-default">
+			            <div class="panel-body bg-light" style="padding:5px;padding-left:0px;">
+			              	 <div class="col-md-4">
+				               <label>选择角色：</label> 
+<!-- 				               		<select class="form-control" ng-model="selRoleId" ui-jq="chosen"
+				               		ng-options="opt.id as opt.rolename for opt in optRoles" >
+									<option value="">-- 请选择 --</option>
+									</select> -->
+								<div class="input-group">	
+								  <ui-select ng-model="selRole.id" theme="bootstrap"> 
+						            <ui-select-match placeholder="选择或检索角色">{{$select.selected.rolename}}</ui-select-match>
+						            <ui-select-choices  repeat="item.id as item in optRoles | filter: $select.search">
+						              <div ng-bind-html="item.rolename | highlight: $select.search"></div>
+						              <small ng-bind-html="item.rolecode | highlight: $select.search"></small>
+						            </ui-select-choices>
+						          </ui-select>
+								  <span class="input-group-btn">
+						              <button ng-click="selRole.id=null;" class="btn btn-default">
+						                <span class="glyphicon glyphicon-trash"></span>
+						              </button>
+						          </span>
+								</div>	
+				             </div>
+							 <div class="col-md-1 ">
+				               <label>　</label> 
+			                   <button class="btn btn-success" ng-disabled="selRole==null || selRole.id==null" ng-click="append()"><i class="fa fa-plus"></i> 添加角色</button> 
+			                 </div>
+			            </div>
+			          </div>
+			        </form>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+		
+		
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<span class="h4">{{user.realname}}&nbsp; 用户权限一览</span>
+			</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col col-md-12">
+			          <div class="panel panel-danger">
+			            <div class="panel-body" style="padding:10px;padding-bottom:5px;">
+			            <span ng-repeat="permission in user.permissions" style="padding:4px">
+			            <button	class="btn m-b-xs btn-sm btn-danger btn-addon">
+			             	{{permission.name}}
+			             </button>
+			            </span> 	
+			            <span ng-if="user.permissions== null || user.permissions.length==0" class="error-info">该用户尚未配置任何权限</span>	
+			            </div>
+			          </div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+	</form>
+</div>
+
+<div class="modal-footer">
+	<button class="btn btn-default" ng-click="cancel()">取 消</button>
+	<button class="btn btn-success" ng-click="save()">确定</button>
+
+</div>
+

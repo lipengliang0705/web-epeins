@@ -1,5 +1,5 @@
-app.controller('storehouseController', ['$scope', 'Restangular' ,'ngTableParams', 'dialogs', 'toaster', 
-	function($scope, Restangular, NgTableParams, dialogs, toaster) {
+app.controller('storehouseController', ['$scope', 'Restangular' ,'ngTableParams', 'dialogs', 'toaster', '$interval',
+	function($scope, Restangular, NgTableParams, dialogs, toaster,$interval) {
 
      $scope.toggleDropdown = function($event) {
       $event.preventDefault();
@@ -7,6 +7,114 @@ app.controller('storehouseController', ['$scope', 'Restangular' ,'ngTableParams'
       $scope.status.isopen = !$scope.status.isopen;
     };
 	
+
+	//echarts数据表格
+	$scope.chartConfig = {
+		// title:'本月销售出货装载率',
+		debug: true,
+		gauge: {
+			//仪表盘位置及属性
+			center: ["50%", "61%"], // 默认全局居中
+			radius : "90%",
+			startAngle: 200,
+			endAngle: -20,
+			// 属性lineStyle控制线条样式
+			axisLine: {
+				show: true,
+				lineStyle: {
+					color: [
+						[0.2, '#2b821d'],
+						[0.8, '#005eaa'],
+						[1, '#c12e34']
+					],
+					width: 5
+				}
+			},
+			//刻度线样式（及短线样式）
+			axisTick: {
+				splitNumber: 10,
+				length: 8,
+				lineStyle: { 
+					color : "#555",
+                    distance : 0 //文字离表盘的距离
+				}
+			},
+			//文字样式（及“10”、“20”等文字样式）
+			axisLabel: { 
+				textStyle: { color: 'auto' } 
+			},
+			//分割线样式（及10、20等长线样式）
+			splitLine: {
+				length: 10,
+				lineStyle: { 
+					color: 'auto',
+					width : 1 
+				}
+			},
+			//指针长度与宽度
+			pointer: {
+				length: '60%',
+				width: 3,
+				color: 'auto'
+			},
+			//标题样式
+			title: { 
+				show: true,
+				offsetCenter: [0, '-110%'],
+				textStyle: {
+					fontWeight: '500',
+					fontSize: 14,
+					color: '#333'
+				}
+			},
+
+			detail: { textStyle: { color: 'auto' } }
+		},
+		grid: { show: false, left: '10', top: 15, right: 10, bottom: 0},
+		color: ['#5378AD', '#FF8900', '#98BE3B', '#D15B3B']	
+
+	};
+	$scope.chartPieConfig = {
+        stack: false,
+		grid: { show: false, left: '10', top: 30, right: 40, bottom: 10, },
+		color: ['#5378AD', '#FF8900', '#98BE3B', '#D15B3B'],
+
+	};
+	$scope.pueTrends = [
+		{name:'实际', datapoints:[
+			{x:'完成率',y:10.34},
+		]}
+	];
+
+	$interval(function(){
+		$scope.pueTrends = [
+			{name:'业务指标', datapoints:[
+				{x:'完成率',y:(Math.random()*100).toFixed(2) - 0},
+				// {x:'完成率',y:1.33},
+				// {x:'完成率',y:1.41},
+				// {x:'完成率',y:1.44},
+				// {x:'完成率',y:1.49},
+				// {x:'完成率',y:1.51}
+			]}
+		];
+	},2000)
+    $scope.warnSummary1 = [
+		{
+			name: 'page.load',
+			datapoints: [
+				{ x: 2001, y: 1012 },
+				{ x: 2002, y: 1023 },
+				{ x: 2003, y: 1045 },
+				{ x: 2004, y: 1062 },
+				{ x: 2005, y: 1032 },
+				{ x: 2006, y: 1040 },
+				{ x: 2007, y: 1023 },
+				{ x: 2008, y: 1090 },
+				{ x: 2009, y: 1012 },
+				{ x: 2010, y: 1012 }
+			]
+		}
+	];
 
     //产品
     var myProductChart = echarts.init(document.getElementById('productcharts'));
@@ -321,9 +429,6 @@ app.controller('storehouseController', ['$scope', 'Restangular' ,'ngTableParams'
 	        }
 	    ]
 	};
-
-    
-
 
     //本月销售与采购达成率
         var labelTop = {

@@ -1,0 +1,39 @@
+
+<!-- <div class="modal-header">
+    <h3 class="modal-title">{{title}}</h3>
+</div> -->
+
+<div class="modal-body ">
+        <form name="form" class="form-validation" novalidate>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <span class="h4">{{title}}</span>
+            </div>
+            <div class="panel-body">
+              <div class="form-group col-sm-6">
+                <label>角色代码<span style=" color:red;"> *</span>：</label>
+				<span class="error-info" ng-if="(form.rolecode.$dirty || submitTried)&& form.rolecode.$invalid ">
+            		<span ng-if="form.rolecode.$error.required">必须</span>
+            		<span ng-if="form.rolecode.$error.maxlength">超出最大位数</span>
+           		</span>
+                <input type="text" name="rolecode" ng-disabled="editMode" class="form-control" 
+                	ng-model="role.rolecode" required ng-maxlength="10">
+              </div>
+              <div class="form-group col-sm-6">
+                <label>角色名称<span style=" color:red;"> *</span>：</label>
+				<span class="error-info" ng-if="(form.rolename.$dirty || submitTried)&& form.rolename.$invalid ">
+            		<span ng-if="form.rolename.$error.required">必须</span>
+            		<span ng-if="form.rolename.$error.maxlength">超出最大位数</span>
+           		</span>
+                <input type="text" name="rolename" class="form-control" ng-model="role.rolename" required ng-maxlength="10">
+              </div>
+            </div>
+          </div>
+        </form>
+
+</div>
+<div class="modal-footer">                  
+    <button class="btn btn-default" ng-click="cancel()">取 消</button>
+    <button class="btn btn-success" ng-click="save(form.$invalid)">确 定</button>
+    <!-- <button class="btn btn-success" ng-disabled="form.$invalid" ng-click="save()">确 定</button> -->
+</div>

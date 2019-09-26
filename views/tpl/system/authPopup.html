@@ -1,0 +1,96 @@
+  <script type="text/ng-template" id="headerCheckbox.html">
+    <input type="checkbox" ng-model="checkboxes.checked" class="select-all" value="" />
+  </script>
+
+<div class="modal-body ">
+	<form name="form" class="form-validation" novalidate>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<span class="h4">{{role.rolename}}&nbsp; 角色权限一览</span>
+			</div>
+			<div class="panel-body bg-light">
+				<div class="row">
+					<div class="col col-md-12">
+			          <div class="panel panel-danger">
+			            <div class="panel-body" style="padding:10px;padding-bottom:5px;">
+			            <span ng-repeat="per in role.permissions" style="padding:5px">
+			            <span class="btn m-b-xs btn-sm btn-danger btn-addon" >
+			             	<i class="fa fa-trash-o" ng-click="remove($index)"></i>{{per.name}}
+			             </span>
+			            </span> 
+			            <span ng-if="role.permissions == null || role.permissions.length==0" class="error-info">该角色尚未配置任何权限</span>	
+			            </div>
+			          </div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col col-md-12">
+			        <form name="form" class="form-validation">
+			          <div class="panel panel-default">
+			            <div class="panel-body bg-light" style="padding:5px;padding-left:0px;">
+			              	<div class="col-md-3">
+				               <label>权限组：</label> 
+				               <input type="text" class="form-control"  ng-model="authGroup" >
+				             </div>
+			              	<div class="col-md-3">
+				               <label>权限名：</label> 
+				               <input type="text" class="form-control"  ng-model="authName" >
+				             </div>
+				             <div class="col-md-1">
+				               <label>　</label> 
+			                  <button class="btn btn-primary" ng-disabled="form.$invalid" ng-click="search()"><i class="fa fa-search"></i> 查 询</button>
+			                 </div>
+							 <div class="col-md-1 col-md-offset-3 ">
+				               <label>　</label> 
+			                   <button class="btn btn-success" ng-click="append()"><i class="fa fa-plus"></i> 添加权限</button> 
+			                 </div>
+			            </div>
+			          </div>
+			        </form>
+					</div>
+				</div>
+			
+				<div class="row">
+				  <div class="col col-md-12">
+			      <!-- <div class="panel panel-default"> -->
+			
+				  <table  class="bg-white table table-striped left-table-header" ng-table=tableParamsAuthList show-filter="false">
+ 			          <thead ng-if="$data.length>0" class="bg-info">
+			            <tr>
+			              <th width="5%">
+							<input type="checkbox" style="width:1.1em;height:1.1em;" ng-model="checkboxes.checked" class="select-all" value="" />
+				          </th>
+						  <th width="10%">序号</th>
+						  <th width="25%">权限组</th>
+						  <th width="30%">权限名称</th>
+						  <th width="30%">权限代码</th>
+			            </tr>
+			          </thead>
+
+			          <tbody>
+			            <tr ng-repeat="auth in $data">
+			              <!-- <td header="'headerCheckbox.html'"> -->
+			              <td>
+				              <input type="checkbox" ng-model="checkboxes.items[auth.id]" />
+				          </td> 
+						  <td title="'序号'">{{$index + 1}}</td>
+						  <td title="'权限组'">{{auth.groupName}}</td>
+						  <td title="'权限名称'">{{auth.name}}</td>
+			              <td title="'权限代码'">{{auth.permission}}</td>
+			            </tr>
+			          </tbody>
+			        </table>
+			    </div>
+
+			</div>
+		</div>
+	</form>
+</div>
+
+<div class="modal-footer">
+	<button class="btn btn-default" ng-click="cancel()">取 消</button>
+	<button class="btn btn-success" ng-click="save()">确定</button>
+
+</div>
+

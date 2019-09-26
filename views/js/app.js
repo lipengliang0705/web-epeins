@@ -28,5 +28,5 @@ angular.module('app', [
 	'ngSocket',
 	'angular-echarts',
     'ngLoadingSpinner',
-	//'angularFileUpload',
+    //'angularFileUpload',
 ]);

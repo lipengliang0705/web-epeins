@@ -1,0 +1,74 @@
+<div class="bg-light lter b-b wrapper">
+  <h1 class="m-n font-thin h3">用户管理</h1>
+</div>
+
+<div class="wrapper" ng-controller="UserController">
+	<div class="row">
+		<div class="col col-md-12">
+        <form name="form" class="form-validation">
+          <div class="panel panel-default">
+            <div class="panel-body bg-light" style="padding:5px;padding-left:0px;">
+              	<div class="col-md-2">
+	               <label>用户名：</label> 
+	               <input type="text" class="form-control"  ng-model="userName" >
+	             </div>
+	             <div class="col-md-1">
+	               <label>&nbsp;　&nbsp;</label> 
+                  <button class="btn btn-primary" ng-disabled="form.$invalid" ng-click="search()"><i class="fa fa-search"></i> 查 询</button>
+                 </div>
+                    <div class="col-md-1  pull-right">
+	               <label>&nbsp;　&nbsp;</label> 
+                   <button has-permission="USER_CREATE" class="btn btn-success" ng-disabled="form.$invalid" ng-click="addUser()"><i class="fa fa-plus"></i> 新  建</button> 
+                 </div>
+            </div>
+          </div>
+        </form>
+		</div>
+	</div>
+
+	<div class="row">
+	  <div class="col col-md-12">
+      <!-- <div class="panel panel-default"> -->
+
+	  <table  class="bg-white table table-striped left-table-header" ng-table=tableParamsUserList show-filter="false">
+          <thead ng-if="$data.length>0" class="bg-info">
+            <tr>
+			  <th>序号</th>
+			  <th>登录名</th>
+			  <th>真实名</th>
+			  <th>性别</th>
+			  <th>所属公司</th>
+			  <th>手机号</th>
+			  <th>电子邮件</th>
+			  <th has-permission="USER_EDIT">操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="user in $data">
+			  <td>{{$index + 1}}</td>
+			  <td>{{user.username}}</td>
+			  <td>{{user.realname}}</td>
+			  <td>{{genders[user.gender]}}</td>
+			  <td>{{companies[user.companyId]}}</td>
+			  <td>{{user.mobile}}</td>
+			  <td>{{user.email}}</td>
+      		  <!-- <td><span ng-repeat="role in user.roles">{{role.rolename}}&nbsp;&nbsp;</span></td> -->
+			  <td has-permission="USER_EDIT">
+			    <a ng-show="user.activestatus==1" style="color:#0099FF" ng-click="editUser({{user}})">修改&nbsp;</a>
+			    <span ng-show="user.activestatus==0">修改&nbsp;</span>
+			    <a ng-show="user.activestatus==1" style="color:#0099FF" ng-click="lockUser({{user.id}})">锁定&nbsp;</a>
+			    <a ng-show="user.activestatus==0" style="color:#0099FF" ng-click="unlockUser({{user.id}})">解锁&nbsp;</a>
+			    <a ng-show="user.activestatus==1" style="color:#0099FF" ng-click="configRoles({{user}})">权限设置&nbsp;</a>
+			    <span ng-show="user.activestatus==0">权限设置&nbsp;</span>
+			    <a ng-show="user.activestatus==1" style="color:#0099FF" ng-click="resetPwd({{user.id}})">密码重置&nbsp;</a>
+			    <span ng-show="user.activestatus==0">密码重置&nbsp;</span>
+			  </td>
+
+            </tr>
+          </tbody>
+        </table>
+      <!-- </div> -->
+    </div>
+
+
+</div>

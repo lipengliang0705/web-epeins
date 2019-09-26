@@ -45,6 +45,7 @@
                 <tr ng-repeat="row in $data | filter:searcher.companyName">
                     <td data-title="'产品名称'" sortable="'productName'">{{row.productName}}</td>
                     <td data-title="'模块数量'" sortable="'numbers'">{{row.numbers}}</td>
+                    <td data-title="'模块总数量'" sortable="'count'">{{row.count}}</td>
                     <td data-title="'状态'" sortable="'status'">{{row.status}}</td>
                     <td data-title="'包装数量'" sortable="'packNumbers'">{{row.packNumbers}}</td>
                     <td data-title="'包装报废率'" sortable="'scrapRate'">{{row.scrapRate}}</td>

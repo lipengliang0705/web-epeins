@@ -35,16 +35,16 @@
   <script src="views/vendor/angular/angular-resource/angular-resource.js"></script>
   <script src="views/vendor/angular/angular-sanitize/angular-sanitize.js"></script>
   <script src="views/vendor/angular/angular-touch/angular-touch.js"></script>
-
+  <script src="views/vendor/angular/angular-idle-service.js"></script>
 
   <!-- ladash, restangular-->
   <script src="views/vendor/modules/lodash/lodash.min.js"></script>   
   <script src="views/vendor/modules/restangular/restangular.min.js"></script> 
-
+  <script src="views/vendor/angular/angular-storage/angular-storage.min.js"></script>
   <!-- Vendor -->
   <script src="views/vendor/angular/angular-ui-router/angular-ui-router.js"></script> 
   <script src="views/vendor/angular/ngstorage/ngStorage.js"></script>
- 
+  <script src="views/vendor/angular/angular-shiro/angular-shiro.js"></script>
   <!-- bootstrap -->
   <script src="views/vendor/angular/angular-bootstrap/ui-bootstrap-tpls.js"></script>
   <!-- lazyload -->

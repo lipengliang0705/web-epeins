@@ -15,12 +15,17 @@
         </a>
         <ul class="nav nav-sub dk">
           <li ui-sref-active="active">
-            <a ui-sref="app.s1.product-plan-mgmt">
+            <a ui-sref="app.s1.plan-upload-mgmt">
               <span>生产计划导入</span>
             </a>
           </li>
           <li ui-sref-active="active">
             <a ui-sref="app.s1.product-admin-mgmt">
+              <span>生产计划维护</span>
+            </a>
+          </li>
+          <li ui-sref-active="active">
+            <a ui-sref="app.s1.production-plan-mgmt">
               <span>生产计划维护</span>
             </a>
           </li>
@@ -58,7 +63,7 @@
           <span>巡检管理</span>
         </a>
         <ul class="nav nav-sub dk">
-          <li ui-sref-active="active">
+          <!-- <li ui-sref-active="active">
             <a ui-sref="app.s3.incoming-report-mgmt">
               <span>来料检验报告</span>
             </a>
@@ -67,17 +72,17 @@
             <a ui-sref="app.s3.first-report-mgmt">
               <span>生产首检报告</span>
             </a>
-          </li>
+          </li> -->
           <li ui-sref-active="active">
             <a ui-sref="app.s3.inspect-report-mgmt">
               <span>工程巡检报告</span>
             </a>
           </li>
-          <li ui-sref-active="active">
+          <!-- <li ui-sref-active="active">
             <a ui-sref="app.s3.final-report-mgmt">
               <span>最终检验报告</span>
             </a>
-          </li>
+          </li> -->
         </ul>
     </li>
     <li ng-class="{active:$state.includes('app.s4')}">

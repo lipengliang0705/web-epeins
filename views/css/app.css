@@ -958,6 +958,9 @@ body {
     display: block;
     padding: 0;
   }
+  .app-aside-folded .logo-title{
+    display: none;
+  }
   .app-aside-fixed .app-header .navbar-header {
     position: fixed;
   }
@@ -1258,7 +1261,7 @@ html {
     float: none;
     width: auto;
     margin: 0;
-    font-size: 16px;
+    font-size: 2.2rem;
     line-height: 50px;
     border: none !important;
   }
@@ -5154,6 +5157,8 @@ a.text-#000000:hover {
     height:40px;
     color:#fff;
     margin:3px 5px 0 10px;
+    background: url('../img/icons.png');
+    background-position: right bottom;
 }
 .logo-box .logo-icon i{
   font-size: 35px;
@@ -5589,7 +5594,7 @@ a.text-#000000:hover {
   margin-right: 0.25%;
 }
 .list-unstyled{
-  margin-top: 20%;
+  margin-top: 10%;
 }
 .list-unstyled li b{
   font-family: 'Whzong';
@@ -5604,4 +5609,7 @@ a.text-#000000:hover {
 .list-unstyled li span{
   color: #666;
   font-size: 12px;
+}
+.error-info span{
+  color: #f00;
 }

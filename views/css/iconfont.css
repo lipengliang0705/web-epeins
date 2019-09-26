@@ -54,6 +54,10 @@
 .icon-append:before {
   content: "\e600";
 }
+/*追加*/
+.icon-account:before {
+  content: "\e606";
+}
 
 
 

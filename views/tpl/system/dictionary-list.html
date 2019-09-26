@@ -1,0 +1,59 @@
+<div class="bg-light lter b-b wrapper">
+  <h1 class="m-n font-thin h3">数据字典</h1>
+</div>
+
+<div class="wrapper" ng-controller="DictionaryController">
+	<div class="row">
+		<div class="col col-md-12">
+        <form name="form" class="form-validation">
+          <div class="panel panel-default">
+            <div class="panel-body bg-light" style="padding:5px;padding-left:0px;">
+              	 <div class="col-sm-3">
+	               <label>类型名称：</label> 
+	               <input type="text" class="form-control"  ng-model="searcher.eleGroupName" >
+	             </div>
+	             <div class="col-md-1">
+	               <label>&nbsp;</label> 
+                   <button class="btn btn-primary" ng-disabled="form.$invalid" ng-click="search()"><i class="fa fa-search"></i> 查 询</button>
+                 </div>
+			     <div class="col-md-1 col-md-offset-7 pull-right"><label>&nbsp;</label> 
+			        <button class="btn btn-success" has-permission="DICTIONARY_CREATE" ng-disabled="form.$invalid" ng-click="create()"><i class="fa fa-plus"></i> 新  建</button>
+			     </div>
+  			</div>
+            </div>
+        </form>
+        </div>
+	</div>
+ 
+  <div class="row">
+    <div class="col col-md-12">
+          <table class="bg-white table table-striped left-table-header"    ng-table="tableParamsSysElementGroup"  show-filter="false">
+          <thead ng-if="$data.length>0" class="bg-info">
+              <tr>
+                <th>序号</th>
+                <th>类型ID</th>
+                <th>类型</th>
+                <th>分类总数</th>
+                <th>创建者</th>
+                <th has-any-permission="['DICTIONARY_VIEW','DICTIONARY_EDIT','DICTIONARY_DELETE']">操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr  ng-repeat="syselementgroup in $data">
+                <td>{{$index+1}}</td>
+                <td>{{syselementgroup.id}}</td>
+                <td>{{syselementgroup.eleGroupName}}</td>
+                <td>{{syselementgroup.stypeCount}}</td>
+                <td>{{userNames[syselementgroup.crtUser]}}</td>
+                <td has-any-permission="['DICTIONARY_VIEW','DICTIONARY_EDIT','DICTIONARY_DELETE']"> 
+                    <a style="color:#0099FF" has-permission="DICTIONARY_VIEW" ng-click="view(syselementgroup.id)">查看</a>&nbsp;
+              	    <a style="color:#0099FF" has-permission="DICTIONARY_EDIT" ng-click="edit(syselementgroup.id)">修改</a>&nbsp;
+			        <a style="color:#0099FF" has-permission="DICTIONARY_DELETE"  ng-click="logicalDel({{syselementgroup}})">删除</a>&nbsp;
+			  	</td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+	</div>
+</div>
+

@@ -1,41 +1,34 @@
-app.controller('productAdminController', productAdminController);
-productAdminController.$inject = ['$scope', 'Restangular' ,'ngTableParams', 'dialogs', 'toaster', '$http', '$rootScope','$filter'];
-function productAdminController($scope, Restangular, NgTableParams, dialogs, toaster, $http, $rootScope,$filter) {
-	 //查询所有知识分类列表
-	 //var baseBanks = Restangular.one('/api/knowledge/knowledge-all');
+app.controller('productionPlanController', productionPlanController);
+productionPlanController.$inject = ['$scope', 'Restangular' ,'ngTableParams', 'dialogs', 'toaster', '$http', '$rootScope', '$filter'];
+function productionPlanController($scope, Restangular, NgTableParams, dialogs, toaster, $http, $rootScope, $filter) {
 	$scope.resoures = {
 		list: [],//信息列表
 	};
-	function checkKnowledgeAll() {
-		var params = { 
-			categoryId: '', 
-			knowledge: '', 
-			beginTime: '', 
-			endTime: '' 
-		}
-		Restangular.all('/api/knowledge/knowledge-all').post(params).then(function(res) {
-			if (res) {
-				//console.log('测试', $scope.resoures.list);
-				var len = 30;
-                // 截取描述
-                angular.forEach(res, function (item, index) {
-                    var ele = $('<div>' + item.content + '</div>');
-                    var text = ele.text();
-                    if (item.content && text.length > len) {
-                        item.subTitle = text.substring(0, len) + '...';
-                    } else if (item.content && text.length <= len) {
-                        item.subTitle = text;
-                    } else {
-                        item.subTitle = '';
-                    }
+	//查询所有生产计划信息/factory/planInfo/findOne
+	function productionPlanInfoAll() {
+		var params = {
+			param:''
+		};
+		Restangular.one('/factory/planInfo/findOne').customGET('',params).then(function(res) {
+			console.log('哈哈', res);
+			if (res.code == 200) {
+				//写入数据
+				$scope.resoures.list.push(res.data);
+				angular.forEach($scope.resoures.list,function(item,index){
+					//统计总耗时，并添加到对象
+					$scope.countLossTime = Number(item.changeLossTime) + Number(item.waitLossTime) + Number(item.repairLossTime);
+					item.countLossTime = $scope.countLossTime;
+					console.log('再次统计',$scope.countLossTime);
 				});
-				$scope.resoures.list = res;
+				console.log('生产信息', $scope.resoures.list);
 				$scope.myTable = new NgTableParams({count: 5, sorting: { title: "desc" } }, { counts: [5, 10, 20], dataset: $scope.resoures.list});
-				toaster.pop('success', '', '列表数据成功！');
+		 		toaster.pop('success', '', '加载数据成功！');
 			}	
-		}, function(errRes) {
-			console.log("Error with status code", errRes.status);}
-	)};
+		}, function(errResponse) {
+			console.log("Error with status code", errResponse.status);
+		}); 
+		
+	};
 	//时间插件
 	$scope.today = function() {
 		$scope.dt = new Date();
@@ -62,7 +55,6 @@ function productAdminController($scope, Restangular, NgTableParams, dialogs, toa
 
 		$scope[target] = !$scope[target];
 	};
-
 	$scope.dateOptions = {
 		formatYear: 'yy',
 		startingDay: 1,
@@ -72,9 +64,6 @@ function productAdminController($scope, Restangular, NgTableParams, dialogs, toa
 	$scope.formats = ['dd-MMMM-yyyy', 'yyyy-MM-dd', 'dd.MM.yyyy', 'shortDate'];
 	$scope.format = $scope.formats[1];
 
-
-	//  $scope.testData = testData;
-    //  $scope.myTable = new NgTableParams({count: 5, sorting: { name: "desc", money:"asc" } }, { counts: [5, 10, 20], dataset: testData});
     $scope.toggleDropdown = function($event) {
 		$event.preventDefault();
 		$event.stopPropagation();
@@ -91,17 +80,6 @@ function productAdminController($scope, Restangular, NgTableParams, dialogs, toa
 				endTime:$scope.data.endDate?$filter('date')($scope.data.endDate, 'yyyy-MM-dd'):''
 			};
 			console.log('测试类型',typeof(params));
-			//判断是否为空
-			// if($scope.data.title){
-			// 	params.knowledge = $scope.data.title;
-			// }
-			// // console.log(parmas);
-			// if($scope.data.startDate){
-			// 	params.beginTime =  $filter('date')($scope.data.startDate, 'yyyy-MM-dd');
-			// }
-			// if($scope.data.endDate){
-			// 	params.endTime = $filter('date')($scope.data.endDate, 'yyyy-MM-dd');
-			// }
 			$scope.resoures.list = [];
 			Restangular.all('/api/knowledge/knowledge-all').post(params).then(function(res) {
 				//查询列表
@@ -117,15 +95,15 @@ function productAdminController($scope, Restangular, NgTableParams, dialogs, toa
 	}
 
 	function add(item) {
-		var dlg = dialogs.create('views/tpl/product-admin/add.html','addController',{data:item},{size:'md'});
+		var dlg = dialogs.create('views/tpl/production-management/production-plan/add.html','addController',{data:item},{size:'md'});
     };
 	
     function modify(item) {
-		var dlg = dialogs.create('views/tpl/product-admin/modify.html','modifyController',{data:item},{size:'md'});	
+		var dlg = dialogs.create('views/tpl/production-management/production-plan/modify.html','modifyController',{data:item},{size:'md'});	
     };
 
     function deleted(item) {
-		var dlg = dialogs.create('views/tpl/product-admin/delete.html','deteleDataController',{data:item},{size:'sm'});	
+		var dlg = dialogs.create('views/tpl/production-management/production-plan/delete.html','deteleDataController',{data:item},{size:'sm'});	
 	};
 	$scope.data = {
 		
@@ -137,134 +115,10 @@ function productAdminController($scope, Restangular, NgTableParams, dialogs, toa
 		deleted:deleted,
 		search:search,
 	};
-	//echarts数据表格
-	$scope.chartConfig = {
-        debug: true,
-        stack: false,
-		zoomX: true,//时间轴
-		grid: { show: false, left: '10', top: 30, right: 40, bottom: 40, containLabel: true, },
-		color: ['#5378AD', '#FF8900', '#98BE3B', '#D15B3B'],
-		
-
-	};
-	$scope.chartPieConfig = {
-        stack: false,
-		grid: { show: false, left: '10', top: 30, right: 40, bottom: 10, },
-		color: ['#5378AD', '#FF8900', '#98BE3B', '#D15B3B'],
-
-	};
-	$scope.pueTrends = [
-		{name:'实际', datapoints:[
-			{x:'2016-01',y:10.34},
-			{x:'2016-02',y:1.39},
-			{x:'2016-03',y:1.44},
-			{x:'2016-04',y:1.33},
-			{x:'2016-05',y:1.41},
-			{x:'2016-06',y:1.44},
-			{x:'2016-07',y:1.49},
-			{x:'2016-08',y:1.51},
-			{x:'2016-09',y:1.46},
-			{x:'2016-10',y:1.44},
-			{x:'2016-11',y:1.34},
-			{x:'2016-12',y:15.39}
-		]},
-		{name:'预测', datapoints:[
-			{x:'2016-01',y:1.35},
-			{x:'2016-02',y:2.40},
-			{x:'2016-03',y:1.43},
-			{x:'2016-04',y:1.32},
-			{x:'2016-05',y:1.39},
-			{x:'2016-06',y:1.45},
-			{x:'2016-07',y:1.51},
-			{x:'2016-08',y:1.52},
-			{x:'2016-09',y:1.45},
-			{x:'2016-10',y:1.45},
-			{x:'2016-11',y:1.36},
-			{x:'2016-12',y:1.39},
-			{x:'2017-01',y:1.42},
-			{x:'2017-02',y:1.45},
-			{x:'2017-03',y:1.41},
-		]},
-	];
-
-    $scope.warnSummary1 = [
-		{
-			name: 'page.load',
-			datapoints: [
-				{ x: 2001, y: 1012 },
-				{ x: 2002, y: 1023 },
-				{ x: 2003, y: 1045 },
-				{ x: 2004, y: 1062 },
-				{ x: 2005, y: 1032 },
-				{ x: 2006, y: 1040 },
-				{ x: 2007, y: 1023 },
-				{ x: 2008, y: 1090 },
-				{ x: 2009, y: 1012 },
-				{ x: 2010, y: 1012 }
-			]
-		}
-	]
-	$scope.humitureTrends = [
-		{
-			name: '温度',
-			datapoints: [
-				{
-					x: '09.12',
-					y: 13
-				}, {
-					x: '09.26',
-					y: 14
-				}, {
-					x: '10.10',
-					y: 13
-				}, {
-					x: '10.24',
-					y: 14
-				}, {
-					x: '11.07',
-					y: 12
-				}, {
-					x: '11.21',
-					y: 13
-				}, {
-					x: '12.05',
-					y: 13
-				}]
-		}, {
-			name: '湿度',
-			datapoints: [
-				/*
-				 * {x:'2016-01',y:1277282}, {x:'2016-02',y:1367282}, {x:'2016-03',y:1292822}, {x:'2016-04',y:1397282}, {x:'2016-05',y:1317282},
-				 * {x:'2016-06',y:1290222},
-				 */
-				{
-					x: '09.12',
-					y: 17
-				}, {
-					x: '09.26',
-					y: 18
-				}, {
-					x: '10.10',
-					y: 19
-				}, {
-					x: '10.24',
-					y: 18
-				}, {
-					x: '11.07',
-					y: 15
-				}, {
-					x: '11.21',
-					y: 17
-				}, {
-					x: '12.05',
-					y: 13
-				}]
-		}
-
-	]
+	
 	//初始化方法
 	function init(){
-		checkKnowledgeAll();
+		productionPlanInfoAll();
 	};
 	// 新建列表成功
 	$rootScope.$on('addSuccess', function (event, data) {
@@ -288,7 +142,14 @@ function productAdminController($scope, Restangular, NgTableParams, dialogs, toa
 
 
 app.controller('addController',function($scope, $modalInstance, Restangular, data, toaster, $rootScope){
-	$scope.title = "添加生产计划";
+	$scope.title = "新增生产计划";
+	$scope.prodUuid = [
+		{id:'1', productName:"YFL-1-T/B"},
+		{id:'2', productName:"YFL-2-T/B"},
+		{id:'3', productName:"YFL-3-T/B"},
+		{id:'4', productName:"YFL-4-T/B"},
+		{id:'5', productName:"YFL-5-T/B"},
+	];
 	//添加数据对象
 	$scope.data = {
 		title: '',

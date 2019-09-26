@@ -1,0 +1,103 @@
+<div ng-controller="editdictionary">
+    <div class="bg-light lter b-b wrapper">
+	  <h1 class="m-n font-thin h3">{{title}}</h1>
+	</div>
+	<div class="modal-body ">
+		<form name="form" class="form-validation" novalidate  ><!-- ng-enter="" -->
+			<div class="panel panel-default">
+			    <div class="panel-heading">
+					<span class="h4">数据字典</span>
+				</div>
+				<div class="panel-body">
+					<div class="form-group pull-in clearfix">
+						<div class="col-sm-3">
+
+							<label>类型名称<span style="color: red;"> *</span>：<span class="error-info" ng-show="form.eleGroupName.$dirty && form.eleGroupName.$invalid ">
+                	<span ng-show="form.eleGroupName.$error.required">必须</span>
+                </span></label>
+							<input type="text" class="form-control"  ng-model="syselementgroup.eleGroupName"  required name="eleGroupName">
+						</div>
+						<div class="col-md-1">
+							<label>&nbsp;</label>
+							<div class="col-md-2 col-md-offset-6 pull-right">
+								<button class="btn btn-success" ng-disabled="form.$invalid"
+										ng-click="createEle()"><i class="fa fa-plus"></i> 添加记录</button>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="row">
+				<div class="panel-body " >
+					<div class="form-group pull-in clearfix" ng-if="tableData.length>0">
+						<div class="col-sm-12">
+							<div class="panel panel-default padding_top10">
+							<div class="table-responsive">
+								<table class="bg-gray table table-striped left-table-header">
+									<thead class="bg-info" ng-if="tableData.length>0"
+										ng-table="tableParamSysElement">
+										<!--  ng-if="$data.length>0"  -->
+										<tr>
+								
+											<th>名称<span style="color: red;"> *</span> 
+ <span class="error-info" ng-show="form.bankType.$dirty && form.bankType.$invalid ">
+                	<span ng-show="form.bankType.$error.required">必须</span>
+                </span>
+								 </th>
+											<th>标示<span style="color: red;"> *</span><span class="error-info" ng-show="form.Type.$dirty && form.Type.$invalid ">
+                	<span ng-show="form.Type.$error.required">必须</span>
+                </span>
+								</th>
+											<th>简称</th>
+											<th>级别
+                         <span class="error-info" ng-show="(form.mobile.$dirty || submitTried)&amp;&amp; form.mobile.$invalid " style="">
+							<span ng-show="form.mobile.$error.pattern || form.mobile.$error.required || form.mobile.$error.maxlength || form.mobile.$error.minlength ">超过11位数字</span>
+						</span>
+<!--                 <input type="text" name="mobile" class="form-control ng-valid-maxlength ng-dirty ng-valid-parse ng-invalid ng-valid-pattern ng-touched ng-invalid-required ng-valid-minlength" placeholder="请输入手机号" ng-minlength="11" ng-maxlength="11" ng-pattern="/^\+?(0|[1-9][0-9]*)$/" ng-model="purchase.mobile" required=""> -->
+              </div></th>
+											<th>操作</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="syselement in tableData">
+										
+											<td><input type="text"  name="bankType" ng-model="syselement.eleName"
+												class="form-control"
+												ng-readonly="syselement.statusFlag=='2'" required /></td>
+											<td><input type="text" name="Type"  ng-model="syselement.eleCode"
+												class="form-control configinput"
+												ng-readonly="syselement.statusFlag=='2'" required /></td>
+											<td><input type="text" ng-model="syselement.eleKey"
+												class="form-control configinput" 
+												ng-readonly="syselement.statusFlag=='2'" /></td>
+
+											<td><input type="text" class="form-control  configinput"  name="mobile" ng-minlength="1" ng-maxlength="11" ng-pattern="/^\+?(0|[1-9][0-9]*)$/"
+												ng-model="syselement.orderNum" ng-readonly="syselement.statusFlag=='2'" /></td>
+											<td>
+												<button class="btn m-b-xs w-xs btn-default btn-addon"  ng-show="syselement.statusFlag=='0'" ng-click="FHDel({{syselement}})"><i class="icon-close"></i>作废</button>
+												<button class="btn m-b-xs w-xs btn-default btn-addon" ng-show="syselement.statusFlag=='2'" ng-click="HuiDel({{syselement}})"><i class="icon-action-undo"></i>恢复</button>
+												<button class="btn m-b-xs w-xs btn-default btn-addon" ng-click="logicalDel({{syselement}},$index)"><i class="fa fa-trash-o"></i>删除</button>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+		      </div>
+		   </div>
+		</form>
+	</div>
+       <div class="modal-footer">
+	    <button class="btn btn-default" ng-click="back()">取 消</button>
+	    <button class="btn btn-success" ng-click="save(form.$invalid)">确 定</button>
+	    <!-- ng-disabled="form.$invalid" -->
+	</div>
+	</div>
+
+
+
+
+

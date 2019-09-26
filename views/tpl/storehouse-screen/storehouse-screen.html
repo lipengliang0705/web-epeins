@@ -5,6 +5,41 @@
 <div class="wrapper" ng-controller="storehouseController">
   <div class="row">
     <div class="col col-md-6">
+      <div class="panel panel-default">
+          <div class="panel-heading">
+            一号楼PUE预测                    
+          </div>
+          <div class="panel-body">
+              <div class="row">
+                <div class="col col-md-8">
+                    <div gauge-chart config="chartConfig" data="pueTrends" height="200px"></div>
+                </div>
+                <div class="col col-md-4">
+                  <div class="profile-info">
+                      <!-- <h4 class="heading">销售出货装载明细</h4> -->
+                      <ul class="list-unstyled list-justify">
+                          <li><b>2000</b><span>产品包装量</span></li>
+                          <li><b>1800</b><span>已出库量</span></li>
+                          <li><b>45</b><span>已装车辆数</span></li>
+                      </ul>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+    </div>
+    <div class="col col-md-6">
+      <div class="panel panel-default">
+            <div class="panel-heading">
+              一号楼本月告警汇总                    
+            </div>
+            <div class="panel-body">
+              <div pie-chart config="chartPieConfig" data="warnSummary1" height="200px"></div>
+              <!-- <pie-chart config="chartConfig" data="warnSummary1"></pie-chart> -->
+            </div>
+        </div>
+    </div>
+    <div class="col col-md-6">
         <!-- 黑色系的大屏 -->
         <!-- <div class="panel panel-default panel-dark">
             <div class="panel-heading panel-unhead">

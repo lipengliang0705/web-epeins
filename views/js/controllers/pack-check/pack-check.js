@@ -2,7 +2,7 @@ app.controller('productAdminController', ['$scope', 'Restangular' ,'ngTableParam
 	function($scope, Restangular, NgTableParams, dialogs, toaster) {
 
  var testData = [
- 	{code:'1', machine:"1#机",type:'K1214', productName:"YFL-1-T/B",numbers:'2000', status:"未生产",packNumbers:'0', date:"2019-07-28", scrapRate:"0", material:"LBK15D", changeover:"", drawing:"views/imgs/standard.svg", standard:"views/imgs/standard.svg"},
+ 	{code:'1', machine:"1#机",type:'K1214', productName:"YFL-1-T/B",numbers:'2000', status:"未生产",packNumbers:'5', date:"2019-07-28", scrapRate:"0", material:"LBK15D", changeover:"", drawing:"views/imgs/standard.svg", standard:"views/imgs/standard.svg"},
  	{code:'2', machine:"1#机",type:'K1214', productName:"XJ-50B",numbers:'1001', status:"生产中",packNumbers:'0', date:"2019-07-28", scrapRate:"0", material:"PB4520", changeover:"", drawing:"views/imgs/standard.svg", standard:"views/imgs/standard.svg"},
  	{code:'3', machine:"2#机",type:'K1214', productName:"XJ-20-T",numbers:'1500', status:"待包装",packNumbers:'', date:"2019-07-28", scrapRate:"0", material:"PB4520", changeover:"是", drawing:"views/imgs/standard.svg", standard:"views/imgs/standard.svg"},
  	{code:'4', machine:"2#机",type:'K1214', productName:"PLKPA45*50T",numbers:'3000', status:"包装完",packNumbers:'', date:"2019-07-28", scrapRate:"0", material:"PB4520", changeover:"", drawing:"views/imgs/standard.svg", standard:"views/imgs/standard.svg"},
@@ -12,6 +12,16 @@ app.controller('productAdminController', ['$scope', 'Restangular' ,'ngTableParam
  $scope.testData = testData;
 // 储存为副本
  // var testDataCppy = angular.copy(testData);
+ angular.forEach(testData,function(item,index){
+	 console.log('shishi',item);
+	 //var count = '';
+	 $scope.count = Number(item.numbers) + Number(item.packNumbers);
+	 item.count = $scope.count;
+	 console.log('再次统计',$scope.count);
+	// if(item.date == date || item.name.indexOf(name) > -1){
+	// 	filterData.push(item);
+	// }
+ });
 
  $scope.myTable = new NgTableParams({count: 5, sorting: { name: "desc", money:"asc" } }, { counts: [5, 10, 20], dataset: testData});
  // var search = function() {	

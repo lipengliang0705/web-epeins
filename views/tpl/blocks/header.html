@@ -11,8 +11,8 @@
           <!-- <i class="fa fa-bolt"></i> -->
           
           <!-- <span class="logo-icon"><img src="views/img/logo.svg"></span> -->
-          <span class="logo-icon"><i class="fa iconfont icon-terminal"></i></span>
-          <span class="logo-title">终端数据管理</span>
+          <span class="logo-icon"></span>
+          <span class="logo-title">上海伊比伊隔热</span>
         </a>
         <!-- / brand -->
       </div>
@@ -36,14 +36,12 @@
           <li class="hidden-xs">
             <a ui-fullscreen></a>
           </li>
-          <!-- 
-          <li class="dropdown" dropdown>
+          <!-- <li class="dropdown" dropdown>
             <a href class="dropdown-toggle" dropdown-toggle>
               <i class="icon-bell fa-fw"></i>
               <span class="visible-xs-inline">Notifications</span>
               <span class="badge badge-sm up bg-danger pull-right-xs">2</span>
             </a>
-           
             <div class="dropdown-menu w-xl animated fadeInUp">
               <div class="panel bg-white">
                 <div class="panel-heading b-light bg-light">
@@ -71,9 +69,28 @@
                   <a href="#notes" data-toggle="class:show animated fadeInRight">See all the notifications</a>
                 </div>
               </div>
-            </div>
-            
-          </li>  -->
+            </div> 
+          </li> -->
+          <li class="dropdown" dropdown>
+              <a href class="dropdown-toggle" dropdown-toggle>
+                <i class="icon-bell iconfont icon-account"></i>
+              </a>
+              <div class="dropdown-menu w animated fadeInUp">
+                <div class="panel bg-white">
+                  <div class="panel-heading b-light bg-light">
+                    <strong>账户管理</strong>
+                  </div>
+                  <div class="list-group">
+                    <a href class="media list-group-item" ng-click="editUser()">
+                      用户注册
+                    </a>
+                    <a href class="media list-group-item">
+                      重置密码
+                    </a>
+                  </div>
+                </div>
+              </div> 
+            </li>
           <li class="hidden-xs">
             <a ui-sref="login" ng-click="logout()" id="logout">登出</a>
           </li>

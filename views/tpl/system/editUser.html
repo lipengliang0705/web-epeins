@@ -1,0 +1,98 @@
+
+<div class="modal-header">
+    <h4 class="modal-title">{{title}}</h4>
+</div>
+
+<!-- <script src="views/vendor/modules/angular-ui-select/select.min.js"></script>
+<link rel="views/vendor/modules/angular-ui-select/select.min.css" type="text/css" /> -->
+
+<div class="modal-body" >
+	<form name="form" class="form-validation" novalidate>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="form-group col-sm-6">
+					<label>登录名<span style="color: red;"> *</span>：</label> 
+					<span class="error-info" ng-if="(form.username.$dirty || submitTried) && form.username.$invalid ">
+						<span ng-if="form.username.$error.required">必须</span>
+						<span ng-if="form.username.$error.maxlength">超出最大位数</span>
+					</span> 
+					<input type="text" name="username" ng-disabled="editMode"
+						class="form-control" ng-model="user.username" required ng-maxlength="20">
+				</div>
+				<div class="form-group col-sm-6">
+					<label>真实名<span style="color: red;"> *</span>：</label> 
+					<span class="error-info" ng-if="(form.realname.$dirty || submitTried)&& form.realname.$invalid ">
+						<span ng-if="form.realname.$error.required">必须</span>
+						<span ng-if="form.realname.$error.maxlength">超出最大位数</span>
+					</span> 
+					<input type="text" name="realname" class="form-control" ng-disabled="pwdMode"
+						ng-model="user.realname" required required ng-maxlength="10">
+				</div>
+				<div class="form-group col-sm-6">
+					<label>手机号<span style="color: red;"> *</span>：</label> 
+					<span class="error-info" ng-if="(form.mobile.$dirty || submitTried)&& form.mobile.$invalid ">
+						<span ng-if="form.mobile.$error.pattern || form.mobile.$error.required">11位数字</span>
+					</span> 
+					<input type="text" class="form-control" ng-model="user.mobile"
+						ng-pattern="/^[0-9]{11}$/" required name="mobile">
+				</div>
+				<div class="form-group col-sm-6">
+				    <label>公司<span style="color: red;"> *</label> : 
+				    <span class="error-info" ng-if="(form.companyId.$dirty || submitTried) && form.companyId.$invalid ">
+						<span ng-if="form.companyId.$error.required">必须</span>
+					</span>	
+					<ui-select ng-model="user.companyId" theme="bootstrap" required name="companyId"> 
+			            <ui-select-match placeholder="选择或检索公司">{{$select.selected.name}}</ui-select-match>
+			            <ui-select-choices  repeat="item.id as item in companies | filter: $select.search">
+			              <div ng-bind-html="item.name | highlight: $select.search"></div>
+			            </ui-select-choices>
+			        </ui-select>
+				</div>
+
+				<div class="form-group col-sm-6">
+					<label>性别：</label>
+					<div>
+						<label class="i-checks i-checks-md"> <!-- 1-男,2-女 --> <input
+							type="radio" ng-model="user.gender" ng-value="1"><i></i>男
+						</label>&nbsp;&nbsp;&nbsp;&nbsp; <label class="i-checks i-checks-md">
+							<input type="radio" ng-model="user.gender" ng-value="2"><i></i>女
+						</label>
+					</div>
+				</div>
+				
+				<div class="form-group col-sm-6">
+					<label>电子邮件：</label> <span class="error-info" ng-if="(form.email.$dirty || submitTried)&& form.email.$invalid ">
+						<span ng-if="form.email.$error.email">电子邮件格式</span>
+						<span ng-if="form.email.$error.maxlength">超出最大位数</span>
+					</span> <input type="email" class="form-control" ng-model="user.email"
+						name="email"  ng-maxlength="50">
+				</div>
+
+				<div class="form-group col-sm-6" ng-show="pwdMode">
+					<label>新密码：</label> 
+					<span class="error-info" ng-if="(form.password.$dirty || submitTried)&& form.password.$invalid ">
+						<span ng-if="form.password.$error.maxlength">超出最大位数</span>
+					</span> 
+					<input type="password" class="form-control" name="password" ng-maxlength="50" ng-model="password" >
+				</div>
+				<div class="form-group col-sm-6" ng-show="pwdMode">
+					<label>重复密码：</label> 
+					<span class="error-info" ng-if="(form.confirm_password.$dirty || submitTried)&& form.confirm_password.$invalid ">
+						<span ng-if='form.confirm_password.$error.validator'>密码不匹配！</span>
+						<span ng-if="form.confirm_password.$error.maxlength">超出最大位数</span>
+					</span> 
+					<input type="password" ng-maxlength="50" class="form-control"
+						name="confirm_password" ng-model="confirm_password" ui-validate=" '$value==password' " ui-validate-watch=" 'password' ">
+				</div>
+			</div>
+
+		</div>
+	</form>
+</div>
+
+<div class="modal-footer">
+	<button class="btn btn-default" ng-click="cancel()">取 消</button>
+	<button class="btn btn-success" ng-click="save(form.$invalid)">确 定</button>
+	<!-- <button class="btn btn-success" ng-disabled="form.$invalid" ng-click="save()">确 定</button> -->
+</div>
+

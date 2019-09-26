@@ -1,0 +1,62 @@
+<div class="bg-light lter b-b wrapper">
+  <h1 class="m-n font-thin h3">系统权限一览</h1>
+</div>
+
+<div class="wrapper" ng-controller="AuthController">
+	<div class="row">
+		<div class="col col-md-12">
+        <form name="form" class="form-validation">
+          <div class="panel panel-default">
+            <div class="panel-body bg-light" style="padding:5px;padding-left:0px;">
+              	<div class="col-md-2">
+	               <label>权限组：</label> 
+	               <input type="text" class="form-control"  ng-model="authGroup" >
+	             </div>
+              	<div class="col-md-2">
+	               <label>权限名：</label> 
+	               <input type="text" class="form-control"  ng-model="authName" >
+	             </div>
+	             <div class="col-md-1">
+	               <label>&nbsp;　&nbsp;</label> 
+                  <button class="btn btn-primary" ng-disabled="form.$invalid" ng-click="search()"><i class="fa fa-search"></i> 查 询</button>
+                 </div>
+<!--                  <div class="col-md-1  pull-right">
+	               <label>　</label> 
+                   <button class="btn btn-success" ng-disabled="form.$invalid" ng-click="addauth()"><i class="fa fa-plus"></i> 新  建</button> 
+                 </div> -->
+            </div>
+          </div>
+        </form>
+		</div>
+	</div>
+
+	<div class="row">
+	  <div class="col col-md-12">
+      <!-- <div class="panel panel-default"> -->
+
+	  <table  class="bg-white table table-striped left-table-header" ng-table=tableParamsAuthList show-filter="false">
+          <thead ng-if="$data.length>0" class="bg-info">
+            <tr>
+			  <th>序号</th>
+			  <th>权限组</th>
+			  <th>权限名称</th>
+			  <th>权限代码</th>
+			  <!-- <th>URL</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="auth in $data">
+			  <td>{{$index + 1}}</td>
+			  <td>{{auth.groupName}}</td>
+			  <td>{{auth.name}}</td>
+              <td>{{auth.permission}}</td>
+			  <!-- <td>{{auth.url}}</td> -->
+
+            </tr>
+          </tbody>
+        </table>
+      <!-- </div> -->
+    </div>
+
+
+</div>

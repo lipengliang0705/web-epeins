@@ -1,4 +1,4 @@
-<div class="container w-xxl w-auto-xs" ng-controller="loginController">
+<div class="container w-auto-xs" ng-controller="loginController">
   <!-- <a href class="navbar-brand block m-t">终端数据平台</a>
   <div class="m-b-lg">
     <div class="wrapper text-center">
@@ -18,13 +18,20 @@
     </form>
   </div> -->
   <style>
-    
+    /*font字体引用*/
+
+    @font-face {
+        font-family: Wblack;
+        src: url("assets/fonts/Wblack.ttf")
+    }
+
     body {
         background: url(views/img/login_bg.jpg) center center no-repeat #fafafa;
         /* background-size: 70% auto; */
         background-size: cover;
         position: relative;
     }
+
     .auth-flex {
         display: -webkit-flex;
         /* Safari */
@@ -33,15 +40,21 @@
         position: relative;
         /* top: -14%; */
         z-index: 999;
+        margin-top: 10%;
     }
+
     .login-block {
-        background: rgba(255, 255, 255, .2);
-        /* width: 350px; */
-        min-width: 440px;
-        padding: 40px 30px 30px 30px;
+        /* background: rgba(255, 255, 255); */
+        min-width: 570px;
+        /* padding: 40px 30px 30px 30px; */
+        /* border-radius: 2px; */
+    }
+    .login-block form{
+        background: #fff;
+        padding: 40px 35px 30px 35px;
         border-radius: 2px;
     }
-    
+
     .login-block h2 {
         color: #fff;
         display: flex;
@@ -51,78 +64,85 @@
         margin-bottom: 30px;
         font-weight: normal;
         font-family: 'Wblack';
+        align-items: center;
     }
-    
+
     .login-block h2 b {
         float: left;
         width: 50px;
-        height: auto;
-        margin-right: 10px;
+        height: 40px;
+        background: url(views/img/icons.png) left top no-repeat;
     }
-    
-    .login-block h2 b i{
-        font-size: 5rem;
+
+    .login-block h2 img {
+        width: 90%;
     }
-    
+
     .login-block h2 span {
-        height: 35px;
-        padding-top: 10px;
-        font-size: 3.2rem;
+        font-size: 2.5rem;
     }
-    
+
     .btn {
         display: block;
         padding: 10px;
         width: 100%;
         border-radius: 2px;
     }
-    
+
     input:-webkit-autofill {
         background-image: none;
         -webkit-box-shadow: 0 0 0px 1000px #fafafa inset;
     }
-    
+
     input:-internal-autofill-selected {
         background: none;
     }
-    
+
     .login—form .form-group {
-        color: #fff;
+        color: #333;
         margin-bottom: 30px;
     }
-    
+
+    .login—form .form-group:last-child{
+        margin-bottom: 0;
+    }
+
     .form-group .form-label {
         margin-bottom: 14px;
         font-size: 15px;
+        font-weight: bold;
     }
-    
+
     .form-group .form-control {
         /* padding: 8px; */
         border-radius: 2px;
-        height: 44px;
+        height: 42px;
         color: #333;
         background: #fff;
         font-size: 16px;
     }
-    
+
     .form-group button.btn.btn-primary {
-        font-size: 16px!important;
-        padding: 12px;
-        margin-top: 60px;
+        font-size: 14px !important;
+        padding: 9px 12px;
+        margin-top: 30px;
+        width: 20%;
+        border-radius: 2px;
     }
-    
+
     .copyright {
         text-align: center;
         color: #f5f5f5;
-        font-size: 13px;
-        margin-top: 45px;
+        font-size: 14px;
+        margin-top: 30px;
     }
+    
 </style>
 <main class="auth-main auth-flex">
     <div class="login-block">
         <h2>
-            <b><i class="fa iconfont icon-terminal"></i></b>
-            <span>终端数据管理</span>
+            <b></b>
+            <span>上海伊比伊隔热制品有限公司苏州分公司</span>
         </h2>
         <form>
             <div class="login—form">

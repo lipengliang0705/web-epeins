@@ -1,0 +1,69 @@
+<div ng-controller="editdictionary">
+	<div class="bg-light lter b-b wrapper">
+		<h1 class="m-n font-thin h3">查看</h1>
+	</div>
+
+	<div class="modal-body " disable-all="true">
+		<form name="form" class="form-validation" novalidate>
+			<!-- ng-enter="" -->
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<span class="h4">数据字典</span>
+				</div>
+				<div class="panel-body">
+					<div class="form-group pull-in clearfix">
+						<div class="col-sm-2">
+							<label>类型名称：</label> <input type="text" class="form-control"
+								ng-readonly="true" ng-model="syselementgroup.eleGroupName">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="panel-body ">
+					<div class="form-group pull-in clearfix">
+						<div class="col-sm-12">
+							<div class="panel panel-default padding_top10">
+								<div class="table-responsive">
+									<table class="bg-gray table table-striped left-table-header">
+										<thead class="bg-info" ng-if="tableData.length>0" ng-table="tableParamSysElement">
+											<!--  ng-if="$data.length>0"  -->
+											<tr>
+												<th>序号</th>
+												<th>名称</th>
+												<th>标示</th>
+												<th>简称</th>
+												<th>级别</th>
+												<th>状态</th>
+										 	</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat="syselement in tableData">
+												<td>{{$index + 1}}</td>
+												<td><input type="text" class="form-control" ng-readonly="true" value="{{syselement.eleName}}" /></td>
+												<td><input type="text" class="form-control" ng-readonly="true" value="{{syselement.eleCode}}" /></td>
+												<td><input type="text" class="form-control" ng-readonly="true" value="{{syselement.eleKey}}" /></td>
+												<td><input type="text" class="form-control" ng-readonly="true" value="{{syselement.orderNum}}" /></td>
+												<td>
+													<a ng-show="syselement.statusFlag=='0'" ng-click="FHDel({{syselement}})">使用中</a>
+													<a ng-show="syselement.statusFlag=='2'" ng-click="FHDel({{syselement}})">已作废</a>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-default" ng-click="back()">返 回</button>
+	</div>
+</div>
+ 
+
+
