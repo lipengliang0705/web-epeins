@@ -85,6 +85,17 @@ app.controller('productAdminController', ['$scope', 'Restangular' ,'ngTableParam
 		$scope.myTable = new NgTableParams({count: 5, sorting: { name: "desc", money:"asc" } }, { counts: [5, 10, 20], dataset: filterData});
 
 	}
+	//测试事件
+	function test($event){
+		// $scope.searcher.date
+		console.log(event);
+		console.log(event.target.innerText);
+		event.target.innerText = '测试完成';
+	}
+	//定义方法
+	$scope.method = {
+		test:test,
+	};
 
 }]);
 

@@ -7,95 +7,104 @@
     <div class="panel panel-default panel-b0 ">
       <div class="panel-body">
           <div class="form-group pull-in clearfix">
-          <div class="col-sm-6 col-b10" ng-controller="DatepickerDemoCtrl">
+          <div class="col-sm-4 col-b10">
               <label>日期：</label>
               <div class="input-group">
-                  <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dt" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
-                  <span class="input-group-btn">
-                    <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-                  </span>
+                <input type="text" class="form-control" datepicker-popup="{{format}}" placeholder="输入日期"  ng-model="data.addDate" is-open="opened" datepicker-options="dateOptions" close-text="Close" />
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="open($event,'opened')"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
               </div>
             </div>
-            <div class="col-sm-6 col-b10">
+            <div class="col-sm-4 col-b10">
               <label>机台：</label>
-              <ui-select ng-model="data.plat_id" theme="bootstrap" name="plat_id"  required/> 
-                  <ui-select-match placeholder="选择机台">{{$select.selected.plat_id}}</ui-select-match>
-                  <ui-select-choices  repeat="item in kcategory.list | filter: $select.search">
-                    <div ng-bind-html="item.plat_id | highlight: $select.search"></div>
+              <ui-select ng-model="data.platId" theme="bootstrap" name="platId"  required/> 
+                  <ui-select-match placeholder="选择机台">{{$select.selected.platId}}</ui-select-match>
+                  <ui-select-choices  repeat="item in prodUuid | filter: $select.search">
+                    <div ng-bind-html="item.platId | highlight: $select.search"></div>
                   </ui-select-choices>
               </ui-select>
             </div>
-            <div class="col-sm-6 col-b10">
+            <div class="col-sm-4 col-b10">
               <label>机型：</label>
-              <ui-select ng-model="data.type_id" theme="bootstrap" name="type_id"  required/> 
-                  <ui-select-match placeholder="选择机型">{{$select.selected.type_id}}</ui-select-match>
-                  <ui-select-choices  repeat="item in kcategory.list | filter: $select.search">
-                    <div ng-bind-html="item.type_id | highlight: $select.search"></div>
+              <ui-select ng-model="data.typeId" theme="bootstrap" name="typeId"  required/> 
+                  <ui-select-match placeholder="选择机型">{{$select.selected.typeId}}</ui-select-match>
+                  <ui-select-choices  repeat="item in prodUuid | filter: $select.search">
+                    <div ng-bind-html="item.typeId | highlight: $select.search"></div>
                   </ui-select-choices>
               </ui-select>
             </div>
             
-            <div class="col-sm-6 col-b10">
+            <div class="col-sm-4 col-b10">
               <label>产品名称：</label>
-              <ui-select ng-model="data.productName" theme="bootstrap" name="productName"  required/> 
-                  <ui-select-match placeholder="选择机型">{{$select.selected.productName}}</ui-select-match>
+              <ui-select ng-model="data.prodId" theme="bootstrap" name="prodId"  required/> 
+                  <ui-select-match placeholder="选择产品">{{$select.selected.prodId}}</ui-select-match>
                   <ui-select-choices  repeat="item in prodUuid | filter: $select.search">
-                    <div ng-bind-html="item.productName | highlight: $select.search"></div>
+                    <div ng-bind-html="item.prodId | highlight: $select.search"></div>
                   </ui-select-choices>
               </ui-select>
-              <select ui-jq="chosen" class="s-w100" ng-options="m.productName for m in prodUuid" ng-model="row.prodUuid" required>
+              <!-- <select ui-jq="chosen" class="s-w100" ng-options="m.productName for m in prodUuid" ng-model="row.prodUuid" required>
                   <option>请选择</option>
-                </select>
+              </select> -->
             </div>
-            <div class="col-sm-6 col-b10">
+            <div class="col-sm-4 col-b10">
               <label>任务单号：</label>
-              <select ui-jq="chosen" class="s-w100" ng-options="m.task_uuid for m in testData" ng-model="row.task_uuid" required>
+              <ui-select ng-model="data.taskId" theme="bootstrap" name="taskId"  required/> 
+                  <ui-select-match placeholder="选择单号">{{$select.selected.taskId}}</ui-select-match>
+                  <ui-select-choices  repeat="item in prodUuid | filter: $select.search">
+                    <div ng-bind-html="item.taskId | highlight: $select.search"></div>
+                  </ui-select-choices>
+              </ui-select>
+              <!-- <select ui-jq="chosen" class="s-w100" ng-options="m.task_uuid for m in testData" ng-model="row.task_uuid" required>
                 <option>请选择</option>
-              </select>
+              </select> -->
             </div>
-            <div class="col-sm-6 col-b10">
+            <div class="col-sm-4 col-b10">
               <label>任务单数量：</label>
               <input type="text" class="form-control" ng-model="row.taskNumber">
             </div>
-            <div class="col-sm-6 col-b10">
+            <div class="col-sm-4 col-b10">
               <label>换模：</label>
-              <select ui-jq="chosen" class="w-md s-w100" ng-model="row.change_flg">
+              <select ui-jq="chosen" ng-model="data.changeFlg" class="w-md s-w100" ng-model="row.change_flg">
                 <option value="是">是</option>
                 <option value="否">否</option>
               </select>
             </div>
-            <div class="col-sm-6 col-b10">
+            <div class="col-sm-4 col-b10">
               <label>材质：</label>
-              <select ui-jq="chosen" class="s-w100" ng-options="m.material_uuid for m in testData" ng-model="row.material_uuid" required>
-                <option>请选择</option>
-              </select>
+              <ui-select ng-model="data.materialId" theme="bootstrap" name="materialId"  required/> 
+                  <ui-select-match placeholder="选择材料">{{$select.selected.materialId}}</ui-select-match>
+                  <ui-select-choices  repeat="item in prodUuid | filter: $select.search">
+                    <div ng-bind-html="item.materialId | highlight: $select.search"></div>
+                  </ui-select-choices>
+              </ui-select>
             </div>
-            <div class="col-sm-6 col-b10">
+            <div class="col-sm-4 col-b10">
               <label>本日计划量：</label>
-              <input type="text" class="form-control" ng-model="row.count_today" required/>
+              <input type="text" class="form-control" ng-model="data.countToday" required/>
             </div>
             <div class="col-sm-12">
               <label class="form-title">损耗时间/小时：</label>
             </div>
-            <div class="col-sm-6 col-b10">
+            <div class="col-sm-4 col-b10">
               <label>换模：</label>
-              <input type="text" class="form-control" ng-model="row.change_loss_time" required>
+              <input type="text" class="form-control" ng-model="data.changeLossTime" required>
             </div>
-            <div class="col-sm-6 col-b10">
+            <div class="col-sm-4 col-b10">
               <label>设备维修：</label>
-              <input type="text" class="form-control" ng-model="row.repair_loss_time" required>
+              <input type="text" class="form-control" ng-model="data.repairLossTime" required>
             </div>
-            <div class="col-sm-6 col-b10">
+            <div class="col-sm-4 col-b10">
               <label>待料：</label>
-              <input type="text" class="form-control" ng-model="row.wait_loss_time" required>
+              <input type="text" class="form-control" ng-model="data.waitLossTime" required>
             </div>
-            <div class="col-sm-6 col-b10">
+            <div class="col-sm-4 col-b10">
               <label>其它：</label>
-              <input type="text" class="form-control" ng-model="row.other" required>
+              <input type="text" class="form-control" ng-model="data.otherLossTime" required>
             </div>
             <div class="col-sm-12 col-b10">
               <label>备注：</label>
-              <textarea class="form-control" ng-model="row.memo" required></textarea>
+              <textarea class="form-control" ng-model="data.memo" required></textarea>
             </div>
           </div>
       </div>

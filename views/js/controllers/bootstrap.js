@@ -42,6 +42,7 @@
     };
 
     $scope.closeAlert = function(index) {
+      //alert(index);
       $scope.alerts.splice(index, 1);
     };
   }])

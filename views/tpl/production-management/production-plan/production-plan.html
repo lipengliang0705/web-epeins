@@ -93,12 +93,12 @@
                 <tr ng-repeat="row in $data">
                     <td data-title="'机台'" sortable="'platId'">{{row.platId}}</td>
                     <td data-title="'机型'" sortable="'typeId'">{{row.typeId}}</td>
-                    <td data-title="'产品名称'" sortable="'prodUuid'">{{row.prodUuid}}</td>
-                    <td data-title="'任务单号'" sortable="'taskUuid'">{{row.taskUuid}}</td>
+                    <td data-title="'产品名称'" sortable="'prodId'">{{row.prodId}}</td>
+                    <td data-title="'任务单号'" sortable="'taskId'">{{row.taskId}}</td>
                     <td data-title="'任务单数量'" sortable="'taskNumber'">{{row.taskNumber}}</td>
                     <td data-title="'损耗时间/小时'" sortable="'countLossTime'">{{row.countLossTime}}</td>
-                    <td data-title="'材质'" sortable="'materialUuid'">{{row.materialUuid}}</td>
-                    <td data-title="'日期'" sortable="'updatetime'">{{row.updatetime}}</td>
+                    <td data-title="'材质'" sortable="'materialId'">{{row.materialId}}</td>
+                    <td data-title="'日期'" sortable="'updateTime'">{{row.updatetime}}</td>
                     <td data-title="'本日计划量'" sortable="'countToday'">{{row.countToday}}</td>
                     <td data-title="'计划换模'">
                         <span class="label label-success" ng-if="row.changeFlg==1">是</span>

@@ -65,7 +65,7 @@ angular.module('app')
                   template: '<div ui-view class="fade-in-up"></div>'
               })
               .state('app.s1.plan-upload-mgmt', {
-                  url: '/product-plan',
+                  url: '/plan-upload',
                   templateUrl: 'views/tpl/production-management/plan-upload/plan-upload.html',
                   resolve: {
                       deps: ['$ocLazyLoad',
@@ -329,6 +329,22 @@ angular.module('app')
                         return $ocLazyLoad.load(['ngTable']).then(
                             function(){
                                 return $ocLazyLoad.load('views/js/controllers/product-basedata/product-basedata.js');
+                            }
+                        );
+                      }
+                    ]
+                }
+              })
+              //产品基础数据维护 
+              .state('app.s6.product-info-mgmt', {
+                url: '/product-info',
+                templateUrl: 'views/tpl/basic-data/product-info/product-info.html',
+                resolve: {
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                        return $ocLazyLoad.load(['ngTable']).then(
+                            function(){
+                                return $ocLazyLoad.load('views/js/controllers/basic-data/product-info/product-info.js');
                             }
                         );
                       }

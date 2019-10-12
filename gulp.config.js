@@ -12,5 +12,5 @@ module.exports = {
     url: 'http://9.200.104.58',
     //apiAddress: '/cms'
     // apiAddress: '/api',
-    apiAddress: '/factory'
+    apiAddress: '/epeins-factory'
 };

@@ -1,0 +1,40 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="method.cancel()"><span aria-hidden="true">&times;</span></button>
+    <h5 class="modal-title">{{title}}</h5>
+</div>
+<form  name="formValidate" class="form-horizontal form-validation" ng-submit="method.submit()">
+  <div class="modal-body">
+    <div class="panel panel-default panel-b0 ">
+      <div class="panel-body">
+          <div class="form-group pull-in clearfix">
+            <div class="col-sm-12 col-b10">
+              <label>产品名称：</label>
+              {{data.prodName}}
+              <ui-select ng-model="data.prodName" theme="bootstrap" name="prodName" required/> 
+                  <ui-select-match placeholder="选择产品">{{$select.selected.prodName}}</ui-select-match>
+                  <ui-select-choices  repeat="item in prodName.list | filter: $select.search">
+                    <div ng-bind-html="item.prodName | highlight: $select.search"></div>
+                  </ui-select-choices>
+              </ui-select>
+              <!-- <select ui-jq="chosen" class="s-w100" ng-options="item.prodName as item.prodName for item in prodUuid" ng-model="data.prodName" required>
+                  <option>请选择</option>
+              </select> -->
+            </div>
+            <div class="col-sm-12 col-b10">
+              <label>备注：</label>
+              <textarea class="form-control" rows="6" ng-model="data.memo" placeholder="请输入信息" required></textarea>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">                  
+      <button class="btn btn-default" ng-click="method.cancel()">取 消</button>
+      <button type="submit" class="btn btn-success">确 定</button>
+  </div>
+</form>
+
+
+
+
+

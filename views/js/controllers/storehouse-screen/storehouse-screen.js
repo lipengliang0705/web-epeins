@@ -260,12 +260,33 @@ app.controller('storehouseController', ['$scope', 'Restangular' ,'ngTableParams'
 	            }
 	        ],
 	        series: [
-	            {name: '月计划量', type: 'bar'},
+				{
+					name: '月计划量', 
+					type: 'bar',
+					'markLine':{
+                        symbol : ['arrow','none'],
+                        symbolSize : [4, 2],
+                        itemStyle : {
+                            normal: {
+                                lineStyle: {color:'orange'},
+                                barBorderColor:'orange',
+                                label:{
+                                    position:'left',
+                                    formatter:function(params){
+                                        return Math.round(params.value);
+                                    },
+                                    textStyle:{color:'orange'}
+                                }
+                            }
+                        },
+                        'data':[{'type':'average','name':'平均值'}]
+                    },
+				},
 	            {
 	                name: '完成率',
 	                type: 'pie',
 	                center: ['75%', '20%'],
-	                radius:'15%',
+					radius:'15%',
 	                z: 100
 	            }
 	        ]

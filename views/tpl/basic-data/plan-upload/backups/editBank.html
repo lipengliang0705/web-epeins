@@ -1,0 +1,52 @@
+<!--
+<div class="modal-header">
+    <h3 class="modal-title">添加节点</h3>
+</div>
+-->
+<div class="modal-body ">
+        <form name="form" class="form-validation">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <span class="h4">{{title}}</span>
+            </div>
+            <div class="panel-body">
+			<div class="form-group pull-in clearfix">
+			
+              <div class="col-sm-6">
+                <label>银行代码：</label>
+                <input type="text" class="form-control" ng-model="bank.bankCode" required > 
+              </div>
+              <div class="col-sm-6">
+                <label>银行名称：</label>
+                <input type="text" class="form-control" ng-model="bank.bankName" required >
+              </div>
+              <div class="col-sm-6">
+                <label>类型：</label>
+                <!-- <input type="text" class="form-control" ng-model="bank.bankType" required >  -->
+                  <select class="form-control" ng-model="bank.bankType" required
+					ng-options="opt.id as opt.name for opt in bankTypes">
+				  </select>
+              </div>
+              <div class="col-sm-6">
+                <label>地址：</label>
+                <input type="text" class="form-control" ng-model="bank.bankAddress" required >
+              </div>
+              <div class="col-sm-6">
+                <label>联系人：</label>
+                <input type="text" class="form-control" ng-model="bank.contactName" required >
+              </div>
+              <div class="col-sm-6">
+                <label>联系人电话：</label>
+                <input type="text" class="form-control" ng-model="bank.contactPhone" required >
+              </div>
+
+			</div>
+            </div>
+          </div>
+        </form>
+
+</div>
+<div class="modal-footer">                  
+    <button class="btn btn-default" ng-click="cancel()">取 消</button>
+    <button class="btn btn-success" ng-disabled="form.$invalid" ng-click="save()">确 定</button>
+</div>

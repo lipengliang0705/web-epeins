@@ -1,48 +1,41 @@
-app.controller('productionPlanController', productionPlanController);
-productionPlanController.$inject = ['$scope', 'Restangular' ,'ngTableParams', 'dialogs', 'toaster', '$http', '$rootScope', '$filter'];
-function productionPlanController($scope, Restangular, NgTableParams, dialogs, toaster, $http, $rootScope, $filter) {
+app.controller('productInfoController', productInfoController);
+productInfoController.$inject = ['$scope', 'Restangular' ,'ngTableParams', 'dialogs', 'toaster', '$http', '$rootScope', '$filter'];
+function productInfoController($scope, Restangular, NgTableParams, dialogs, toaster, $http, $rootScope, $filter) {
 	$scope.resoures = {
 		list: [],//信息列表
 	};
-	//查询所有生产计划信息/factory/planInfo/findOne
-	function productionPlanInfoAll() {
-		// var params = {
-		// 	param:''
-		// };
+	$scope.prodName = {
+		list: [],//产品分类名称
+	}
+	$scope.myTable = null;
+	//查询所有产品基础数据信息/epeins-factory/productInfo/query
+	function productionInfoAll() {
 		var params = {
-			"planInfo": {
-			  "changeFlg": "string",
-			  "changeLossTime": 0,
-			  "countToday": 0,
-			  "id": 0,
-			  "materialId": "string",
-			  "memo": "string",
-			  "planDate": "2019-10-09T06:50:29.021Z",
-			  "platId": "string",
-			  "prodId": "string",
-			  "repairLossTime": 0,
-			  "taskId": "string",
-			  "typeId": "string",
-			  "updateTime": "2019-10-09T06:50:29.021Z",
-			  "waitLossTime": 0
-			}
+			"id": "",
+			"memo": "",
+			"prodName": ""
 		}
 		// Restangular.one('/epeins-factory/planInfo/findOne').customGET('',params).then(function(res) {
-		Restangular.all('/epeins-factory/planInfo/find').post(params).then(function(res) {
-			//console.log('哈哈', res.resultData.content);
+		Restangular.all('/epeins-factory/productInfo/query').post(params).then(function(res) {
+			console.log('哈哈', res.resultData);
 			if (res.resultCode == 200) {
-				//写入数据
-				//$scope.resoures.list.push(res.resultData.content);
-				$scope.resoures.list = res.resultData.content;
-				angular.forEach($scope.resoures.list,function(item,index){
-					//统计总耗时，并添加到对象
-					$scope.countLossTime = Number(item.changeLossTime) + Number(item.waitLossTime) + Number(item.repairLossTime);
-					item.countLossTime = $scope.countLossTime;
-					//console.log('再次统计',$scope.countLossTime);
+				//过滤获取产品名称列表
+				var result = [];
+				var distinctArr = [];
+				angular.forEach(res.resultData,function(item,index){
+					//循环过滤掉重复的
+					if(distinctArr.indexOf(item.prodName) == -1){
+						distinctArr.push(item.prodName);
+						result.push(item);
+					}	
 				});
-				//console.log('生产信息', $scope.resoures.list);
-				$scope.myTable = new NgTableParams({count: 5, sorting: { title: "desc" } }, { counts: [5, 10, 20], dataset: $scope.resoures.list});
-		 		toaster.pop('success', '', '加载数据成功！');
+				//写入数据
+				$scope.prodName.list = result;
+
+
+				//写入数据
+				$scope.resoures.list = res.resultData;
+				$scope.myTable = new NgTableParams({count: 10, sorting: { title: "desc" } }, { counts: [10, 20, 30], dataset: $scope.resoures.list});
 			}	
 		}, function(errResponse) {
 			console.log("Error with status code", errResponse.status);
@@ -113,20 +106,29 @@ function productionPlanController($scope, Restangular, NgTableParams, dialogs, t
 			});
 		// }
 	}
+	//表格模糊匹配搜索
+	$scope.$watch("data.search", function (newValue, oldValue) {
+		//console.log(newValue, oldValue);
+		if (newValue == undefined) {
+			$scope.myTable.filter({});
+		} else if (newValue != oldValue) {
+			$scope.myTable.filter({ $: $scope.data.search.prodName });
+		}
+	});
 
 	function add(item) {
-		var dlg = dialogs.create('views/tpl/production-management/production-plan/add.html','addController',{data:item},{size:'lg'});
+		var dlg = dialogs.create('views/tpl/basic-data/product-info/add.html','addController',{data:item},{size:'md'});
     };
 	
     function modify(item) {
-		var dlg = dialogs.create('views/tpl/production-management/production-plan/modify.html','modifyController',{data:item},{size:'md'});	
+		var dlg = dialogs.create('views/tpl/basic-data/product-info/modify.html','modifyController',{data:item},{size:'md'});	
     };
 
     function deleted(item) {
-		var dlg = dialogs.create('views/tpl/production-management/production-plan/delete.html','deteleDataController',{data:item},{size:'sm'});	
+		var dlg = dialogs.create('views/tpl/basic-data/product-info/delete.html','deteleDataController',{data:item},{size:'sm'});	
 	};
 	$scope.data = {
-		
+		search:'',
 	};
 	//定义方法
 	$scope.method = {
@@ -138,19 +140,19 @@ function productionPlanController($scope, Restangular, NgTableParams, dialogs, t
 	
 	//初始化方法
 	function init(){
-		productionPlanInfoAll();
+		productionInfoAll();
 	};
 	// 新建列表成功
 	$rootScope.$on('addSuccess', function (event, data) {
-		productionPlanInfoAll();
+		productionInfoAll();
 	})
 	// 修改列表成功
 	$rootScope.$on('modifySuccess', function (event, data) {
-		checkKnowledgeAll();
+		productionInfoAll();
 	})
 	// 删除列表成功
 	$rootScope.$on('deleteSuccess', function (event, data) {
-		checkKnowledgeAll();
+		productionInfoAll();
 	})
 	// $scope.delete = deleted;
 	// $scope.modify = modify;
@@ -162,12 +164,12 @@ function productionPlanController($scope, Restangular, NgTableParams, dialogs, t
 
 
 app.controller('addController',function($scope, $modalInstance, Restangular, data, toaster, $rootScope){
-	$scope.title = "新增生产计划";
-	$scope.prodUuid = [
-		{id:'1', platId:"1#机", typeId:"K1214", prodId:"YFL-1-T/B", taskId:"ZJG-20190722F2-119", materialId:"LBK15D", changeFlg:"true"},
-		{id:'2', platId:"2#机", typeId:"K1214", prodId:"XJ-50B", taskId:"SC20190718X1-521", materialId:"PB4520", changeFlg:"true"},
-		{id:'3', platId:"3#机", typeId:"K1214", prodId:"XJ-20-T", taskId:"SC20190617X1-437", materialId:"PB4520", changeFlg:"false"},
-	];
+	$scope.title = "新增产品基础数据";
+	// $scope.prodUuid = [
+	// 	{id:'1', platId:"1#机", typeId:"K1214", prodName:"YFL-1-T/B", taskId:"ZJG-20190722F2-119", materialId:"LBK15D", changeFlg:"true"},
+	// 	{id:'2', platId:"2#机", typeId:"K1214", prodName:"XJ-50B", taskId:"SC20190718X1-521", materialId:"PB4520", changeFlg:"true"},
+	// 	{id:'3', platId:"3#机", typeId:"K1214", prodName:"XJ-20-T", taskId:"SC20190617X1-437", materialId:"PB4520", changeFlg:"false"},
+	// ];
 	//时间插件
 	$scope.today = function() {
 		$scope.dt = new Date();
@@ -204,26 +206,44 @@ app.controller('addController',function($scope, $modalInstance, Restangular, dat
 	$scope.format = $scope.formats[1];
 	//添加数据对象
 	$scope.data = {
-		addDate: '',
-		platId: '',
-		typeId: '',
-		prodId: '',
-		materialId: '',
-		countToday: '',
-		changeLossTime: '',
-		repairLossTime: '',
-		waitLossTime: '',
-		otherLossTime: '',
+		prodName: '',
 		memo: '',
+		createTime: new Date(),
+		updateTime: new Date(),
 	}
 	//console.log('测试试试',$scope.data.platId);
-	$scope.kcategory = {
+	$scope.prodName = {
 		list: [],//分类列表
 	}
-	//$scope.data.editor = new window.wangEditor('#ueditor');
-    //如果需要使用 base64 编码直接将图片插入到内容中，可参考一下示例配置
-	//$scope.data.editor.customConfig.uploadImgShowBase64 = true;
-	//$scope.data.editor.create();
+	//过滤获取产品名称
+    function prodNameList() {
+		var params = {
+			"id": "",
+			"memo": "",
+			"prodName": ""
+		}
+		Restangular.all('/epeins-factory/productInfo/query').post(params).then(function(res) {
+			if (res.resultCode == 200) {
+				var result = [];
+				var distinctArr = [];
+				angular.forEach(res.resultData,function(item,index){
+					//console.log('获取每一个产品',item);
+					//循环过滤掉重复的
+					if(distinctArr.indexOf(item.prodName) == -1){
+						distinctArr.push(item.prodName);
+						result.push(item);
+					}	
+				});
+				//console.log('打印result',result);
+				//console.log(result);
+				//写入数据
+				$scope.prodName.list = result;
+			}	
+		}, function(errResponse) {
+			console.log("Error with status code", errResponse.status);
+		}); 
+		
+	};
 
 	// 方法
 	$scope.method = {
@@ -231,21 +251,8 @@ app.controller('addController',function($scope, $modalInstance, Restangular, dat
 		cancel: cancel,
 	}
 	function init() {
-		//getAccount();
-		//kcategorySelect();
+		prodNameList();
 	}
-	//筛选分类 GET
-	// function kcategorySelect() {
-	// 	Restangular.one('/api/kcategory/category-all').get().then(function(res) {
-	// 		if (res) {
-	// 			$scope.kcategory.list = res;
-	// 			console.log('筛选分类', $scope.kcategory.list);
-	// 		}	
-	// 	}, function(errResponse) {
-	// 		console.log("Error with status code", errResponse.status);
-	// 	}); 
-
-	// }
 	function cancel(){
 		$modalInstance.dismiss('Cancelled');
 	};
@@ -253,20 +260,10 @@ app.controller('addController',function($scope, $modalInstance, Restangular, dat
 	function submit(){
 		//获取输入数据
 		var item = {
-			addDate: $scope.data.addDate,
-			platId: $scope.data.platId,
-			typeId: $scope.data.typeId,
-			prodId: $scope.data.prodId,
-			materialId: $scope.data.materialId,
-			countToday: $scope.data.countToday,
-			changeLossTime: $scope.data.changeLossTime,
-			repairLossTime: $scope.data.repairLossTime,
-			waitLossTime: $scope.data.waitLossTime,
-			otherLossTime: $scope.data.otherLossTime,
+			prodName: $scope.data.prodName.prodName,
 			memo: $scope.data.memo,
 		}
-		//console.log(item);
-
+		console.log('新增传递参数',item);
 		// 调接口，储存
 		Restangular.all('/epeins-factory/productInfo/addOrUpdate').post(item).then(function(res) {
 			console.log('添加列表', res);
@@ -284,30 +281,47 @@ app.controller('addController',function($scope, $modalInstance, Restangular, dat
 });
 app.controller('modifyController',function($scope, $modalInstance, data, Restangular, $rootScope, toaster){
 	//修改列表接口method: 'PUT',url: '/api/knowledge/knowledge-infos'
-	console.log(data);
-	$scope.title = "生产计划变更";
+	$scope.title = "产品计划变更";
 	//数据对象
-	$scope.details = [];
+	//$scope.details = [];
 	//选中的行赋给details数组
 	$scope.details = data.data;
-	$scope.kcategory = {
+	console.log('enen',$scope.details);
+	$scope.prodName = {
 		list: [],//分类列表
 	}
-	function init() {
-		//getAccount();
-		kcategorySelect();
-	}
-	//筛选分类 GET
-	function kcategorySelect() {
-		Restangular.one('/api/kcategory/category-all').get().then(function(res) {
-			if (res) {
-				$scope.kcategory.list = res;
-				console.log('筛选分类', $scope.kcategory.list);
+	//获取筛选产品名称
+    function prodNameList() {
+		var params = {
+			"id": "",
+			"memo": "",
+			"prodName": ""
+		}
+		Restangular.all('/epeins-factory/productInfo/query').post(params).then(function(res) {
+			if (res.resultCode == 200) {
+				var result = [];
+				var distinctArr = [];
+				angular.forEach(res.resultData,function(item,index){
+					//循环过滤掉重复的
+					if(distinctArr.indexOf(item.prodName) == -1){
+						distinctArr.push(item.prodName);
+						result.push(item);
+					}	
+				});
+				//写入数据
+				$scope.prodName.list = result;
+				//console.log($scope.prodName.list);
 			}	
 		}, function(errResponse) {
 			console.log("Error with status code", errResponse.status);
-		}); 
-
+		}); 	
+	};
+	$scope.testChange = function () {
+         console.log($scope.testSelect); 
+     }
+		
+	function init() {
+		prodNameList();
 	}
 	//方法
 	$scope.method = {
@@ -321,24 +335,23 @@ app.controller('modifyController',function($scope, $modalInstance, data, Restang
 	function submit(){
 		var item = {
 			id: $scope.details.id,
-			title: $scope.details.title,
-			labels: $scope.details.labels,
-			content: $scope.details.content,
-			knowledgeCategory:$scope.details.knowledgeCategory,
+			prodName: $scope.details.prodName.prodName,
+			memo: $scope.details.memo,
 		}
-		console.log(item);
-		Restangular.all('/api/knowledge/knowledge-infos').customPUT(item).then(function(res) {
+		console.log('传递参数',item);
+		//传递参数，调接口
+		Restangular.all('/epeins-factory/productInfo/addOrUpdate').post(item).then(function(res) {
 			console.log(res);
-			if (res.status == 0) {
+			if (res.resultCode == 200) {
 				// 储存成功后，跳转到列表页，并且刷新页面
 				$rootScope.$broadcast('modifySuccess');
 				toaster.pop('success', '修改数据成功！');
-				// 关闭
-				cancel();
 			}	
 		}, function(errResponse) {
 			console.log("Error with status code", errResponse.status);
 		});
+		// 关闭
+		cancel();
 	};
 	init();
 
@@ -346,7 +359,7 @@ app.controller('modifyController',function($scope, $modalInstance, data, Restang
 
 app.controller('deteleDataController',function($scope, $modalInstance, data, Restangular, $rootScope,toaster){
 	console.log(data);
-	$scope.title = "删除机器";
+	$scope.title = "删除产品数据";
 	$scope.data = {
 		id: data.data,
 	}
@@ -360,11 +373,14 @@ app.controller('deteleDataController',function($scope, $modalInstance, data, Res
 	};
 	
 	function submit(id) {
-		//调删除接口/api/knowledge/knowledge-delete/:id
-		// get
-		Restangular.one('/api/knowledge/knowledge-delete/', $scope.data.id).get().then(function(res) {
+		//调删除接口/productInfo/delete
+		var params = {
+			"id": $scope.data.id,
+		}
+		Restangular.one('/epeins-factory/productInfo/delete').customGET('',params).then(function(res) {
+		//Restangular.one('/epeins-factory/productInfo/delete/', $scope.data.id).get().then(function(res) {
 			console.log(res);
-			if (res.status == 1) {
+			if (res.resultCode == 200) {
 				//请求删除数据
 				$rootScope.$broadcast('deleteSuccess');
 				toaster.pop('success', '删除数据成功！');
