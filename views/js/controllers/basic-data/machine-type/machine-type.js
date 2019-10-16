@@ -1,22 +1,24 @@
-app.controller('productInfoController', productInfoController);
-productInfoController.$inject = ['$scope', 'Restangular' ,'ngTableParams', 'dialogs', 'toaster', '$http', '$rootScope', '$filter'];
-function productInfoController($scope, Restangular, NgTableParams, dialogs, toaster, $http, $rootScope, $filter) {
+app.controller('machineTypeController', machineTypeController);
+machineTypeController.$inject = ['$scope', 'Restangular' ,'ngTableParams', 'dialogs', 'toaster', '$http', '$rootScope', '$filter'];
+function machineTypeController($scope, Restangular, NgTableParams, dialogs, toaster, $http, $rootScope, $filter) {
 	$scope.resoures = {
 		list: [],//信息列表
 	};
-	$scope.prodName = {
-		list: [],//产品分类名称
+	$scope.machineType = {
+		list: [],//机型分类名称
 	}
 	$scope.myTable = null;
-	//查询所有产品基础数据信息/epeins-factory/productInfo/query
-	function productionInfoAll() {
+	//查询所有机型基础数据信息/epeins-factory/machineType/query
+	function machineTypeAll() {
 		var params = {
 			"id": "",
-			"memo": "",
-			"prodName": ""
+			"typeId": "",
+			"typeName": "",
+			"memo": ""
+			
 		}
 		// Restangular.one('/epeins-factory/planInfo/findOne').customGET('',params).then(function(res) {
-		Restangular.all('/epeins-factory/productInfo/query').post(params).then(function(res) {
+		Restangular.all('/epeins-factory/machineType/query').post(params).then(function(res) {
 			console.log('哈哈', res.resultData);
 			if (res.resultCode == 200) {
 				//过滤获取产品名称列表
@@ -24,13 +26,13 @@ function productInfoController($scope, Restangular, NgTableParams, dialogs, toas
 				var distinctArr = [];
 				angular.forEach(res.resultData,function(item,index){
 					//循环过滤掉重复的
-					if(distinctArr.indexOf(item.prodName) == -1){
-						distinctArr.push(item.prodName);
+					if(distinctArr.indexOf(item.typeId) == -1){
+						distinctArr.push(item.typeId);
 						result.push(item);
 					}	
 				});
 				//写入数据
-				$scope.prodName.list = result;
+				$scope.machineType.list = result;
 
 
 				//写入数据
@@ -42,46 +44,7 @@ function productInfoController($scope, Restangular, NgTableParams, dialogs, toas
 		}); 
 		
 	};
-	//时间插件
-	$scope.today = function() {
-		$scope.dt = new Date();
-	};
-	$scope.today();
-
-	$scope.clear = function () {
-		$scope.dt = null;
-	};
-
-	// Disable weekend selection
-	$scope.disabled = function(date, mode) {
-		return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
-	};
-
-	$scope.toggleMin = function() {
-		$scope.minDate = $scope.minDate ? null : new Date();
-	};
-	$scope.toggleMin();
-
-	$scope.open = function($event, target) {
-		$event.preventDefault();
-		$event.stopPropagation();
-
-		$scope[target] = !$scope[target];
-	};
-	$scope.dateOptions = {
-		formatYear: 'yy',
-		startingDay: 1,
-		class: 'datepicker'
-	};
-	$scope.initDate = new Date('2016-15-20');
-	$scope.formats = ['dd-MMMM-yyyy', 'yyyy-MM-dd', 'dd.MM.yyyy', 'shortDate'];
-	$scope.format = $scope.formats[1];
-
-    $scope.toggleDropdown = function($event) {
-		$event.preventDefault();
-		$event.stopPropagation();
-		$scope.status.isopen = !$scope.status.isopen;
-    };
+	//搜索
 	function search(){
 		//三者必须选择其一的时候判断用，否则不需要
 		//if ($scope.data.title || $scope.data.startDate || $scope.data.endDate) {
@@ -112,20 +75,20 @@ function productInfoController($scope, Restangular, NgTableParams, dialogs, toas
 		if (newValue == undefined) {
 			$scope.myTable.filter({});
 		} else if (newValue != oldValue) {
-			$scope.myTable.filter({ $: $scope.data.search.prodName });
+			$scope.myTable.filter({ $: $scope.data.search.typeId });
 		}
 	});
 
 	function add(item) {
-		var dlg = dialogs.create('views/tpl/basic-data/product-info/add.html','addProductController',{data:item},{size:'md'});
+		var dlg = dialogs.create('views/tpl/basic-data/machine-type/add.html','addMachineTypeController',{data:item},{size:'md'});
     };
 	
     function modify(item) {
-		var dlg = dialogs.create('views/tpl/basic-data/product-info/modify.html','modifyProductController',{data:item},{size:'md'});	
+		var dlg = dialogs.create('views/tpl/basic-data/machine-type/modify.html','modifyMachineTypeController',{data:item},{size:'md'});	
     };
 
     function deleted(item) {
-		var dlg = dialogs.create('views/tpl/basic-data/product-info/delete.html','deteleProductController',{data:item},{size:'sm'});	
+		var dlg = dialogs.create('views/tpl/basic-data/machine-type/delete.html','deteleMachineTypeController',{data:item},{size:'sm'});	
 	};
 	$scope.data = {
 		search:'',
@@ -140,104 +103,70 @@ function productInfoController($scope, Restangular, NgTableParams, dialogs, toas
 	
 	//初始化方法
 	function init(){
-		productionInfoAll();
+		machineTypeAll();
 	};
 	// 新建列表成功
 	$rootScope.$on('addSuccess', function (event, data) {
-		productionInfoAll();
+		machineTypeAll();
 	})
 	// 修改列表成功
 	$rootScope.$on('modifySuccess', function (event, data) {
-		productionInfoAll();
+		machineTypeAll();
 	})
 	// 删除列表成功
 	$rootScope.$on('deleteSuccess', function (event, data) {
-		productionInfoAll();
+		machineTypeAll();
 	})
-	// $scope.delete = deleted;
-	// $scope.modify = modify;
-	// $scope.add = add;
 
 	init();
 };
 
 
 
-app.controller('addProductController',function($scope, $modalInstance, Restangular, data, toaster, $rootScope){
-	$scope.title = "新增产品基础数据";
+app.controller('addMachineTypeController',function($scope, $modalInstance, Restangular, data, toaster, $rootScope){
+	$scope.title = "新增机型基础数据";
+	//临时测试数据
 	// $scope.prodUuid = [
-	// 	{id:'1', platId:"1#机", typeId:"K1214", prodName:"YFL-1-T/B", taskId:"ZJG-20190722F2-119", materialId:"LBK15D", changeFlg:"true"},
-	// 	{id:'2', platId:"2#机", typeId:"K1214", prodName:"XJ-50B", taskId:"SC20190718X1-521", materialId:"PB4520", changeFlg:"true"},
-	// 	{id:'3', platId:"3#机", typeId:"K1214", prodName:"XJ-20-T", taskId:"SC20190617X1-437", materialId:"PB4520", changeFlg:"false"},
+	// 	{id:'1', platId:"1#机", typeId:"K1214", prodName:"YFL-1-T/B", typeName:"ZJG-20190722F2-119", materialId:"LBK15D", changeFlg:"true"},
+	// 	{id:'2', platId:"2#机", typeId:"K813", prodName:"XJ-50B", typeName:"SC20190718X1-521", materialId:"PB4520", changeFlg:"true"},
+	// 	{id:'3', platId:"3#机", typeId:"K68", prodName:"XJ-20-T", typeName:"SC20190617X1-437", materialId:"PB4520", changeFlg:"false"},
 	// ];
-	//时间插件
-	$scope.today = function() {
-		$scope.dt = new Date();
-	};
-	$scope.today();
-
-	$scope.clear = function () {
-		$scope.dt = null;
-	};
-
-	// Disable weekend selection
-	$scope.disabled = function(date, mode) {
-		return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
-	};
-
-	$scope.toggleMin = function() {
-		$scope.minDate = $scope.minDate ? null : new Date();
-	};
-	$scope.toggleMin();
-
-	$scope.open = function($event, target) {
-		$event.preventDefault();
-		$event.stopPropagation();
-
-		$scope[target] = !$scope[target];
-	};
-	$scope.dateOptions = {
-		formatYear: 'yy',
-		startingDay: 1,
-		class: 'datepicker'
-	};
-	$scope.initDate = new Date('2016-15-20');
-	$scope.formats = ['dd-MMMM-yyyy', 'yyyy-MM-dd', 'dd.MM.yyyy', 'shortDate'];
-	$scope.format = $scope.formats[1];
 	//添加数据对象
 	$scope.data = {
-		prodName: '',
-		memo: '',
+		id: "",
+		typeId: "",
+		typeName: "",
+		memo: "",	
 		createTime: new Date(),
 		updateTime: new Date(),
 	}
 	//console.log('测试试试',$scope.data.platId);
-	$scope.prodName = {
+	$scope.machineType = {
 		list: [],//分类列表
 	}
-	//过滤获取产品名称
-    function prodNameList() {
+	//过滤获取机型id及机型名称
+    function machineTypeList() {
 		var params = {
 			"id": "",
-			"memo": "",
-			"prodName": ""
+			"typeId": "",
+			"typeName": "",
+			"memo": ""	
 		}
-		Restangular.all('/epeins-factory/productInfo/query').post(params).then(function(res) {
+		Restangular.all('/epeins-factory/machineType/query').post(params).then(function(res) {
 			if (res.resultCode == 200) {
 				var result = [];
 				var distinctArr = [];
 				angular.forEach(res.resultData,function(item,index){
-					//console.log('获取每一个产品',item);
 					//循环过滤掉重复的
-					if(distinctArr.indexOf(item.prodName) == -1){
-						distinctArr.push(item.prodName);
+					if(distinctArr.indexOf(item.typeId) == -1 && distinctArr.indexOf(item.typeName) == -1){
+						distinctArr.push(item.typeId,item.typeName);
 						result.push(item);
 					}	
 				});
 				//console.log('打印result',result);
-				//console.log(result);
+				console.log('测试',result);
 				//写入数据
-				$scope.prodName.list = result;
+				$scope.machineType.list = result;
 			}	
 		}, function(errResponse) {
 			console.log("Error with status code", errResponse.status);
@@ -251,7 +180,7 @@ app.controller('addProductController',function($scope, $modalInstance, Restangul
 		cancel: cancel,
 	}
 	function init() {
-		prodNameList();
+		machineTypeList();
 	}
 	function cancel(){
 		$modalInstance.dismiss('Cancelled');
@@ -260,12 +189,13 @@ app.controller('addProductController',function($scope, $modalInstance, Restangul
 	function submit(){
 		//获取输入数据
 		var item = {
-			prodName: $scope.data.prodName.prodName,
+			typeId: $scope.data.typeId.typeId,
+			typeName: $scope.data.typeName.typeName,
 			memo: $scope.data.memo,
 		}
 		console.log('新增传递参数',item);
 		// 调接口，储存
-		Restangular.all('/epeins-factory/productInfo/addOrUpdate').post(item).then(function(res) {
+		Restangular.all('/epeins-factory/machineType/addOrUpdate').post(item).then(function(res) {
 			console.log('添加列表', res);
 			if (res.resultCode == 200) {
 				// 储存成功后，并且刷新页面
@@ -279,45 +209,45 @@ app.controller('addProductController',function($scope, $modalInstance, Restangul
 	};
 	init();
 });
-app.controller('modifyProductController',function($scope, $modalInstance, data, Restangular, $rootScope, toaster){
-	//修改列表接口method: 'PUT',url: '/api/knowledge/knowledge-infos'
-	$scope.title = "产品计划变更";
-	//数据对象
-	//$scope.details = [];
+app.controller('modifyMachineTypeController',function($scope, $modalInstance, data, Restangular, $rootScope, toaster){
+	$scope.title = "机型计划变更";
 	//选中的行赋给details数组
 	$scope.details = data.data;
-	console.log('enen',$scope.details);
-	$scope.prodName = {
+	$scope.machineType = {
 		list: [],//分类列表
 	}
 	//获取筛选产品名称
-    function prodNameList() {
+    //过滤获取机型id及机型名称
+    function machineTypeList() {
 		var params = {
 			"id": "",
-			"memo": "",
-			"prodName": ""
+			"typeId": "",
+			"typeName": "",
+			"memo": ""	
 		}
-		Restangular.all('/epeins-factory/productInfo/query').post(params).then(function(res) {
+		Restangular.all('/epeins-factory/machineType/query').post(params).then(function(res) {
 			if (res.resultCode == 200) {
 				var result = [];
 				var distinctArr = [];
 				angular.forEach(res.resultData,function(item,index){
 					//循环过滤掉重复的
-					if(distinctArr.indexOf(item.prodName) == -1){
-						distinctArr.push(item.prodName);
+					if(distinctArr.indexOf(item.typeId) == -1 && distinctArr.indexOf(item.typeName) == -1){
+						distinctArr.push(item.typeId,item.typeName);
 						result.push(item);
 					}	
 				});
+				//console.log('打印result',result);
+				console.log('测试',result);
 				//写入数据
-				$scope.prodName.list = result;
-				//console.log($scope.prodName.list);
+				$scope.machineType.list = result;
 			}	
 		}, function(errResponse) {
 			console.log("Error with status code", errResponse.status);
-		}); 	
+		}); 
+		
 	};	
 	function init() {
-		prodNameList();
+		machineTypeList();
 	}
 	//方法
 	$scope.method = {
@@ -331,13 +261,13 @@ app.controller('modifyProductController',function($scope, $modalInstance, data, 
 	function submit(){
 		var item = {
 			id: $scope.details.id,
-			prodName: $scope.details.prodName,
+			typeId: $scope.details.typeId,
+			typeName: $scope.details.typeName,
 			memo: $scope.details.memo,
 		}
 		console.log('传递参数',item);
 		//传递参数，调接口
-		Restangular.all('/epeins-factory/productInfo/addOrUpdate').post(item).then(function(res) {
-			console.log(res);
+		Restangular.all('/epeins-factory/machineType/addOrUpdate').post(item).then(function(res) {
 			if (res.resultCode == 200) {
 				// 储存成功后，跳转到列表页，并且刷新页面
 				$rootScope.$broadcast('modifySuccess');
@@ -353,9 +283,9 @@ app.controller('modifyProductController',function($scope, $modalInstance, data, 
 
 });
 
-app.controller('deteleProductController',function($scope, $modalInstance, data, Restangular, $rootScope,toaster){
+app.controller('deteleMachineTypeController',function($scope, $modalInstance, data, Restangular, $rootScope,toaster){
 	console.log(data);
-	$scope.title = "删除产品数据";
+	$scope.title = "删除机型数据";
 	$scope.data = {
 		id: data.data,
 	}
@@ -373,8 +303,7 @@ app.controller('deteleProductController',function($scope, $modalInstance, data, 
 		var params = {
 			"id": $scope.data.id,
 		}
-		Restangular.one('/epeins-factory/productInfo/delete').customGET('',params).then(function(res) {
-		//Restangular.one('/epeins-factory/productInfo/delete/', $scope.data.id).get().then(function(res) {
+		Restangular.one('/epeins-factory/machineType/delete').customGET('',params).then(function(res) {
 			console.log(res);
 			if (res.resultCode == 200) {
 				//请求删除数据

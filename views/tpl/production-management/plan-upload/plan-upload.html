@@ -6,41 +6,41 @@
 	<div class="row">
         <div class="col-md-12">
             <div class="panel panel-default" nv-file-drop="" uploader="uploader" filters="queueLimit, customFilter">
-            <div class="panel-heading">
-                请选择文件                    
-            </div>
-            <div class="panel-body">
-                <div>
-                    <p>上传进度:</p>
-                    <p ng-if="!uploader.queue.length" class="lead text-center">没有文件. 现在开始添加..</p>
-                    <div class="progress bg-light dker" ng-if="uploader.queue.length">
-                        <div class="progress-bar progress-bar-striped bg-info" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
-                    </div>
+                <div class="panel-heading">
+                    请选择文件                    
                 </div>
-                <button type="button" class="btn btn-addon btn-success" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
-                    <i class="fa fa-arrow-circle-o-up"></i> 上传
-                </button>
-                <button type="button" class="btn btn-addon btn-warning" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
-                    <i class="fa fa-ban"></i> 取消
-                </button>
-                <button type="button" class="btn btn-addon btn-danger" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
-                    <i class="fa fa-trash-o"></i> 删除
-                </button>
-                    <!-- <p class="text-muted m-t-xl">Note: upload.php file included, files will be uploaded to "src/js/controllers/uploads".</p> -->
-            </div>
-            <div class="panel-body">
-                <!-- <div ng-show="uploader.isHTML5" class="m-b-md">
-                    <div class="b-a b-2x b-dashed wrapper-lg bg-white text-center m-b" nv-file-over="" over-class="b-info" uploader="uploader">
-                        Base drop zone
+                <div class="panel-body">
+                    <div>
+                        <p>上传进度:</p>
+                        <p ng-if="!uploader.queue.length" class="lead text-center">没有文件. 现在开始添加..</p>
+                        <div class="progress bg-light dker" ng-if="uploader.queue.length">
+                            <div class="progress-bar progress-bar-striped bg-info" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+                        </div>
                     </div>
-                </div> -->
-            
-                <!-- Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}" -->
-                <!-- <p>批量上传</p>
-                <input ui-jq="filestyle" multiple type="file" name="file"  data-icon="true" nv-file-select="" uploader="uploader" /> -->
-                <!-- <p class="m-t-md">单个文件</p> -->
-                <input ui-jq="filestyle" type="file" name="file" data-icon="true" data-buttonText="选择" nv-file-select="" uploader="uploader" id="filestyle" />
-            </div>
+                    <button type="button" class="btn btn-addon btn-success" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
+                        <i class="fa fa-arrow-circle-o-up"></i> 上传
+                    </button>
+                    <button type="button" class="btn btn-addon btn-warning" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
+                        <i class="fa fa-ban"></i> 取消
+                    </button>
+                    <button type="button" class="btn btn-addon btn-danger" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
+                        <i class="fa fa-trash-o"></i> 删除
+                    </button>
+                        <!-- <p class="text-muted m-t-xl">Note: upload.php file included, files will be uploaded to "src/js/controllers/uploads".</p> -->
+                </div>
+                <div class="panel-body">
+                    <!-- <div ng-show="uploader.isHTML5" class="m-b-md">
+                        <div class="b-a b-2x b-dashed wrapper-lg bg-white text-center m-b" nv-file-over="" over-class="b-info" uploader="uploader">
+                            Base drop zone
+                        </div>
+                    </div> -->
+                
+                    <!-- Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}" -->
+                    <!-- <p>批量上传</p>
+                    <input ui-jq="filestyle" multiple type="file" name="file"  data-icon="true" nv-file-select="" uploader="uploader" /> -->
+                    <!-- <p class="m-t-md">单个文件</p> -->
+                    <input ui-jq="filestyle" type="file" name="file" data-icon="true" data-buttonText="选择" nv-file-select="" uploader="uploader" id="filestyle" />
+                </div>
             </div>
         </div>
         <!-- <div style="margin-bottom: 40px" class="col-md-9">

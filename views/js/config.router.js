@@ -180,15 +180,15 @@ angular.module('app')
                     }
               })
               //工程巡检报告
-              .state('app.s3.inspect-report-mgmt', {
-                    url: '/inspect-report',
-                    templateUrl: 'views/tpl/inspect-report/inspect-report.html',
+              .state('app.s3.patrol-report-mgmt', {
+                    url: '/patrol-report',
+                    templateUrl: 'views/tpl/patrol-management/patrol-report/patrol-report.html',
                     resolve: {
                         deps: ['$ocLazyLoad',
                           function( $ocLazyLoad ){
                             return $ocLazyLoad.load(['ngTable']).then(
                                 function(){
-                                    return $ocLazyLoad.load('views/js/controllers/inspect-report/inspect-report.js');
+                                    return $ocLazyLoad.load('views/js/controllers/patrol-management/patrol-report/patrol-report.js');
                                 }
                             );
                           }
@@ -217,14 +217,14 @@ angular.module('app')
               })
               //采购/销售计划导入   
               .state('app.s4.psales-import-mgmt', {
-                url: '/techniques',
-                templateUrl: 'views/tpl/psales-import/psales-import.html',
+                url: '/psales-import',
+                templateUrl: 'views/tpl/warehouse-management/psales-import/psales-import.html',
                 resolve: {
                     deps: ['$ocLazyLoad',
                       function( $ocLazyLoad ){
-                        return $ocLazyLoad.load(['ngTable']).then(
+                        return $ocLazyLoad.load(['angularFileUpload']).then(
                             function(){
-                                return $ocLazyLoad.load('views/js/controllers/psales-import/psales-import.js');
+                                return $ocLazyLoad.load('views/js/controllers/warehouse-management/psales-import/psales-import.js');
                             }
                         );
                       }
@@ -232,15 +232,15 @@ angular.module('app')
                 }
               })
               //采购到达计划维护   
-              .state('app.s4.purchase-defend-mgmt', {
-                url: '/purchase-defend',
-                templateUrl: 'views/tpl/purchase-defend/purchase-defend.html',
+              .state('app.s4.purchase-plan-mgmt', {
+                url: '/purchase-plan',
+                templateUrl: 'views/tpl/warehouse-management/purchase-plan/purchase-plan.html',
                 resolve: {
                     deps: ['$ocLazyLoad',
                       function( $ocLazyLoad ){
                         return $ocLazyLoad.load(['ngTable']).then(
                             function(){
-                                return $ocLazyLoad.load('views/js/controllers/purchase-defend/purchase-defend.js');
+                                return $ocLazyLoad.load('views/js/controllers/warehouse-management/purchase-plan/purchase-plan.js');
                             }
                         );
                       }
@@ -248,15 +248,15 @@ angular.module('app')
                 }
               })
               //销售出库计划维护   
-              .state('app.s4.sale-defend-mgmt', {
-                url: '/sale-defend',
-                templateUrl: 'views/tpl/sale-defend/sale-defend.html',
+              .state('app.s4.sales-plan-mgmt', {
+                url: '/sales-plan',
+                templateUrl: 'views/tpl/warehouse-management/sales-plan/sales-plan.html',
                 resolve: {
                     deps: ['$ocLazyLoad',
                       function( $ocLazyLoad ){
                         return $ocLazyLoad.load(['ngTable']).then(
                             function(){
-                                return $ocLazyLoad.load('views/js/controllers/sale-defend/sale-defend.js');
+                                return $ocLazyLoad.load('views/js/controllers/warehouse-management/sales-plan/sales-plan.js');
                             }
                         );
                       }
@@ -320,15 +320,15 @@ angular.module('app')
                 template: '<div ui-view class="fade-in-up"></div>'
               })  
               //生产基础数据维护 
-              .state('app.s6.product-basedata-mgmt', {
+              .state('app.s6.production-info-mgmt', {
                 url: '/product-basedata',
-                templateUrl: 'views/tpl/product-basedata/product-basedata.html',
+                templateUrl: 'views/tpl/basic-data/production-info/production-info.html',
                 resolve: {
                     deps: ['$ocLazyLoad',
                       function( $ocLazyLoad ){
                         return $ocLazyLoad.load(['ngTable']).then(
                             function(){
-                                return $ocLazyLoad.load('views/js/controllers/product-basedata/product-basedata.js');
+                                return $ocLazyLoad.load('views/js/controllers/basic-data/production-info/production-info.js');
                             }
                         );
                       }
@@ -351,16 +351,64 @@ angular.module('app')
                     ]
                 }
               })
-              //机型基础数据维护 
-              .state('app.s6.model-basedata-mgmt', {
-                url: '/model-basedata',
-                templateUrl: 'views/tpl/model-basedata/model-basedata.html',
+              //机台基础数据维护 
+              .state('app.s6.machine-platform-mgmt', {
+                url: '/machine-platform',
+                templateUrl: 'views/tpl/basic-data/machine-platform/machine-platform.html',
                 resolve: {
                     deps: ['$ocLazyLoad',
                       function( $ocLazyLoad ){
                         return $ocLazyLoad.load(['ngTable']).then(
                             function(){
-                                return $ocLazyLoad.load('views/js/controllers/model-basedata/model-basedata.js');
+                                return $ocLazyLoad.load('views/js/controllers/basic-data/machine-platform/machine-platform.js');
+                            }
+                        );
+                      }
+                    ]
+                }
+              })
+              //机型基础数据维护 
+              .state('app.s6.machine-type-mgmt', {
+                url: '/machine-type',
+                templateUrl: 'views/tpl/basic-data/machine-type/machine-type.html',
+                resolve: {
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                        return $ocLazyLoad.load(['ngTable']).then(
+                            function(){
+                                return $ocLazyLoad.load('views/js/controllers/basic-data/machine-type/machine-type.js');
+                            }
+                        );
+                      }
+                    ]
+                }
+              })
+              //材料基础数据维护 
+              .state('app.s6.material-info-mgmt', {
+                url: '/material-info',
+                templateUrl: 'views/tpl/basic-data/material-info/material-info.html',
+                resolve: {
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                        return $ocLazyLoad.load(['ngTable']).then(
+                            function(){
+                                return $ocLazyLoad.load('views/js/controllers/basic-data/material-info/material-info.js');
+                            }
+                        );
+                      }
+                    ]
+                }
+              })
+              //任务单基础数据维护 
+              .state('app.s6.task-info-mgmt', {
+                url: '/task-info',
+                templateUrl: 'views/tpl/basic-data/task-info/task-info.html',
+                resolve: {
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                        return $ocLazyLoad.load(['ngTable']).then(
+                            function(){
+                                return $ocLazyLoad.load('views/js/controllers/basic-data/task-info/task-info.js');
                             }
                         );
                       }
@@ -368,15 +416,15 @@ angular.module('app')
                 }
               })
               //产品检验标准基础数据维护 
-              .state('app.s6.teststandard-basedata-mgmt', {
-                url: '/teststandard-basedata',
-                templateUrl: 'views/tpl/teststandard-basedata/teststandard-basedata.html',
+              .state('app.s6.check-standard-mgmt', {
+                url: '/check-standard',
+                templateUrl: 'views/tpl/basic-data/check-standard/check-standard.html',
                 resolve: {
                     deps: ['$ocLazyLoad',
                       function( $ocLazyLoad ){
                         return $ocLazyLoad.load(['ngTable']).then(
                             function(){
-                                return $ocLazyLoad.load('views/js/controllers/teststandard-basedata/teststandard-basedata.js');
+                                return $ocLazyLoad.load('views/js/controllers/basic-data/check-standard/check-standard.js');
                             }
                         );
                       }

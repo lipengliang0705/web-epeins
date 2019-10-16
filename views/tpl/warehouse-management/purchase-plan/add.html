@@ -1,0 +1,82 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="method.cancel()"><span aria-hidden="true">&times;</span></button>
+    <h5 class="modal-title">{{title}}</h5>
+</div>
+<form  name="formValidate" class="form-horizontal form-validation" ng-submit="method.submit()">
+  <div class="modal-body">
+    <div class="panel panel-default panel-b0 ">
+      <div class="panel-body">
+          <div class="form-group pull-in clearfix">
+            <div class="col-sm-6 col-b10">
+              <label>采购单号：</label>
+              <ui-select ng-model="data.purchaseId" theme="bootstrap" name="purchaseId" required/> 
+                  <ui-select-match placeholder="选择产品">{{$select.selected.purchaseId}}</ui-select-match>
+                  <ui-select-choices  repeat="item in machineType.list | filter: $select.search">
+                    <div ng-bind-html="item.purchaseId | highlight: $select.search"></div>
+                  </ui-select-choices>
+              </ui-select>
+            </div>
+            <div class="col-sm-6 col-b10">
+              <label>车型：</label>
+              <ui-select ng-model="data.vehicleType" theme="bootstrap" name="vehicleType" required/> 
+                  <ui-select-match placeholder="选择产品">{{$select.selected.vehicleType}}</ui-select-match>
+                  <ui-select-choices  repeat="item in machineType.list | filter: $select.search">
+                    <div ng-bind-html="item.vehicleType | highlight: $select.search"></div>
+                  </ui-select-choices>
+              </ui-select>
+              <!-- <select ui-jq="chosen" class="s-w100" ng-options="item.prodName as item.prodName for item in prodUuid" ng-model="data.prodName" required>
+                  <option>请选择</option>
+              </select> -->
+            </div>
+            <div class="col-sm-6 col-b10">
+              <label>原料编号：</label>
+              <ui-select ng-model="data.materialId" theme="bootstrap" name="materialId" required/> 
+                  <ui-select-match placeholder="选择产品">{{$select.selected.materialId}}</ui-select-match>
+                  <ui-select-choices  repeat="item in machineType.list | filter: $select.search">
+                    <div ng-bind-html="item.materialId | highlight: $select.search"></div>
+                  </ui-select-choices>
+              </ui-select>
+            </div>
+            <div class="col-sm-6 col-b10">
+              <label>送货地点</label>
+              <input type="text" class="form-control" placeholder="输入送货地点" ng-model="row.toAddress">
+            </div>
+            <div class="col-sm-6 col-b10">
+              <label>重量/包</label>
+              <input type="text" class="form-control" placeholder="输入重量/包" ng-model="row.customers">
+            </div>
+            <div class="col-sm-6 col-b10">
+              <label>包数</label>
+              <input type="text" class="form-control" placeholder="输入包数" ng-model="row.packCount">
+            </div>
+            <div class="col-sm-6 col-b10">
+              <label>重量</label>
+              <input type="text" class="form-control" placeholder="输入重量" ng-model="row.weight">
+            </div>
+            <div class="col-sm-6 col-b10">
+              <label>日期</label>
+              <div class="input-group">
+                <input type="text" class="form-control" datepicker-popup="{{format}}" placeholder="输入计划日期起"  ng-model="data.startDate" is-open="opened1" datepicker-options="dateOptions" close-text="Close" />
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="open($event,'opened1')"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+              </div>
+            </div>
+            <div class="col-sm-12 col-b10">
+              <label>备注：</label>
+              <textarea class="form-control" rows="6" ng-model="data.memo" placeholder="请输入信息" required></textarea>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">                  
+      <button class="btn btn-default" ng-click="method.cancel()">取 消</button>
+      <button type="submit" class="btn btn-success">确 定</button>
+  </div>
+</form>
+
+
+
+
+

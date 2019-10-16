@@ -1,13 +1,13 @@
 <div class="bg-light lter b-b wrapper">
-  <h1 class="m-n font-thin h4">产品基础数据维护</h1>
+  <h1 class="m-n font-thin h4">产品检验标准数据维护</h1>
 </div>
 
-<div class="wrapper" ng-controller="productInfoController">
+<div class="wrapper" ng-controller="checkStandardController">
   <form role="form" class="ng-pristine ng-valid">
     <div class="panel panel-default">
       <div class="panel-body">
         <div class="row">
-          <div class="col-sm-3 form-group">
+          <div class="col-sm-2 form-group">
             <label>产品名称</label>
             <ui-select ng-model="data.search" theme="bootstrap" name="prodName"  required/> 
                 <ui-select-match placeholder="选择产品名称">{{$select.selected.prodName}}</ui-select-match>
@@ -15,10 +15,8 @@
                   <div ng-bind-html="item.prodName | highlight: $select.search"></div>
                 </ui-select-choices>
             </ui-select>
-            <!-- <select ui-jq="chosen" class="s-w100" ng-options="item.prodName as item.prodName for item in prodName.list" ng-model="data.search.prodName">
-            </select> -->
           </div>
-          <div class="col-sm-3 form-group">
+          <div class="col-sm-4 form-group">
             <label>&nbsp</label>
             <div class="block">
               <button class="btn btn-primary"><i class="fa fa-search"></i> 查   询</button>
@@ -33,11 +31,12 @@
 	<div class="row">
         <div class="col col-md-12">
           <div class="table-responsive">
-            <table ng-table="myTable" class="table table-condensed table-bordered table-striped table-alink table-admin table-td5-color">
+            <table ng-table="myTable" class="table table-condensed table-bordered table-striped table-alink table-admin">
                 <tr ng-repeat="row in $data">
-                    <td data-title="'产品名称'" sortable="'prodId'">{{row.prodName}}</td>
-                    <td data-title="'备注'">{{row.memo}}</td>
-                    <td data-title="'更新时间'" sortable="'updateTime'">{{row.updateTime | date:'yyyy-MM-dd HH:mm'}}</td>
+                    <td data-title="'标准编号'" sortable="'stdCode'">{{row.stdCode}}</td>
+                    <td data-title="'产品名称'" sortable="'prodName'">{{row.prodName}}</td>
+                    <td data-title="'所供客户'" sortable="'clientId'">{{row.clientId}}</td>
+                    <td data-title="'材质'" sortable="'materialId'">{{row.materialId}}</td>
                     <td data-title="'操作'" style="width: 12%">
                         <a href="" class="active" ng-click="method.modify(row)">编辑</a>
                         <a href="" class="active text-danger" ng-click="method.deleted(row.id)">删除</a>

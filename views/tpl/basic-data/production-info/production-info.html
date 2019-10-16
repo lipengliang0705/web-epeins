@@ -1,0 +1,59 @@
+<div class="bg-light lter b-b wrapper">
+  <h1 class="m-n font-thin h4">生产基础数据维护</h1>
+</div>
+
+<div class="wrapper" ng-controller="productionInfoController">
+  <form role="form" class="ng-pristine ng-valid">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="row">
+          <!-- <div class="col-sm-2 form-group">
+            <label>任务单号</label>
+            <input type="text" class="form-control" placeholder="输入任务单号"  ng-model="data.taskId">
+          </div> -->
+          <div class="col-sm-2 form-group">
+            <label>产品名称</label>
+            <ui-select ng-model="data.search" theme="bootstrap" name="prodName"  required/> 
+                <ui-select-match placeholder="选择产品名称">{{$select.selected.prodName}}</ui-select-match>
+                <ui-select-choices  repeat="item in machineType.list | filter: $select.search">
+                  <div ng-bind-html="item.prodName | highlight: $select.search"></div>
+                </ui-select-choices>
+            </ui-select>
+          </div>
+          <div class="col-sm-4 form-group">
+            <label>&nbsp</label>
+            <div class="block">
+              <button class="btn btn-primary"><i class="fa fa-search"></i> 查   询</button>
+              <button class="btn btn-success" ng-disabled="form.$invalid" ng-click="method.add(row)"><i class="fa fa-plus"></i> 新   增</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+	<div class="row">
+        <div class="col col-md-12">
+          <div class="table-responsive">
+            <table ng-table="myTable" class="table table-condensed table-bordered table-striped table-alink table-admin">
+                <tr ng-repeat="row in $data">
+                    <td data-title="'产品名称'" sortable="'prodName'">{{row.prodName}}</td>
+                    <td data-title="'标准重量'" sortable="'stdWeight'">{{row.stdWeight}}</td>
+                    <td data-title="'成型重量'" sortable="'mouWeight'">{{row.mouWeight}}</td>
+                    <td data-title="'每模产出数'" sortable="'countPerMould'">{{row.countPerMould}}</td>
+                    <td data-title="'模数/天'" sortable="'numPerDay'">{{row.numPerDay}}</td>
+                    <td data-title="'生产周期/秒'" sortable="'prodCycPerSec'">{{row.prodCycPerSec}}</td>
+                    <td data-title="'产能/天'" sortable="'capacityPerDay'">{{row.capacityPerDay}}</td>
+                    <td data-title="'实际小时生产数'" sortable="'countPerHour'">{{row.countPerHour}}</td>
+                    <td data-title="'产能/小时'" sortable="'capacityPerHour'">{{row.capacityPerHour}}</td>
+                    <td data-title="'操作'" style="width: 12%">
+                        <a href="" class="active" ng-click="method.modify(row)">编辑</a>
+                        <a href="" class="active text-danger" ng-click="method.deleted(row.id)">删除</a>
+                    </td>
+                </tr>
+            </table>
+          </div>
+        </div>
+    </div>
+</div>
+  

@@ -1,22 +1,20 @@
 <div class="bg-light lter b-b wrapper">
-  <h1 class="m-n font-thin h4">产品基础数据维护</h1>
+  <h1 class="m-n font-thin h4">机型基础数据维护</h1>
 </div>
 
-<div class="wrapper" ng-controller="productInfoController">
+<div class="wrapper" ng-controller="machineTypeController">
   <form role="form" class="ng-pristine ng-valid">
     <div class="panel panel-default">
       <div class="panel-body">
         <div class="row">
           <div class="col-sm-3 form-group">
-            <label>产品名称</label>
-            <ui-select ng-model="data.search" theme="bootstrap" name="prodName"  required/> 
-                <ui-select-match placeholder="选择产品名称">{{$select.selected.prodName}}</ui-select-match>
-                <ui-select-choices  repeat="item in prodName.list | filter: $select.search">
-                  <div ng-bind-html="item.prodName | highlight: $select.search"></div>
+            <label>机型ID</label>
+            <ui-select ng-model="data.search" theme="bootstrap" name="typeId"  required/> 
+                <ui-select-match placeholder="选择产品名称">{{$select.selected.typeId}}</ui-select-match>
+                <ui-select-choices  repeat="item in machineType.list | filter: $select.search">
+                  <div ng-bind-html="item.typeId | highlight: $select.search"></div>
                 </ui-select-choices>
             </ui-select>
-            <!-- <select ui-jq="chosen" class="s-w100" ng-options="item.prodName as item.prodName for item in prodName.list" ng-model="data.search.prodName">
-            </select> -->
           </div>
           <div class="col-sm-3 form-group">
             <label>&nbsp</label>
@@ -35,7 +33,8 @@
           <div class="table-responsive">
             <table ng-table="myTable" class="table table-condensed table-bordered table-striped table-alink table-admin table-td5-color">
                 <tr ng-repeat="row in $data">
-                    <td data-title="'产品名称'" sortable="'prodId'">{{row.prodName}}</td>
+                    <td data-title="'机型ID'" sortable="'typeId'">{{row.typeId}}</td>
+                    <td data-title="'机型名称'" sortable="'typeName'">{{row.typeName}}</td>
                     <td data-title="'备注'">{{row.memo}}</td>
                     <td data-title="'更新时间'" sortable="'updateTime'">{{row.updateTime | date:'yyyy-MM-dd HH:mm'}}</td>
                     <td data-title="'操作'" style="width: 12%">

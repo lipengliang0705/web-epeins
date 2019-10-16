@@ -8,11 +8,20 @@
       <div class="panel-body">
           <div class="form-group pull-in clearfix">
             <div class="col-sm-12 col-b10">
-              <label>产品名称：</label>
-              <ui-select ng-model="data.prodName" theme="bootstrap" name="prodName" required/> 
-                  <ui-select-match placeholder="选择产品">{{$select.selected.prodName}}</ui-select-match>
-                  <ui-select-choices  repeat="item in prodName.list | filter: $select.search">
-                    <div ng-bind-html="item.prodName | highlight: $select.search"></div>
+              <label>机型ID：</label>
+              <ui-select ng-model="data.typeId" theme="bootstrap" name="typeId" required/> 
+                  <ui-select-match placeholder="选择产品">{{$select.selected.typeId}}</ui-select-match>
+                  <ui-select-choices  repeat="item in machineType.list | filter: $select.search">
+                    <div ng-bind-html="item.typeId | highlight: $select.search"></div>
+                  </ui-select-choices>
+              </ui-select>
+            </div>
+            <div class="col-sm-12 col-b10">
+              <label>机型名称：</label>
+              <ui-select ng-model="data.typeName" theme="bootstrap" name="typeName" required/> 
+                  <ui-select-match placeholder="选择产品">{{$select.selected.typeName}}</ui-select-match>
+                  <ui-select-choices  repeat="item in machineType.list | filter: $select.search">
+                    <div ng-bind-html="item.typeName | highlight: $select.search"></div>
                   </ui-select-choices>
               </ui-select>
               <!-- <select ui-jq="chosen" class="s-w100" ng-options="item.prodName as item.prodName for item in prodUuid" ng-model="data.prodName" required>

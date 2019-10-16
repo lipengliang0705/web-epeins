@@ -9,6 +9,11 @@
         <div class="panel-body">
           <div class="form-group pull-in clearfix">
             <div class="col-sm-12 col-b10">
+              <label>机型ID：</label>
+              <select class="s-w100 form-control m-t" ng-model="details.typeId" ng-options="prod.typeId as prod.typeId for prod in machineType.list" required>
+              </select>
+            </div>
+            <div class="col-sm-12 col-b10">
               <label>产品名称：</label>
               {{details.prodName}}
               <!-- <ui-select ng-model="details.prodName" theme="bootstrap" name="prodName" required/>
@@ -17,7 +22,7 @@
                   <div ng-bind-html="item.prodName | highlight: $select.search"></div>
                 </ui-select-choices>
               </ui-select> -->
-              <select class="s-w100 form-control m-t" ng-model="details.prodName" ng-options="prod.prodName as prod.prodName for prod in prodName.list" required>
+              <select class="s-w100 form-control m-t" ng-model="details.typeName" ng-options="prod.typeName as prod.typeName for prod in machineType.list" required>
               </select>
             </div>
             <div class="col-sm-12 col-b10">

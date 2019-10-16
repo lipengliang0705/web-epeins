@@ -1,0 +1,88 @@
+<div class="bg-light lter b-b wrapper">
+  <h1 class="m-n font-thin h4">采购到达计划维护维护</h1>
+</div>
+
+<div class="wrapper" ng-controller="purchasePlanController">
+  <form role="form" class="ng-pristine ng-valid">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-sm-3 form-group">
+            <label>采购单号</label>
+            <ui-select ng-model="data.search" theme="bootstrap" name="typeId"  required/> 
+                <ui-select-match placeholder="选择采购单号">{{$select.selected.typeId}}</ui-select-match>
+                <ui-select-choices  repeat="item in machineType.list | filter: $select.search">
+                  <div ng-bind-html="item.typeId | highlight: $select.search"></div>
+                </ui-select-choices>
+            </ui-select>
+          </div>
+          <div class="col-sm-3 form-group">
+            <label>原料名称</label>
+            <ui-select ng-model="data.search" theme="bootstrap" name="typeId"  required/> 
+                <ui-select-match placeholder="选择原料名称">{{$select.selected.typeId}}</ui-select-match>
+                <ui-select-choices  repeat="item in machineType.list | filter: $select.search">
+                  <div ng-bind-html="item.typeId | highlight: $select.search"></div>
+                </ui-select-choices>
+            </ui-select>
+          </div>
+          <div class="col-sm-3 form-group">
+            <label>计划日期起</label>
+            <div class="">
+              <div class="input-group">
+                <input type="text" class="form-control" datepicker-popup="{{format}}" placeholder="输入计划日期起"  ng-model="data.startDate" is-open="opened1" datepicker-options="dateOptions" close-text="Close" />
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="open($event,'opened1')"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3 form-group">
+            <label>计划日期止</label>
+            <div class="">
+              <div class="input-group">
+                <input type="text" class="form-control" datepicker-popup="{{format}}" placeholder="输入计划日期止" ng-model="data.endDate" is-open="opened2" datepicker-options="dateOptions" close-text="Close" />
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="open($event,'opened2')"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3 form-group">
+            <label>送货地点</label>
+            <input type="text" class="form-control" placeholder="输入送货地点"  ng-model="data.startDate" close-text="Close" />
+          </div>
+          <div class="col-sm-3 form-group">
+            <label>&nbsp</label>
+            <div class="block">
+              <button class="btn btn-primary"><i class="fa fa-search"></i> 查   询</button>
+              <button class="btn btn-success" ng-disabled="form.$invalid" ng-click="method.add(row)"><i class="fa fa-plus"></i> 新   增</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+	<div class="row">
+        <div class="col col-md-12">
+          <div class="table-responsive">
+            <table ng-table="myTable" class="table table-condensed table-bordered table-striped table-alink table-admin table-td5-color">
+                <tr ng-repeat="row in $data">
+                    <td data-title="'采购单号'" sortable="'purchaseId'">{{row.purchaseId}}</td>
+                    <td data-title="'原料名称'" sortable="'materialId'">{{row.materialId}}</td>
+                    <td data-title="'车型'" sortable="'vehicleType'">{{row.vehicleType}}</td>
+                    <td data-title="'送货地点'" sortable="'toAddress'">{{row.toAddress}}</td>
+                    <td data-title="'包数'" sortable="'packCount'">{{row.packCount}}</td>
+                    <td data-title="'重量'">{{row.weight}}</td>
+                    <td data-title="'日期'" sortable="'planDate'">{{row.planDate | date:'yyyy-MM-dd HH:mm'}}</td>
+                    <td data-title="'操作'" style="width: 12%">
+                        <a href="" class="active" ng-click="method.modify(row)">编辑</a>
+                        <a href="" class="active text-danger" ng-click="method.deleted(row.id)">删除</a>
+                    </td>
+                </tr>
+            </table>
+          </div>
+        </div>
+    </div>
+</div>
+  
