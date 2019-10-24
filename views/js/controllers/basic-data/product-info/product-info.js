@@ -8,7 +8,32 @@ function productInfoController($scope, Restangular, NgTableParams, dialogs, toas
 		list: [],//产品分类名称
 	}
 	$scope.myTable = null;
-	//查询所有产品基础数据信息/epeins-factory/productInfo/query
+	//查询所有产品名称
+	function prodNameAll() {
+		var params = {
+		}
+		Restangular.all('/epeins-factory/productInfo/queryProductId').post(params).then(function(res) {
+			console.log('哈哈', res.resultData);
+			if (res.resultCode == 200) {
+				//过滤获取产品名称列表
+				var result = [];
+				var distinctArr = [];
+				angular.forEach(res.resultData,function(item,index){
+					//循环过滤掉重复的
+					if(distinctArr.indexOf(item.prod_name) == -1){
+						distinctArr.push(item.prod_name);
+						result.push(item);
+					}	
+				});
+				//写入数据
+				$scope.prodName.list = result;
+			}	
+		}, function(errResponse) {
+			console.log("Error with status code", errResponse.status);
+		}); 
+		
+	};
+	//查询所有产品基础数据信息
 	function productionInfoAll() {
 		var params = {
 			"id": "",
@@ -17,22 +42,8 @@ function productInfoController($scope, Restangular, NgTableParams, dialogs, toas
 		}
 		// Restangular.one('/epeins-factory/planInfo/findOne').customGET('',params).then(function(res) {
 		Restangular.all('/epeins-factory/productInfo/query').post(params).then(function(res) {
-			console.log('哈哈', res.resultData);
+			//console.log('哈哈', res.resultData);
 			if (res.resultCode == 200) {
-				//过滤获取产品名称列表
-				var result = [];
-				var distinctArr = [];
-				angular.forEach(res.resultData,function(item,index){
-					//循环过滤掉重复的
-					if(distinctArr.indexOf(item.prodName) == -1){
-						distinctArr.push(item.prodName);
-						result.push(item);
-					}	
-				});
-				//写入数据
-				$scope.prodName.list = result;
-
-
 				//写入数据
 				$scope.resoures.list = res.resultData;
 				$scope.myTable = new NgTableParams({count: 10, sorting: { title: "desc" } }, { counts: [10, 20, 30], dataset: $scope.resoures.list});
@@ -81,38 +92,38 @@ function productInfoController($scope, Restangular, NgTableParams, dialogs, toas
 		$event.preventDefault();
 		$event.stopPropagation();
 		$scope.status.isopen = !$scope.status.isopen;
-    };
-	function search(){
-		//三者必须选择其一的时候判断用，否则不需要
-		//if ($scope.data.title || $scope.data.startDate || $scope.data.endDate) {
-			// 提交的参数，并判断是否为空
-			var params = { 
-				categoryId: '',
-				knowledge:$scope.data.title || '', 
-				beginTime:$scope.data.startDate?$filter('date')($scope.data.startDate, 'yyyy-MM-dd'):'',
-				endTime:$scope.data.endDate?$filter('date')($scope.data.endDate, 'yyyy-MM-dd'):''
-			};
-			console.log('测试类型',typeof(params));
-			$scope.resoures.list = [];
-			Restangular.all('/api/knowledge/knowledge-all').post(params).then(function(res) {
-				//查询列表
-				if (res) {
-					//查询列表
-					$scope.resoures.list = res;
-					$scope.myTable = new NgTableParams({count: 5, sorting: { title: "desc" } }, { counts: [5, 10, 20], dataset: $scope.resoures.list});
-				}
-			}, function(errRes) {
-				//console.log("Error with status code", errRes.status);
-			});
-		// }
-	}
+	};
+	//多字段查询方法
+	// function search(){
+	// 	//三者必须选择其一的时候判断用，否则不需要
+	// 	//if ($scope.data.title || $scope.data.startDate || $scope.data.endDate) {
+	// 		// 提交的参数，并判断是否为空
+	// 		var params = { 
+	// 			categoryId: '',
+	// 			knowledge:$scope.data.title || '', 
+	// 			beginTime:$scope.data.startDate?$filter('date')($scope.data.startDate, 'yyyy-MM-dd'):'',
+	// 			endTime:$scope.data.endDate?$filter('date')($scope.data.endDate, 'yyyy-MM-dd'):''
+	// 		};
+	// 		console.log('测试类型',typeof(params));
+	// 		$scope.resoures.list = [];
+	// 		Restangular.all('/api/knowledge/knowledge-all').post(params).then(function(res) {
+	// 			//查询列表
+	// 			if (res) {
+	// 				//查询列表
+	// 				$scope.resoures.list = res;
+	// 				$scope.myTable = new NgTableParams({count: 5, sorting: { title: "desc" } }, { counts: [5, 10, 20], dataset: $scope.resoures.list});
+	// 			}
+	// 		}, function(errRes) {
+	// 		});
+	// 	// }
+	// }
 	//表格模糊匹配搜索
 	$scope.$watch("data.search", function (newValue, oldValue) {
 		//console.log(newValue, oldValue);
 		if (newValue == undefined) {
 			$scope.myTable.filter({});
 		} else if (newValue != oldValue) {
-			$scope.myTable.filter({ $: $scope.data.search.prodName });
+			$scope.myTable.filter({ $: $scope.data.search.prod_name });
 		}
 	});
 
@@ -135,12 +146,13 @@ function productInfoController($scope, Restangular, NgTableParams, dialogs, toas
 		add:add,
 		modify:modify,
 		deleted:deleted,
-		search:search,
+		//search:search,
 	};
 	
 	//初始化方法
 	function init(){
 		productionInfoAll();
+		prodNameAll();
 	};
 	// 新建列表成功
 	$rootScope.$on('addSuccess', function (event, data) {
@@ -165,11 +177,6 @@ function productInfoController($scope, Restangular, NgTableParams, dialogs, toas
 
 app.controller('addProductController',function($scope, $modalInstance, Restangular, data, toaster, $rootScope){
 	$scope.title = "新增产品基础数据";
-	// $scope.prodUuid = [
-	// 	{id:'1', platId:"1#机", typeId:"K1214", prodName:"YFL-1-T/B", taskId:"ZJG-20190722F2-119", materialId:"LBK15D", changeFlg:"true"},
-	// 	{id:'2', platId:"2#机", typeId:"K1214", prodName:"XJ-50B", taskId:"SC20190718X1-521", materialId:"PB4520", changeFlg:"true"},
-	// 	{id:'3', platId:"3#机", typeId:"K1214", prodName:"XJ-20-T", taskId:"SC20190617X1-437", materialId:"PB4520", changeFlg:"false"},
-	// ];
 	//时间插件
 	$scope.today = function() {
 		$scope.dt = new Date();
@@ -218,19 +225,19 @@ app.controller('addProductController',function($scope, $modalInstance, Restangul
 	//过滤获取产品名称
     function prodNameList() {
 		var params = {
-			"id": "",
-			"memo": "",
-			"prodName": ""
+			// "id": "",
+			// "memo": "",
+			// "prodName": ""
 		}
-		Restangular.all('/epeins-factory/productInfo/query').post(params).then(function(res) {
+		Restangular.all('/epeins-factory/productInfo/queryProductId').post(params).then(function(res) {
 			if (res.resultCode == 200) {
 				var result = [];
 				var distinctArr = [];
 				angular.forEach(res.resultData,function(item,index){
 					//console.log('获取每一个产品',item);
 					//循环过滤掉重复的
-					if(distinctArr.indexOf(item.prodName) == -1){
-						distinctArr.push(item.prodName);
+					if(distinctArr.indexOf(item.prod_name) == -1){
+						distinctArr.push(item.prod_name);
 						result.push(item);
 					}	
 				});
@@ -260,7 +267,7 @@ app.controller('addProductController',function($scope, $modalInstance, Restangul
 	function submit(){
 		//获取输入数据
 		var item = {
-			prodName: $scope.data.prodName.prodName,
+			prodName: $scope.data.prodName.prod_name,
 			memo: $scope.data.memo,
 		}
 		console.log('新增传递参数',item);
@@ -293,18 +300,15 @@ app.controller('modifyProductController',function($scope, $modalInstance, data, 
 	//获取筛选产品名称
     function prodNameList() {
 		var params = {
-			"id": "",
-			"memo": "",
-			"prodName": ""
 		}
-		Restangular.all('/epeins-factory/productInfo/query').post(params).then(function(res) {
+		Restangular.all('/epeins-factory/productInfo/queryProductId').post(params).then(function(res) {
 			if (res.resultCode == 200) {
 				var result = [];
 				var distinctArr = [];
 				angular.forEach(res.resultData,function(item,index){
 					//循环过滤掉重复的
-					if(distinctArr.indexOf(item.prodName) == -1){
-						distinctArr.push(item.prodName);
+					if(distinctArr.indexOf(item.prod_name) == -1){
+						distinctArr.push(item.prod_name);
 						result.push(item);
 					}	
 				});

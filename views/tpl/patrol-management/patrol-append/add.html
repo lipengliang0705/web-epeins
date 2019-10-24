@@ -20,6 +20,7 @@
               <label>巡检时间：</label>
               <timepicker ng-model="data.chkTime" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
             </div>
+            <div>{{data.chkTime | date:'shortTime'}}</div>
             <div class="col-sm-12 col-b10">
               <label>负责人：</label>
               <input type="text" class="form-control" placeholder="输入负责人" ng-model="data.owner">

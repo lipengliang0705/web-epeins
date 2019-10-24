@@ -4,37 +4,47 @@ function machineTypeController($scope, Restangular, NgTableParams, dialogs, toas
 	$scope.resoures = {
 		list: [],//信息列表
 	};
-	$scope.machineType = {
+	$scope.typeId = {
 		list: [],//机型分类名称
 	}
 	$scope.myTable = null;
-	//查询所有机型基础数据信息/epeins-factory/machineType/query
+	//查询所有机型名称
+	function typeIdAll() {
+		var params = {
+		}
+		Restangular.all('/epeins-factory/machineType/queryMachineId').post(params).then(function(res) {
+			console.log('哈哈', res.resultData);
+			if (res.resultCode == 200) {
+				//过滤获取机型名称列表
+				var result = [];
+				var distinctArr = [];
+				angular.forEach(res.resultData,function(item,index){
+					//循环过滤掉重复的
+					if(distinctArr.indexOf(item.type_id) == -1){
+						distinctArr.push(item.type_id);
+						result.push(item);
+					}	
+				});
+				//写入数据
+				$scope.typeId.list = result;
+			}	
+		}, function(errResponse) {
+			console.log("Error with status code", errResponse.status);
+		}); 
+		
+	};
+	//查询所有机型基础数据信息
 	function machineTypeAll() {
 		var params = {
 			"id": "",
 			"typeId": "",
 			"typeName": "",
-			"memo": ""
-			
+			"memo": ""	
 		}
 		// Restangular.one('/epeins-factory/planInfo/findOne').customGET('',params).then(function(res) {
 		Restangular.all('/epeins-factory/machineType/query').post(params).then(function(res) {
-			console.log('哈哈', res.resultData);
+			//console.log('哈哈', res.resultData);
 			if (res.resultCode == 200) {
-				//过滤获取产品名称列表
-				var result = [];
-				var distinctArr = [];
-				angular.forEach(res.resultData,function(item,index){
-					//循环过滤掉重复的
-					if(distinctArr.indexOf(item.typeId) == -1){
-						distinctArr.push(item.typeId);
-						result.push(item);
-					}	
-				});
-				//写入数据
-				$scope.machineType.list = result;
-
-
 				//写入数据
 				$scope.resoures.list = res.resultData;
 				$scope.myTable = new NgTableParams({count: 10, sorting: { title: "desc" } }, { counts: [10, 20, 30], dataset: $scope.resoures.list});
@@ -42,40 +52,14 @@ function machineTypeController($scope, Restangular, NgTableParams, dialogs, toas
 		}, function(errResponse) {
 			console.log("Error with status code", errResponse.status);
 		}); 
-		
 	};
-	//搜索
-	function search(){
-		//三者必须选择其一的时候判断用，否则不需要
-		//if ($scope.data.title || $scope.data.startDate || $scope.data.endDate) {
-			// 提交的参数，并判断是否为空
-			var params = { 
-				categoryId: '',
-				knowledge:$scope.data.title || '', 
-				beginTime:$scope.data.startDate?$filter('date')($scope.data.startDate, 'yyyy-MM-dd'):'',
-				endTime:$scope.data.endDate?$filter('date')($scope.data.endDate, 'yyyy-MM-dd'):''
-			};
-			console.log('测试类型',typeof(params));
-			$scope.resoures.list = [];
-			Restangular.all('/api/knowledge/knowledge-all').post(params).then(function(res) {
-				//查询列表
-				if (res) {
-					//查询列表
-					$scope.resoures.list = res;
-					$scope.myTable = new NgTableParams({count: 5, sorting: { title: "desc" } }, { counts: [5, 10, 20], dataset: $scope.resoures.list});
-				}
-			}, function(errRes) {
-				//console.log("Error with status code", errRes.status);
-			});
-		// }
-	}
 	//表格模糊匹配搜索
 	$scope.$watch("data.search", function (newValue, oldValue) {
 		//console.log(newValue, oldValue);
 		if (newValue == undefined) {
 			$scope.myTable.filter({});
 		} else if (newValue != oldValue) {
-			$scope.myTable.filter({ $: $scope.data.search.typeId });
+			$scope.myTable.filter({ $: $scope.data.search.type_id });
 		}
 	});
 
@@ -98,12 +82,12 @@ function machineTypeController($scope, Restangular, NgTableParams, dialogs, toas
 		add:add,
 		modify:modify,
 		deleted:deleted,
-		search:search,
 	};
 	
 	//初始化方法
 	function init(){
 		machineTypeAll();
+		typeIdAll();
 	};
 	// 新建列表成功
 	$rootScope.$on('addSuccess', function (event, data) {
@@ -142,9 +126,34 @@ app.controller('addMachineTypeController',function($scope, $modalInstance, Resta
 	}
 	//console.log('测试试试',$scope.data.platId);
 	$scope.machineType = {
+		list: [],//分类列表typeId
+	}
+	$scope.typeId = {
 		list: [],//分类列表
 	}
 	//过滤获取机型id及机型名称
+	function typeIdList() {
+		var params = {
+		}
+		Restangular.all('/epeins-factory/machineType/queryMachineId').post(params).then(function(res) {
+			if (res.resultCode == 200) {
+				var result = [];
+				var distinctArr = [];
+				angular.forEach(res.resultData,function(item,index){
+					//循环过滤掉重复的
+					if(distinctArr.indexOf(item.type_id) == -1){
+						distinctArr.push(item.type_id);
+						result.push(item);
+					}	
+				});
+				console.log('测试',result);
+				//写入数据
+				$scope.typeId.list = result;
+			}	
+		}, function(errResponse) {
+			console.log("Error with status code", errResponse.status);
+		}); 
+	};
     function machineTypeList() {
 		var params = {
 			"id": "",
@@ -158,8 +167,12 @@ app.controller('addMachineTypeController',function($scope, $modalInstance, Resta
 				var distinctArr = [];
 				angular.forEach(res.resultData,function(item,index){
 					//循环过滤掉重复的
-					if(distinctArr.indexOf(item.typeId) == -1 && distinctArr.indexOf(item.typeName) == -1){
-						distinctArr.push(item.typeId,item.typeName);
+					// if(distinctArr.indexOf(item.typeId) == -1 && distinctArr.indexOf(item.typeName) == -1){
+					// 	distinctArr.push(item.typeId,item.typeName);
+					// 	result.push(item);
+					// }	
+					if(distinctArr.indexOf(item.typeName) == -1){
+						distinctArr.push(item.typeName);
 						result.push(item);
 					}	
 				});
@@ -171,7 +184,6 @@ app.controller('addMachineTypeController',function($scope, $modalInstance, Resta
 		}, function(errResponse) {
 			console.log("Error with status code", errResponse.status);
 		}); 
-		
 	};
 
 	// 方法
@@ -181,6 +193,7 @@ app.controller('addMachineTypeController',function($scope, $modalInstance, Resta
 	}
 	function init() {
 		machineTypeList();
+		typeIdList();
 	}
 	function cancel(){
 		$modalInstance.dismiss('Cancelled');
@@ -189,7 +202,7 @@ app.controller('addMachineTypeController',function($scope, $modalInstance, Resta
 	function submit(){
 		//获取输入数据
 		var item = {
-			typeId: $scope.data.typeId.typeId,
+			typeId: $scope.data.typeId.type_id,
 			typeName: $scope.data.typeName.typeName,
 			memo: $scope.data.memo,
 		}
@@ -216,7 +229,32 @@ app.controller('modifyMachineTypeController',function($scope, $modalInstance, da
 	$scope.machineType = {
 		list: [],//分类列表
 	}
-	//获取筛选产品名称
+	$scope.typeId = {
+		list: [],//分类列表
+	}
+	//过滤获取机型id
+	function typeIdList() {
+		var params = {
+		}
+		Restangular.all('/epeins-factory/machineType/queryMachineId').post(params).then(function(res) {
+			if (res.resultCode == 200) {
+				var result = [];
+				var distinctArr = [];
+				angular.forEach(res.resultData,function(item,index){
+					//循环过滤掉重复的
+					if(distinctArr.indexOf(item.type_id) == -1){
+						distinctArr.push(item.type_id);
+						result.push(item);
+					}	
+				});
+				console.log('测试',result);
+				//写入数据
+				$scope.typeId.list = result;
+			}	
+		}, function(errResponse) {
+			console.log("Error with status code", errResponse.status);
+		}); 
+	};
     //过滤获取机型id及机型名称
     function machineTypeList() {
 		var params = {
@@ -231,8 +269,8 @@ app.controller('modifyMachineTypeController',function($scope, $modalInstance, da
 				var distinctArr = [];
 				angular.forEach(res.resultData,function(item,index){
 					//循环过滤掉重复的
-					if(distinctArr.indexOf(item.typeId) == -1 && distinctArr.indexOf(item.typeName) == -1){
-						distinctArr.push(item.typeId,item.typeName);
+					if(distinctArr.indexOf(item.typeName) == -1){
+						distinctArr.push(item.typeName);
 						result.push(item);
 					}	
 				});
@@ -248,6 +286,7 @@ app.controller('modifyMachineTypeController',function($scope, $modalInstance, da
 	};	
 	function init() {
 		machineTypeList();
+		typeIdList();
 	}
 	//方法
 	$scope.method = {

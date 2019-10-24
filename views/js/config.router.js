@@ -64,6 +64,7 @@ angular.module('app')
                   url: '/production-management',
                   template: '<div ui-view class="fade-in-up"></div>'
               })
+              //生产计划导入
               .state('app.s1.plan-upload-mgmt', {
                   url: '/plan-upload',
                   templateUrl: 'views/tpl/production-management/plan-upload/plan-upload.html',
@@ -76,6 +77,22 @@ angular.module('app')
                               }
                           );
                       }]
+                  }
+              })
+              //生产计划预览
+              .state('app.s1.plan-preview-mgmt', {
+                  url: '/plan-preview',
+                  templateUrl: 'views/tpl/production-management/plan-preview/plan-preview.html',
+                  resolve: {
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load(['ngTable']).then(
+                              function(){
+                                return $ocLazyLoad.load('views/js/controllers/production-management/plan-preview/plan-preview.js');
+                              }
+                          );
+                        }
+                      ]
                   }
               })
               .state('app.s1.product-admin-mgmt', {
@@ -94,49 +111,34 @@ angular.module('app')
                     }
               })
               .state('app.s1.production-plan-mgmt', {
-                    url: '/production-plan',
-                    templateUrl: 'views/tpl/production-management/production-plan/production-plan.html',
-                    resolve: {
-                        deps: ['$ocLazyLoad',
-                          function( $ocLazyLoad ){
-                            return $ocLazyLoad.load(['ngTable']).then(
-                                function(){
-                                  return $ocLazyLoad.load('views/js/controllers/production-management/production-plan/production-plan.js');
-                                }
-                            );
-                          }
-                        ]
-                    }
+                  url: '/production-plan',
+                  templateUrl: 'views/tpl/production-management/production-plan/production-plan.html',
+                  resolve: {
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load(['ngTable']).then(
+                              function(){
+                                return $ocLazyLoad.load('views/js/controllers/production-management/production-plan/production-plan.js');
+                              }
+                          );
+                        }
+                      ]
+                  }
               })
               .state('app.s2', {
-                  url: '/enter-packing',
+                  url: '/packaging-management',
                   template: '<div ui-view class="fade-in-up"></div>'
               })
-              .state('app.s2.enter-packing-mgmt', {
-                    url: '/enter-packing',
-                    templateUrl: 'views/tpl/enter-packing/enter-packing.html',
+              //烘房包装数据管理查询
+              .state('app.s2.package-info-mgmt', {
+                    url: '/package-info',
+                    templateUrl: 'views/tpl/packaging-management/package-info/package-info.html',
                     resolve: {
                         deps: ['$ocLazyLoad',
                           function( $ocLazyLoad ){
                             return $ocLazyLoad.load(['ngTable']).then(
                                 function(){
-                                    return $ocLazyLoad.load('views/js/controllers/enter-packing/enter-packing.js');
-                                }
-                            );
-                          }
-                        ]
-                    }
-              }) 
-              //包装数据查询
-              .state('app.s2.pack-check-mgmt', {
-                    url: '/pack-check',
-                    templateUrl: 'views/tpl/pack-check/pack-check.html',
-                    resolve: {
-                        deps: ['$ocLazyLoad',
-                          function( $ocLazyLoad ){
-                            return $ocLazyLoad.load(['ngTable']).then(
-                                function(){
-                                    return $ocLazyLoad.load('views/js/controllers/pack-check/pack-check.js');
+                                    return $ocLazyLoad.load('views/js/controllers/packaging-management/package-info/package-info.js');
                                 }
                             );
                           }
@@ -195,16 +197,16 @@ angular.module('app')
                         ]
                     }
               })
-              //最终检验报告
-              .state('app.s3.final-report-mgmt', {
-                    url: '/final-report',
-                    templateUrl: 'views/tpl/final-report/final-report.html',
+              //工程巡检记录追加
+              .state('app.s3.patrol-append-mgmt', {
+                    url: '/patrol-append?owner&inspector',
+                    templateUrl: 'views/tpl/patrol-management/patrol-append/patrol-append.html',
                     resolve: {
                         deps: ['$ocLazyLoad',
                           function( $ocLazyLoad ){
                             return $ocLazyLoad.load(['ngTable']).then(
                                 function(){
-                                    return $ocLazyLoad.load('views/js/controllers/final-report/final-report.js');
+                                    return $ocLazyLoad.load('views/js/controllers/patrol-management/patrol-append/patrol-append.js');
                                 }
                             );
                           }

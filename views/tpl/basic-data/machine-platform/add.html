@@ -21,12 +21,13 @@
             </div>
             <div class="col-sm-6 col-b10">
               <label>机型ID：</label>
-              <ui-select ng-model="data.typeId" theme="bootstrap" name="typeId" required/> 
+              <input type="text" class="form-control" ng-model="data.typeId" required >
+              <!-- <ui-select ng-model="data.typeId" theme="bootstrap" name="typeId" required/> 
                   <ui-select-match placeholder="选择产品">{{$select.selected.typeId}}</ui-select-match>
-                  <ui-select-choices  repeat="item in machineType.list | filter: $select.search">
+                  <ui-select-choices  repeat="item in machinePlatform.list | filter: $select.search">
                     <div ng-bind-html="item.typeId | highlight: $select.search"></div>
                   </ui-select-choices>
-              </ui-select>
+              </ui-select> -->
             </div>
             <div class="col-sm-12 col-b10">
               <label>备注：</label>

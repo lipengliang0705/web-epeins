@@ -19,12 +19,10 @@
               </div>
               <div class="col-sm-12 col-b10">
                 <label>巡检时间：</label>
-                {{details.chkTimes}}
-                <timepicker ng-model="details.chkTimes" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
+                <timepicker ng-model="details.chkTime | date:'shortTime'" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
               </div>
               <div class="col-sm-12 col-b10">
                 <label>负责人：</label>
-                {{details.owner}}
                 <input type="text" class="form-control" placeholder="输入负责人" ng-model="details.owner">
               </div>
               <div class="col-sm-12 col-b10">

@@ -1,0 +1,48 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="method.cancel()"><span aria-hidden="true">&times;</span></button>
+    <h5 class="modal-title">{{title}}</h5>
+</div>
+<form  name="formValidate" class="form-horizontal form-validation" ng-submit="method.submit()">
+  <div class="modal-body">
+    <div class="panel panel-default panel-b0 ">
+      <div class="panel-body">
+          <div class="form-group pull-in clearfix">
+            <div class="col-sm-6 col-b10">
+              <label>产品名称：</label>
+              <ui-select ng-model="data.proName" theme="bootstrap" name="proName" required/> 
+                  <ui-select-match placeholder="选择产品">{{$select.selected.proName}}</ui-select-match>
+                  <ui-select-choices  repeat="item in proName.list | filter: $select.search">
+                    <div ng-bind-html="item.proName | highlight: $select.search"></div>
+                  </ui-select-choices>
+              </ui-select>
+            </div>
+            <div class="col-sm-6 col-b10">
+              <label>模块数量：</label>
+              <input type="text" class="form-control" ng-model="data.moduleCount" placeholder="请输入模块数量" required >
+            </div>
+            <div class="col-sm-6 col-b10">
+              <label>烘房接收数量：</label>
+              <input type="text" class="form-control" ng-model="data.receiveCount" placeholder="请输入烘房接收数量" required >
+            </div>
+            <div class="col-sm-6 col-b10">
+              <label>烘房编号：</label>
+              <input type="text" class="form-control" ng-model="data.roomNo" placeholder="请输入烘房编号" required >
+            </div>
+            <div class="col-sm-12 col-b10">
+              <label>理论包装数量：</label>
+              <textarea class="form-control" rows="6" ng-model="data.packageCalcValue" placeholder="请输入理论包装数量" required></textarea>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">                  
+      <button class="btn btn-default" ng-click="method.cancel()">取 消</button>
+      <button type="submit" class="btn btn-success">确 定</button>
+  </div>
+</form>
+
+
+
+
+

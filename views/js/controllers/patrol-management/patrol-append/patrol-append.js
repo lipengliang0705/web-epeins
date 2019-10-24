@@ -1,6 +1,9 @@
 app.controller('patrolReportController', patrolReportController);
-patrolReportController.$inject = ['$scope', 'Restangular' ,'ngTableParams', 'dialogs', 'toaster', '$http', '$rootScope', '$filter'];
-function patrolReportController($scope, Restangular, NgTableParams, dialogs, toaster, $http, $rootScope, $filter) {
+patrolReportController.$inject = ['$scope', 'Restangular' ,'ngTableParams', 'dialogs', 'toaster', '$http', '$rootScope', '$filter','$stateParams'];
+function patrolReportController($scope, Restangular, NgTableParams, dialogs, toaster, $http, $rootScope, $filter,$stateParams) {
+	console.log($stateParams)
+	//选中的行赋给details数组
+	$scope.details = $stateParams;
 	$scope.resoures = {
 		list: [],//信息列表
 	};
@@ -226,8 +229,8 @@ app.controller('addPatrolReportController',function($scope, $modalInstance, Rest
 	//添加数据对象
 	$scope.data = {
 		id: "",
-		chkDate: new Date(),
-		chkTime: new Date(),
+		chkDate: "",
+		chkTime: "",
 		owner: "",	
 		inspector: "",
 		createTime: new Date(),
@@ -285,7 +288,7 @@ app.controller('addPatrolReportController',function($scope, $modalInstance, Rest
 		var resDate = ymd.getFullYear() + '-' + p((ymd.getMonth() + 1)) + '-' + p(ymd.getDate());
 		var hms = new Date($scope.data.chkTime);
 		//var resTime = p(hms.getHours()) + ':' + p(hms.getMinutes()) + ':' + p(hms.getSeconds());
-		var resTime = p(hms.getHours()) + ':' + p(hms.getMinutes())
+		var resTime = p(hms.getHours()) + ':' + p(hms.getMinutes()) + ':' + p(hms.getSeconds())
 		//p为不够10添加0的函数
 		function p(s){
 			return s < 10 ? '0' + s : s
@@ -315,26 +318,8 @@ app.controller('addPatrolReportController',function($scope, $modalInstance, Rest
 app.controller('modifyPatrolReportController',function($scope, $modalInstance, data, Restangular, $rootScope, toaster){
 	$scope.title = "工程巡检报告变更";
 	console.log('测试11111',data);
-	//选中的行赋给details数组2019-10-18T08:18:58.084Z
+	//选中的行赋给details数组
 	$scope.details = data.data;
-	//$scope.details.chkTimes;.toUTCString()
-	$scope.details.chkTimes = '2019-10-18T08:18:58.084Z';
-
-
-
-
-	console.log('测试chkTime',$scope.details.chkTime.moment().format());
-	// $scope.details.chkTimes = formatterDate(myDate5);
-
-	// //变量
-	var myDate4 = '2017-09-19';
-	var myDate5 = '2017-09-19 20:00:00';
-	//标准日期转中国标准时间实现方法
-	function formatterDate (date) {
-		var result = new Date(date);
-		return result;
-	}
-	console.log(formatterDate(myDate5));
 	$scope.machineType = {
 		list: [],//分类列表
 	}

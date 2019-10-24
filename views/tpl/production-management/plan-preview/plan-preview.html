@@ -1,0 +1,26 @@
+<div class="bg-light lter b-b wrapper">
+  <h1 class="m-n font-thin h4">生产计划一览</h1>
+</div>
+
+<div class="wrapper" ng-controller="planPreviewController">
+	<div class="row">
+        <div class="col col-md-12">
+          <div class="table-responsive">
+            <table ng-table="myTable" class="table table-condensed table-bordered table-striped table-alink table-admin table-td5-color">
+                <tr ng-repeat="row in $data">
+                    <td data-title="'计划文档'" sortable="'pdListFile'">{{row.pdListFile}}</td>
+                    <td data-title="'文件大小'" sortable="'size'">{{row.size}}</td>
+                    <td data-title="'计划日期'" sortable="'updateTime'">{{row.updatetime}}</td>
+                    <td data-title="'备注'" sortable="'memo'">{{row.memo}}</td>
+                    <td data-title="'操作'" style="width: 12%">
+                        <a href="" class="active" ng-click="method.modify(row)">预览计划</a>
+                        <a href="" class="active" ng-click="method.modify(row)">下载计划</a>
+                        <a href="" class="active text-danger" ng-click="method.deleted(row.id)">删除</a>
+                    </td>
+                </tr>
+            </table>
+          </div>
+        </div>
+    </div>
+</div>
+  

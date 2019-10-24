@@ -9,10 +9,10 @@
         <div class="row">
           <div class="col-sm-3 form-group">
             <label>机型ID</label>
-            <ui-select ng-model="data.search" theme="bootstrap" name="typeId"  required/> 
-                <ui-select-match placeholder="选择产品名称">{{$select.selected.typeId}}</ui-select-match>
-                <ui-select-choices  repeat="item in machineType.list | filter: $select.search">
-                  <div ng-bind-html="item.typeId | highlight: $select.search"></div>
+            <ui-select ng-model="data.search" theme="bootstrap" name="type_id"  required/> 
+                <ui-select-match placeholder="选择产品名称">{{$select.selected.type_id}}</ui-select-match>
+                <ui-select-choices  repeat="item in typeId.list | filter: $select.search">
+                  <div ng-bind-html="item.type_id | highlight: $select.search"></div>
                 </ui-select-choices>
             </ui-select>
           </div>

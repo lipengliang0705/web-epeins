@@ -9,10 +9,10 @@
           <div class="form-group pull-in clearfix">
             <div class="col-sm-12 col-b10">
               <label>产品名称：</label>
-              <ui-select ng-model="data.prodName" theme="bootstrap" name="prodName" required/> 
-                  <ui-select-match placeholder="选择产品">{{$select.selected.prodName}}</ui-select-match>
+              <ui-select ng-model="data.prodName" theme="bootstrap" name="prod_name" required/> 
+                  <ui-select-match placeholder="选择产品">{{$select.selected.prod_name}}</ui-select-match>
                   <ui-select-choices  repeat="item in prodName.list | filter: $select.search">
-                    <div ng-bind-html="item.prodName | highlight: $select.search"></div>
+                    <div ng-bind-html="item.prod_name | highlight: $select.search"></div>
                   </ui-select-choices>
               </ui-select>
               <!-- <select ui-jq="chosen" class="s-w100" ng-options="item.prodName as item.prodName for item in prodUuid" ng-model="data.prodName" required>

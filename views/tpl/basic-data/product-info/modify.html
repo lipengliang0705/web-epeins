@@ -10,14 +10,13 @@
           <div class="form-group pull-in clearfix">
             <div class="col-sm-12 col-b10">
               <label>产品名称：</label>
-              {{details.prodName}}
               <!-- <ui-select ng-model="details.prodName" theme="bootstrap" name="prodName" required/>
                   <ui-select-match placeholder="选择产品">{{$select.selected.prodName}}</ui-select-match>
                   <ui-select-choices repeat="item in prodName.list | filter: $select.search">
                   <div ng-bind-html="item.prodName | highlight: $select.search"></div>
                 </ui-select-choices>
               </ui-select> -->
-              <select class="s-w100 form-control m-t" ng-model="details.prodName" ng-options="prod.prodName as prod.prodName for prod in prodName.list" required>
+              <select class="s-w100 form-control m-t" ng-model="details.prodName" ng-options="prod.prod_name as prod.prod_name for prod in prodName.list" required>
               </select>
             </div>
             <div class="col-sm-12 col-b10">

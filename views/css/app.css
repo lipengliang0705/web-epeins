@@ -5629,3 +5629,30 @@ a.text-#000000:hover {
   text-align: center;
   line-height: 50px;
 }
+.hour-minute{
+  width: 100%;
+}
+.hour-minute .colon{
+  float: left;
+  width: 10px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+}
+.hour-minute .hmstep{
+  float: left;
+  width: 60px;
+}
+.hour-minute .hmstep .form-control{
+  padding: 6px;
+}
+.form-group-line{
+  /* display: inline-block; */
+  float: left;
+  margin-right: 30px;
+}
+.fileupload{
+}
+.fileupload .fileselect{
+  margin-top: 20px;
+}
