@@ -1,9 +1,9 @@
-# cms-web前端项目
+# web-epeins前端项目
 
 ## 项目结构
 
 ```
-cms-web/                     # 项目名 
+web-epeins/                     # 项目名 
 ├── mobile/                 # 手机端开发目录
 ├── node_modules/   
 ├── views/                  # PC端开发目录               
@@ -33,24 +33,24 @@ cms-web/                     # 项目名
 **IDE推荐**: [vscode](https://code.visualstudio.com/)，[webstorm](http://www.jetbrains.com/webstorm/)
 
 ## 项目开发准备
-1.登录 gitlab，fork 项目到自己的仓库，项目地址：
+1.登录 github，fork 项目到自己的仓库，项目地址：
 ```
-https://git.dev.pi/cucc/cms-web
+https://github.com/lipengliang0705/web-epeins.git
 ```
 
-2.将自己仓库的项目克隆到本地(以zhangang为例)
+2.将自己仓库的项目克隆到本地(以xiaoliang0705为例)
 ```
-git clone https://git.dev.pi/zhangang/cms-web.git
+git clone https://github.com/xiaoliang0705/web-epeins.git
 ```
 
 3.新增上游分支
 ```
-git remote add upstream  https://git.dev.pi/cucc/cms-web.git
+git remote add upstream  https://github.com/lipengliang0705/web-epeins.git
 ```
 ## 项目运行
 **第一次运行**
 ```
-cd cms-web
+cd web-epeins
 npm install //或 yarn install,需要安装yarn
 npm run serve
 ```
