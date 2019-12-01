@@ -1,5 +1,5 @@
 <div class="bg-light lter b-b wrapper">
-  <h1 class="m-n font-thin h4">生产计划维护</h1>
+  <h1 class="m-n font-thin h4">生产计划安排</h1>
 </div>
 
 <div class="wrapper" ng-controller="productionPlanController">
@@ -8,7 +8,7 @@
       <div class="panel-body">
         <div class="row">
         <div class="col-sm-3 form-group">
-          <label>机台</label>
+          <label>机台号</label>
             <ui-select ng-model="data.plat_id" theme="bootstrap" name="plat_id"  required/> 
                 <ui-select-match placeholder="选择机台">{{$select.selected.plat_id}}</ui-select-match>
                 <ui-select-choices  repeat="item in kcategory.list | filter: $select.search">
@@ -16,7 +16,7 @@
                 </ui-select-choices>
             </ui-select>
         </div>
-        <div class="col-sm-3 form-group">
+        <!-- <div class="col-sm-3 form-group">
           <label>机型</label>
           <ui-select ng-model="data.typeId" theme="bootstrap" name="typeId"  required/> 
               <ui-select-match placeholder="选择机型">{{$select.selected.typeId}}</ui-select-match>
@@ -42,9 +42,9 @@
                 <div ng-bind-html="item.taskUuid | highlight: $select.search"></div>
               </ui-select-choices>
           </ui-select>
-        </div>
+        </div> -->
         <div class="col-sm-3 form-group">
-          <label>计划日期起</label>
+          <label>日期</label>
           <div class="">
             <div class="input-group">
               <input type="text" class="form-control" datepicker-popup="{{format}}" placeholder="输入计划日期起"  ng-model="data.startDate" is-open="opened1" datepicker-options="dateOptions" close-text="Close" />
@@ -54,7 +54,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-3 form-group">
+        <!-- <div class="col-sm-3 form-group">
           <label>计划日期止</label>
           <div class="">
             <div class="input-group">
@@ -73,7 +73,7 @@
                 <div ng-bind-html="item.material_uuid | highlight: $select.search"></div>
               </ui-select-choices>
           </ui-select>
-        </div>
+        </div> -->
         <div class="col-sm-3 form-group">
           <label>&nbsp</label>
           <div class="block">
@@ -91,21 +91,21 @@
           <div class="table-responsive">
             <table ng-table="myTable" class="table table-condensed table-bordered table-striped table-alink table-admin table-td5-color">
                 <tr ng-repeat="row in $data">
-                    <td data-title="'机台'" sortable="'platId'">{{row.platId}}</td>
-                    <td data-title="'机型'" sortable="'typeId'">{{row.typeId}}</td>
-                    <td data-title="'产品名称'" sortable="'prodId'">{{row.prodId}}</td>
-                    <td data-title="'任务单号'" sortable="'taskId'">{{row.taskId}}</td>
-                    <td data-title="'任务单数量'" sortable="'taskNumber'">{{row.taskNumber}}</td>
-                    <td data-title="'损耗时间/小时'" sortable="'countLossTime'">{{row.countLossTime}}</td>
-                    <td data-title="'材质'" sortable="'materialId'">{{row.materialId}}</td>
+                    <td data-title="'机台号'" sortable="'platId'">{{row.platId}}</td>
                     <td data-title="'日期'" sortable="'updateTime'">{{row.updatetime}}</td>
-                    <td data-title="'本日计划量'" sortable="'countToday'">{{row.countToday}}</td>
+                    <td data-title="'任务单号'" sortable="'taskId'">{{row.taskId}}</td>
+                    <!-- <td data-title="'机型'" sortable="'typeId'">{{row.typeId}}</td> -->
+                    <td data-title="'任务单数量'" sortable="'taskNumber'">{{row.taskNumber}}</td>
+                    <td data-title="'产品名称'" sortable="'prodId'">{{row.prodId}}</td>
+                    <td data-title="'材质'" sortable="'materialId'">{{row.materialId}}</td>
+                    <td data-title="'当日计划量'" sortable="'countToday'">{{row.countToday}}</td>
+                    <!-- <td data-title="'损耗时间/小时'" sortable="'countLossTime'">{{row.countLossTime}}</td> -->
                     <td data-title="'计划换模'">
                         <span class="label label-success" ng-if="row.changeFlg==1">是</span>
                         <span class="label label-warning" ng-if="row.changeFlg==0">否</span>
                     </td>
-                    <td data-title="'产品图纸'"><img src="{{row.drawing}}"/></td>
-                    <td data-title="'产品检验标准'"><img src="{{row.standard}}"/></td>
+                    <!-- <td data-title="'产品图纸'"><img src="{{row.drawing}}"/></td>
+                    <td data-title="'产品检验标准'"><img src="{{row.standard}}"/></td> -->
                     <td data-title="'操作'" style="width: 12%">
                         <a href="" class="active" ng-click="method.modify(row)">编辑</a>
                         <a href="" class="active text-danger" ng-click="method.deleted(row.id)">删除</a>

@@ -1,0 +1,186 @@
+<div class="bg-light lter b-b wrapper">
+  <h1 class="m-n font-thin h4">生产计划安排</h1>
+</div>
+
+<div class="wrapper" ng-controller="dailyDataController">
+  <div class="row">
+      <div class="col-sm-4">
+        <div class="panel panel-default">
+          <div class="panel-heading">1号机</div>
+          <div class="panel-body">
+              <form  name="formValidate" class="form-horizontal form-validation" ng-submit="method.submit()">
+                <div class="row">
+                    <div class="col-sm-6 col-b10">
+                      <label>产品：</label>
+                      <ui-select ng-model="data.prodId" theme="bootstrap" name="prodId"  required/> 
+                          <ui-select-match placeholder="选择产品">{{$select.selected.prodId}}</ui-select-match>
+                          <ui-select-choices  repeat="item in prodUuid | filter: $select.search">
+                            <div ng-bind-html="item.prodId | highlight: $select.search"></div>
+                          </ui-select-choices>
+                      </ui-select>
+                    </div>
+                    <div class="col-sm-6 col-b10">
+                      <label>当日计划量：</label>
+                      <input type="text" class="form-control" ng-model="data.countToday" required/>
+                    </div>
+                    <div class="col-sm-6 col-b10">
+                      <label>任务单号：</label>
+                      <ui-select ng-model="data.taskId" theme="bootstrap" name="taskId"  required/> 
+                          <ui-select-match placeholder="选择单号">{{$select.selected.taskId}}</ui-select-match>
+                          <ui-select-choices  repeat="item in prodUuid | filter: $select.search">
+                            <div ng-bind-html="item.taskId | highlight: $select.search"></div>
+                          </ui-select-choices>
+                      </ui-select>
+                    </div>
+                    <div class="col-sm-6 col-b10">
+                      <label>任务单数量：</label>
+                      <input type="text" class="form-control" ng-model="row.taskNumber">
+                    </div>
+                    <div class="col-sm-6 col-b10">
+                      <label>满车量：</label>
+                      <input type="text" class="form-control" ng-model="row.taskNumber">
+                    </div>
+                    <div class="col-sm-6 col-b10">
+                      <label>零数数量：</label>
+                      <input type="text" class="form-control" ng-model="row.taskNumber">
+                    </div>
+                    <div class="col-sm-6 col-b10">
+                      <label>当日已生产量：</label>
+                      <input type="text" class="form-control" ng-model="data.countToday" required/>
+                    </div>
+                    <div class="col-sm-6 col-b10">
+                      <label>任务完成：</label>
+                      <select ui-jq="chosen" ng-model="data.changeFlg" class="w-md s-w100" ng-model="row.change_flg">
+                        <option value="是">是</option>
+                        <option value="否">否</option>
+                      </select>
+                    </div>
+                    <div class="col-sm-12 col-b10">
+                        <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> 新 增</button>
+                    </div>
+                </div>
+              </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="panel panel-default">
+          <div class="panel-heading">2号机</div>
+          <div class="panel-body">
+              <form  name="formValidate" class="form-horizontal form-validation" ng-submit="method.submit()">
+                <div class="row">
+                    <div class="col-sm-6 col-b10">
+                      <label>产品：</label>
+                      <ui-select ng-model="data.prodId" theme="bootstrap" name="prodId"  required/> 
+                          <ui-select-match placeholder="选择产品">{{$select.selected.prodId}}</ui-select-match>
+                          <ui-select-choices  repeat="item in prodUuid | filter: $select.search">
+                            <div ng-bind-html="item.prodId | highlight: $select.search"></div>
+                          </ui-select-choices>
+                      </ui-select>
+                    </div>
+                    <div class="col-sm-6 col-b10">
+                      <label>当日计划量：</label>
+                      <input type="text" class="form-control" ng-model="data.countToday" required/>
+                    </div>
+                    <div class="col-sm-6 col-b10">
+                      <label>任务单号：</label>
+                      <ui-select ng-model="data.taskId" theme="bootstrap" name="taskId"  required/> 
+                          <ui-select-match placeholder="选择单号">{{$select.selected.taskId}}</ui-select-match>
+                          <ui-select-choices  repeat="item in prodUuid | filter: $select.search">
+                            <div ng-bind-html="item.taskId | highlight: $select.search"></div>
+                          </ui-select-choices>
+                      </ui-select>
+                    </div>
+                    <div class="col-sm-6 col-b10">
+                      <label>任务单数量：</label>
+                      <input type="text" class="form-control" ng-model="row.taskNumber">
+                    </div>
+                    <div class="col-sm-6 col-b10">
+                      <label>满车量：</label>
+                      <input type="text" class="form-control" ng-model="row.taskNumber">
+                    </div>
+                    <div class="col-sm-6 col-b10">
+                      <label>零数数量：</label>
+                      <input type="text" class="form-control" ng-model="row.taskNumber">
+                    </div>
+                    <div class="col-sm-6 col-b10">
+                      <label>当日已生产量：</label>
+                      <input type="text" class="form-control" ng-model="data.countToday" required/>
+                    </div>
+                    <div class="col-sm-6 col-b10">
+                      <label>任务完成：</label>
+                      <select ui-jq="chosen" ng-model="data.changeFlg" class="w-md s-w100" ng-model="row.change_flg">
+                        <option value="是">是</option>
+                        <option value="否">否</option>
+                      </select>
+                    </div>
+                    <div class="col-sm-12 col-b10">
+                        <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> 新 增</button>
+                    </div>
+                </div>
+              </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="panel panel-default">
+          <div class="panel-heading">3号机</div>
+          <div class="panel-body">
+              <form  name="formValidate" class="form-horizontal form-validation" ng-submit="method.submit()">
+                <div class="row">
+                    <div class="col-sm-6 col-b10">
+                      <label>产品：</label>
+                      <ui-select ng-model="data.prodId" theme="bootstrap" name="prodId"  required/> 
+                          <ui-select-match placeholder="选择产品">{{$select.selected.prodId}}</ui-select-match>
+                          <ui-select-choices  repeat="item in prodUuid | filter: $select.search">
+                            <div ng-bind-html="item.prodId | highlight: $select.search"></div>
+                          </ui-select-choices>
+                      </ui-select>
+                    </div>
+                    <div class="col-sm-6 col-b10">
+                      <label>当日计划量：</label>
+                      <input type="text" class="form-control" ng-model="data.countToday" required/>
+                    </div>
+                    <div class="col-sm-6 col-b10">
+                      <label>任务单号：</label>
+                      <ui-select ng-model="data.taskId" theme="bootstrap" name="taskId"  required/> 
+                          <ui-select-match placeholder="选择单号">{{$select.selected.taskId}}</ui-select-match>
+                          <ui-select-choices  repeat="item in prodUuid | filter: $select.search">
+                            <div ng-bind-html="item.taskId | highlight: $select.search"></div>
+                          </ui-select-choices>
+                      </ui-select>
+                    </div>
+                    <div class="col-sm-6 col-b10">
+                      <label>任务单数量：</label>
+                      <input type="text" class="form-control" ng-model="row.taskNumber">
+                    </div>
+                    <div class="col-sm-6 col-b10">
+                      <label>满车量：</label>
+                      <input type="text" class="form-control" ng-model="row.taskNumber">
+                    </div>
+                    <div class="col-sm-6 col-b10">
+                      <label>零数数量：</label>
+                      <input type="text" class="form-control" ng-model="row.taskNumber">
+                    </div>
+                    <div class="col-sm-6 col-b10">
+                      <label>当日已生产量：</label>
+                      <input type="text" class="form-control" ng-model="data.countToday" required/>
+                    </div>
+                    <div class="col-sm-6 col-b10">
+                      <label>任务完成：</label>
+                      <select ui-jq="chosen" ng-model="data.changeFlg" class="w-md s-w100" ng-model="row.change_flg">
+                        <option value="是">是</option>
+                        <option value="否">否</option>
+                      </select>
+                    </div>
+                    <div class="col-sm-12 col-b10">
+                        <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> 新 增</button>
+                    </div>
+                </div>
+              </form>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+  

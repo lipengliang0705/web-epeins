@@ -110,6 +110,7 @@ angular.module('app')
                         ]
                     }
               })
+              //生产计划安排
               .state('app.s1.production-plan-mgmt', {
                   url: '/production-plan',
                   templateUrl: 'views/tpl/production-management/production-plan/production-plan.html',
@@ -125,9 +126,41 @@ angular.module('app')
                       ]
                   }
               })
+              //每日生产数据录入
+              .state('app.s1.daily-data-mgmt', {
+                  url: '/daily-data',
+                  templateUrl: 'views/tpl/production-management/daily-data/daily-data.html',
+                  resolve: {
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load(['ngTable']).then(
+                              function(){
+                                return $ocLazyLoad.load('views/js/controllers/production-management/daily-data/daily-data.js');
+                              }
+                          );
+                        }
+                      ]
+                  }
+              })
               .state('app.s2', {
                   url: '/packaging-management',
                   template: '<div ui-view class="fade-in-up"></div>'
+              })
+              //包装数据录入
+              .state('app.s2.packaging-entry-mgmt', {
+                    url: '/packaging-entry',
+                    templateUrl: 'views/tpl/packaging-management/packaging-entry/packaging-entry.html',
+                    resolve: {
+                        deps: ['$ocLazyLoad',
+                          function( $ocLazyLoad ){
+                            return $ocLazyLoad.load(['ngTable']).then(
+                                function(){
+                                    return $ocLazyLoad.load('views/js/controllers/packaging-management/packaging-entry/packaging-entry.js');
+                                }
+                            );
+                          }
+                        ]
+                    }
               })
               //烘房包装数据管理查询
               .state('app.s2.package-info-mgmt', {

@@ -43,9 +43,7 @@
             <table ng-table="myTable" class="table table-condensed table-bordered table-striped table-alink table-admin">
                 <tr ng-repeat="row in $data">
                     <td data-title="'产品名称'" sortable="'prodName'">{{row.prodName}}</td>
-                    <td data-title="'模块数量'" sortable="'moduleCount'">{{row.moduleCount}}</td>
-                    <td data-title="'烘房接收数量'" sortable="'receiveCount'">{{row.receiveCount}}</td>
-                    <td data-title="'烘房编号'" sortable="'roomNo'">{{row.roomNo}}</td>
+                    <td data-title="'任务单号'" sortable="'taskId'">{{row.taskId}}</td>
                     <td data-title="'理论包装数量'" sortable="'packageCalcValue'">{{row.packageCalcValue}}</td>
                     <td data-title="'包装数量'" sortable="'packageCount'">{{row.packageCount}}</td>
                     <td data-title="'包装报废率'" sortable="'packageScrapRate'">{{row.packageScrapRate}}</td>

@@ -1,6 +1,6 @@
-app.controller('productionPlanController', productionPlanController);
-productionPlanController.$inject = ['$scope', 'Restangular' ,'ngTableParams', 'dialogs', 'toaster', '$http', '$rootScope', '$filter'];
-function productionPlanController($scope, Restangular, NgTableParams, dialogs, toaster, $http, $rootScope, $filter) {
+app.controller('dailyDataController', dailyDataController);
+dailyDataController.$inject = ['$scope', 'Restangular' ,'ngTableParams', 'dialogs', 'toaster', '$http', '$rootScope', '$filter'];
+function dailyDataController($scope, Restangular, NgTableParams, dialogs, toaster, $http, $rootScope, $filter) {
 	$scope.resoures = {
 		list: [],//信息列表
 	};

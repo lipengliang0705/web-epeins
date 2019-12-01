@@ -1,6 +1,6 @@
-app.controller('packageInfoController', packageInfoController);
-packageInfoController.$inject = ['$scope', 'Restangular' ,'ngTableParams', 'dialogs', 'toaster', '$http', '$rootScope', '$filter'];
-function packageInfoController($scope, Restangular, NgTableParams, dialogs, toaster, $http, $rootScope, $filter) {
+app.controller('packagingEntryController', packagingEntryController);
+packagingEntryController.$inject = ['$scope', 'Restangular' ,'ngTableParams', 'dialogs', 'toaster', '$http', '$rootScope', '$filter'];
+function packagingEntryController($scope, Restangular, NgTableParams, dialogs, toaster, $http, $rootScope, $filter) {
 	$scope.resoures = {
 		list: [],//信息列表
 	};
